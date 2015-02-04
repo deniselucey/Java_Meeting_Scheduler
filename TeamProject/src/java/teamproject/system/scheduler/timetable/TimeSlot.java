@@ -1,8 +1,8 @@
 package teamproject.system.scheduler.timetable;
 
+import teamproject.meeting.Meeting;
 import java.time.Period;
 import java.util.HashSet;
-import teamproject.*;
 
 public class TimeSlot {
 

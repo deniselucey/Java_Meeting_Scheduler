@@ -1,7 +1,7 @@
 package teamproject.system.scheduler;
 
+import teamproject.meeting.Meeting;
 import java.util.ArrayList;
-import teamproject.*;
 import teamproject.system.scheduler.timetable.TimeSlot;
 import teamproject.system.scheduler.timetable.Timetable;
 import teamproject.user.people.Person;

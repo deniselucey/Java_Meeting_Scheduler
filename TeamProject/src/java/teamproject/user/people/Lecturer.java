@@ -1,6 +1,6 @@
 package teamproject.user.people;
 
-import teamproject.*;
+import teamproject.meeting.Meeting;
 
 public class Lecturer extends Staff {
 

@@ -1,7 +1,7 @@
 package teamproject.user.privilege;
 
+import teamproject.meeting.Meeting;
 import java.util.jar.Attributes.Name;
-import teamproject.*;
 import teamproject.college.Course;
 import teamproject.college.Module;
 import teamproject.user.Group;

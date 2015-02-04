@@ -1,8 +1,8 @@
 package teamproject.college;
 
+import teamproject.meeting.Lecture;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import teamproject.*;
 
 public class Module {
 
