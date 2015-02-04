@@ -1,5 +1,7 @@
 package teamproject.user;
 
+import teamproject.user.people.Person;
+import teamproject.user.privilege.Privilege;
 import java.util.ArrayList;
 import teamproject.system.scheduler.timetable.Timetable;
 

@@ -1,9 +1,12 @@
-package teamproject.user;
+package teamproject.user.privilege;
 
 import java.util.jar.Attributes.Name;
 import teamproject.*;
 import teamproject.college.Course;
 import teamproject.college.Module;
+import teamproject.user.Group;
+import teamproject.user.people.Lecturer;
+import teamproject.user.people.Person;
 
 public abstract class Privilege {
 

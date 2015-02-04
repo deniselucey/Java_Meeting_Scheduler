@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import teamproject.*;
 import teamproject.system.scheduler.timetable.TimeSlot;
 import teamproject.system.scheduler.timetable.Timetable;
-import teamproject.user.Person;
+import teamproject.user.people.Person;
 
 public class Scheduler {
 

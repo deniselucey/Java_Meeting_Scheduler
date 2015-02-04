@@ -1,5 +1,6 @@
 package teamproject;
 
+import teamproject.user.people.Lecturer;
 import java.util.ArrayList;
 import teamproject.college.Module;
 import teamproject.user.*;

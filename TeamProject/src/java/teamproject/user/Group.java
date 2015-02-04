@@ -1,5 +1,6 @@
 package teamproject.user;
 
+import teamproject.user.people.Person;
 import java.util.ArrayList;
 
 public class Group {

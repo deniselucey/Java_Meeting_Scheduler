@@ -5,7 +5,7 @@ import java.time.Period;
 import java.util.HashSet;
 import teamproject.system.scheduler.timetable.TimeSlot;
 import teamproject.user.Group;
-import teamproject.user.Person;
+import teamproject.user.people.Person;
 
 public class Meeting {
 

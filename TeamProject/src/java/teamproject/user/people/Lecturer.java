@@ -1,4 +1,4 @@
-package teamproject.user;
+package teamproject.user.people;
 
 import teamproject.*;
 
