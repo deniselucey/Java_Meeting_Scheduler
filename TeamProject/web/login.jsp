@@ -13,18 +13,15 @@
     </head>
    
 	<body>
-            <a id="skiplink" href="#main">Skip to main content</a>
-            <a id="user" href="#"></a>
+            
+           
 		
             <div id="wrapper">
 	        <header>
+                    <h1>Welcome</h1>
 	        </header>
 	        
-	        <nav>
-                    <ul>
-                        <li><a href="#">Login</a></li>
-                    </ul>
-                </nav>
+	     
 	        
 	        <div id = "main">
 	            <section class = "content">
@@ -55,9 +52,7 @@
                  <p class = "status"></p>
 	    </div>
 	    <footer>
-	        <p>
-                   <a href="#">Home</a>  | <a href="#">Edit timetable</a> | <a href="#">View timetable</a> | <a href="#">Settings</a>
-                </p>
+	       
 	    </footer>
 	</body>
 </html>
