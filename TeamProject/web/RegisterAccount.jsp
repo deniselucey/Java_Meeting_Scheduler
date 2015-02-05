@@ -1,6 +1,6 @@
 <%-- 
-    Document   : loginAuthentication
-    Created on : Feb 5, 2015, 5:55:55 PM
+    Document   : RegisterAccount.jsp
+    Created on : Feb 5, 2015, 6:22:52 PM
     Author     : zolamcdonald
 --%>
 

@@ -13,20 +13,11 @@
     </head>
    
 	<body>
-            
-           
-		
             <div id="wrapper">
-	        <header>
-                    <h1></h1>
-	        </header>
-	        
-	     
-	        
 	        <div id = "main">
 	            <section class = "content">
 		       
-                        <form name="input" action="#" method="GET">
+                        <form name="input" action="LoginAuthentication.jsp" method="GET">
                             <fieldset>
                                 <div>
                                     <label>Email:</label>
@@ -42,7 +33,7 @@
                                     <input type="submit" value="Submit">
                                 </div>
 			      
-                                <a href="registerform.jsp">Register here</a><br/>
+                                <a href="RegisterForm.jsp">Register here</a><br/>
                                 <a href="#">Forgotten password?</a>
 			    </fieldset>			
                         </form>
@@ -50,8 +41,6 @@
                 </div> 
                  <p class = "status"></p>
 	    </div>
-	    <footer>
-	       
-	    </footer>
+	    
 	</body>
 </html>
