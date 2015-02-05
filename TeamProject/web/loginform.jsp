@@ -18,19 +18,18 @@
 		
             <div id="wrapper">
 	        <header>
-                    <h1>Welcome</h1>
+                    <h1></h1>
 	        </header>
 	        
 	     
 	        
 	        <div id = "main">
 	            <section class = "content">
-		        <h1>Login:</h1>
-                        
-                        <form name="input" action="#" method="get">
+		       
+                        <form name="input" action="#" method="GET">
                             <fieldset>
                                 <div>
-                                    <label>Email: </label>
+                                    <label>Email:</label>
                                     <input type="text" name="email">
                                 </div>		
 		                
@@ -43,7 +42,7 @@
                                     <input type="submit" value="Submit">
                                 </div>
 			      
-                                <a href="register">Register here</a><br/>
+                                <a href="registerform.jsp">Register here</a><br/>
                                 <a href="#">Forgotten password?</a>
 			    </fieldset>			
                         </form>
