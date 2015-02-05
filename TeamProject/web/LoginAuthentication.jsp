@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import ="java.io.IOException" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +14,14 @@
     </head>
     <body>
         <%
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            
+            try{
+                
+            }catch(Exception ex){
+                
+            }
             
         %>
             

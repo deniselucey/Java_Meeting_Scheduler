@@ -33,7 +33,7 @@
                                     <input type="submit" value="Submit">
                                 </div>
 			      
-                                <a href="RegisterForm.jsp">Register here</a><br/>
+                                <a href="RegisterAccountForm.jsp">Register here</a><br/>
                                 <a href="#">Forgotten password?</a>
 			    </fieldset>			
                         </form>

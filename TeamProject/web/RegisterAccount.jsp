@@ -5,13 +5,27 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import ="java.io.IOException"%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Register Account</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%
+            //String Fname = request.getParameter("FirstName");
+           // String Lname = request.getParameter("LastName");
+            //String StudentNumber = request.getParameter("studentNumber");
+            //String email = request.getParameter("email");
+            //String password = request.getParameter("password");
+            
+             try{
+                
+            }catch(Exception ex){
+                
+            }
+        %>
     </body>
 </html>
