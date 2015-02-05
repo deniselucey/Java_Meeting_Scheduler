@@ -17,7 +17,7 @@
 	        <div id = "main">
 	            <section class = "content">
 		       
-                        <form name="input" action="LoginAuthentication.jsp" method="GET">
+                        <form name="input" action="LoginAuthentication.jsp" method="POST">
                             <fieldset>
                                 <div>
                                     <label>Email:</label>

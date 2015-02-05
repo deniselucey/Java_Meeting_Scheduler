@@ -20,7 +20,7 @@
                 <div id = "main">
 	            <section class = "content">
                         
-                        <form name = "input" action="register" method="GET">
+                        <form name = "input" action="register" method="POST">
                             <fieldset>
                                 <div>
                                     <label>First Name:</label>

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.io.IOException"%>
+<%@page import ="teamproject.system.Register"%>
 
 <!DOCTYPE html>
 <html>
