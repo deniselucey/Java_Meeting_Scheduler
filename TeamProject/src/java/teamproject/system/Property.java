@@ -2,7 +2,11 @@ package teamproject.system;
 
 import java.time.LocalDate;
 
- //for ease of use, avoid spelling misstakes when setting/getting properties.
+    /**
+     * For ease of use, avoid spelling mistakes when setting/getting properties.
+     * Can assign a default value using the constructor.
+     * Override getDefaultValue in special cases. 
+     */
     public enum Property
     {
         DatabaseUrl("localhost"),
@@ -24,6 +28,7 @@ import java.time.LocalDate;
         AutoRemoveAfterDaysInactive("60"),
         SystemStartDate
         {
+            //return current date 
             @Override
             public String getDefaultValue() { return  LocalDate.now().toString(); }
         };

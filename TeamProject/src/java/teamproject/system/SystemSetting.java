@@ -22,7 +22,8 @@ import java.util.logging.SimpleFormatter;
 import teamproject.user.User;
 
 /**
- *
+ * Class used to load,store and edit the system settings.
+ * If you want to add a property use {@link Property}. 
  * @author Nigel
  */
 public class SystemSetting
