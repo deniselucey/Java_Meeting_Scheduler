@@ -18,6 +18,7 @@
 	            <section class = "content">
 		       
                         <form name="input" action="LoginAuthentication.jsp" method="POST">
+                            <input type="hidden" name="pageType" value="login"/>
                             <fieldset>
                                 <div>
                                     <label>Email:</label>
@@ -33,7 +34,7 @@
                                     <input type="submit" value="Submit">
                                 </div>
 			      
-                                <a href="RegisterAccountForm.jsp">Register here</a><br/>
+                                <a href="RegisterAccount.jsp">Register here</a><br/>
                                 <a href="#">Forgotten password?</a>
 			    </fieldset>			
                         </form>

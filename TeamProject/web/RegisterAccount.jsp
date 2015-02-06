@@ -4,29 +4,73 @@
     Author     : zolamcdonald
 --%>
 
+<%@page import="teamproject.system.Register"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import ="java.io.IOException"%>
-<%@page import ="teamproject.system.Register"%>
 
 <!DOCTYPE html>
-<html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register Account</title>
     </head>
+    <jsp:useBean id ="register" class = "Register"  scope = "session"/>
+    <% Register register = new Register(); %>
     <body>
-        <%
-            //String Fname = request.getParameter("FirstName");
-           // String Lname = request.getParameter("LastName");
-            //String StudentNumber = request.getParameter("studentNumber");
-            //String email = request.getParameter("email");
-            //String password = request.getParameter("password");
-            
-             try{
+        <div id="wrapper">
+	        <header>
+                    <h1></h1>
+	        </header>
                 
-            }catch(Exception ex){
-                
-            }
-        %>
+                <div id = "main">
+	            <section class = "content">
+                        
+                        <p>First name: <%= register.getFirstName() %></p>
+                        
+                        <form name = "input"  method="POST">
+                        <input type="hidden" name="pageType" value="register"/>
+                            <fieldset>
+                                <div>
+                                    <label>First Name:</label>
+                                    <input type="text" name="firstName" value="" />
+                                </div>
+                                
+                                <div>
+                                    <label>Last Name:</label>
+                                    <input type="text" name="lastName" value="" />
+                                </div>
+                                
+                                
+                                   <div>
+                                    <label>Email:</label>
+                                    <input type="text" name="email" value=" " />
+                                </div>
+                                
+                                
+                                <div>
+                                    <label>Password:</label>
+                                    <input type="password" name="password" value="" />
+                                </div>
+                                
+                                <div>
+                                    <label>Confirm Password:</label>
+                                    <input type="password" name="ConfirmPassword" value="" />
+                                </div>
+                                
+                                <div>
+                                <input type="submit" value="Create Account" />
+                                </div>
+                             
+                            </fieldset>
+                        </form>
+                        
+                    </section>
+                </div> 
+                 <p class = "status"></p>
+	</div>
+        <footer>
+	       
+	</footer>
+        
+        
     </body>
-</html>
+
