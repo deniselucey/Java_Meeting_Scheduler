@@ -16,8 +16,6 @@ import java.time.LocalDate;
         BlockedEmailServices,
         AllowedEmailServices,
 
-
-        
         BackUpName("TimeTable_Backup"),
         NumberOfBackUp("3"),
         NextBackUpNumber("1"),
