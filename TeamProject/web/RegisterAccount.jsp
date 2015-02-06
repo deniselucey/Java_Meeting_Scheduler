@@ -17,19 +17,16 @@
     <body>
         
         <jsp:useBean id ="register" class = "teamproject.system.Register"  scope = "session"/>
-        
         <jsp:setProperty name = "register" property="*"/>
-        
+        <%String emailTest = "zolamcdonald"; %>
         <p>
             First Name:  <%= register.getFirstName() %><br>
             Last Name:  <%= register.getLastName() %><br>
             email:  <%= register.getEmail() %><br>
             The password are the same: <%= register.passwordCheck() %><br>
+            It is <%= register.isValidEmailAddress(emailTest) %> that this email address is valid.<br>
         </p>
                        
-                        
-                    
-        
-    </body>
+</body>
 
 </html>

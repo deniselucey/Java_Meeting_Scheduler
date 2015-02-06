@@ -13,17 +13,9 @@
         <title>Login Authentication</title>
     </head>
     <body>
-        <%
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            
-            try{
-                
-            }catch(Exception ex){
-                
-            }
-            
-        %>
+        <jsp:useBean id ="login" class = "teamproject.system.Register"  scope = "session"/>
+        
+        <jsp:setProperty name = "register" property="*"/>
             
     </body>
 </html>
