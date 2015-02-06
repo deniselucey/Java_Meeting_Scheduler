@@ -13,11 +13,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register Account</title>
     </head>
-    <jsp:useBean id ="register" class = "teamproject.system.Register"  scope = "session"/>
-
+   
     <body>
         
-                        
+        <jsp:useBean id ="register" class = "teamproject.system.Register"  scope = "session"/>
+        
+        <jsp:setProperty name = "register" property="*"/>
+        
+        <p>
+            First Name:  <%= register.getFirstName() %><br>
+            Last Name:  <%= register.getLastName() %><br>
+            email:  <%= register.getEmail() %><br>
+            The password are the same: <%= register.passwordCheck() %><br>
+        </p>
                        
                         
                     
