@@ -5,10 +5,11 @@ package teamproject.system;
  */
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.AddressException;
-import java.lang.Object;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import teamproject.sql.SqlHandler;
-
 
 public class Register implements java.io.Serializable{
 
@@ -18,7 +19,7 @@ public class Register implements java.io.Serializable{
 	private String password1;
 	private String password2;
         private String studentNumber;
-        
+        private final SqlHandler sqlHandler = new SqlHandler();
         
         public boolean isValidEmailAddress()
 	{
@@ -36,16 +37,21 @@ public class Register implements java.io.Serializable{
 
 	public boolean isUniqueEmailAddress()
 	{
-            String query = "";
-            boolean isUnique = true;
-            
-            //ResultSet result = runQuery(query);
-            
-            String resultReturned ="";
-            
-            if(resultReturned.equals(email)){
-              isUnique = false;
-            }   
+            boolean isUnique = false;
+            try {
+                String query = "SELECT ";
+                ResultSet result;
+                result = sqlHandler.runQuery(query);
+                
+                //returns false if there are no rows in the ResultSet.
+                if (!result.isBeforeFirst()) {
+                    //sets isUnquie to true because the email address is not in DB
+                    isUnique = true;
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return isUnique;
         }
 
@@ -57,11 +63,36 @@ public class Register implements java.io.Serializable{
             return emailAddressContains;
         }
 
-	public boolean sendValidationEmail(String email)
+	public boolean sendValidationEmail()
 	{
             // TODO - implement Register.sendValidationEmail
             throw new UnsupportedOperationException();
 	}
+        
+        
+        public void registerDetailsWithDb()
+        {
+            
+            String query = "UPDATE";
+            
+            try{
+                sqlHandler.runStatement(query);
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+        public boolean passwordCheck( )
+        {
+            boolean answer = true;
+            if(!password1.equals(password2)){
+                answer = false;
+            }
+            return answer;
+        }
+            
+        
     
         public void setFirstName(String firstNameSupplied)
         {
@@ -94,6 +125,12 @@ public class Register implements java.io.Serializable{
         }
        
         
+       
+        
+        
+        
+        
+        
         public String getFirstName()
         {
             return firstName;
@@ -116,20 +153,8 @@ public class Register implements java.io.Serializable{
             return password2;
         }
         
-        public boolean passwordCheck( )
-        {
-            boolean answer = true;
-            
-            if(!password1.equals(password2)){
-                answer = false;
-            }
-            return answer;
-        }
-        
-       
-        
-       
-}                    
+  
+ }                    
         
         
 
