@@ -20,9 +20,7 @@ public class Register implements java.io.Serializable{
         private String studentNumber;
         
         
-        
-
-	public boolean isValidEmailAddress()
+        public boolean isValidEmailAddress()
 	{
             boolean isEmailVaild = false;
             try{
@@ -53,8 +51,9 @@ public class Register implements java.io.Serializable{
 
 	public boolean isAllowedEmailAddress()
 	{
-            boolean emailAddressContains = true;
-           // emailAddressContains = email.contains(SystemSetting.getProperty(Property.AllowedEmailServices));
+            boolean emailAddressContains;
+            emailAddressContains = email.contains(SystemSetting.getProperty(
+                                                Property.AllowedEmailServices));
             return emailAddressContains;
         }
 
@@ -130,7 +129,7 @@ public class Register implements java.io.Serializable{
        
         
        
-}               
+}                    
         
         
 
