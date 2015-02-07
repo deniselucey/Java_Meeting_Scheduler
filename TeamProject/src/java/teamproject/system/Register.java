@@ -3,12 +3,11 @@ package teamproject.system;
  * 
  * @author Ciaran
  */
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.AddressException;
+import java.lang.Object;
+import java.sql.ResultSet;
+import teamproject.sql.SqlHandler;
 
 
 public class Register implements java.io.Serializable{
@@ -18,10 +17,8 @@ public class Register implements java.io.Serializable{
 	private String email;
 	private String password1;
 	private String password2;
-        static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-        static final String DB_URL = "jdbc:mysql://localhost8080";
-        static final String USER = "username";
-        static final String PASSWORD = "password";
+        private String studentNumber;
+        
         
         
 
@@ -36,19 +33,30 @@ public class Register implements java.io.Serializable{
                 System.out.println("Error" );
             }
             return isEmailVaild;
+            
 	}
 
 	public boolean isUniqueEmailAddress()
 	{
-                // TODO - implement Register.isUniqueEmailAddress
-		throw new UnsupportedOperationException();
-	}
+            String query = "";
+            boolean isUnique = true;
+            
+            ResultSet result = runQuery(query);
+            
+            String resultReturned ="";
+            
+            if(resultReturned.equals(email)){
+              isUnique = false;
+            }   
+            return isUnique;
+        }
 
 	public boolean isAllowedEmailAddress()
 	{
-            // TODO - implement Register.isAllowedEmailAddress
-            throw new UnsupportedOperationException();
-	}
+            boolean emailAddressContains;
+            emailAddressContains = email.contains(SystemSetting.getProperty(Property.AllowedEmailServices));
+            return emailAddressContains;
+        }
 
 	public boolean sendValidationEmail(String email)
 	{
@@ -56,9 +64,9 @@ public class Register implements java.io.Serializable{
             throw new UnsupportedOperationException();
 	}
     
-        public void setFirstName(String firstNameSupplied){
+        public void setFirstName(String firstNameSupplied)
+        {
             firstName = firstNameSupplied;
-            
         }
         
         public void setLastName(String lastNameSupplied)
@@ -71,6 +79,11 @@ public class Register implements java.io.Serializable{
             email = emailSupplied;
         }
         
+        public void setStudentNumber(String studentNumberSupplied)
+        {
+            studentNumber = studentNumberSupplied;
+        }
+        
         public void setPassword1(String passwordOneSupplied)
         {
             password1 = passwordOneSupplied;
@@ -78,7 +91,6 @@ public class Register implements java.io.Serializable{
         }
         public void setPassword2(String passwordTwoSupplied)
         {
-            
             password2 = passwordTwoSupplied;
         }
        
@@ -117,29 +129,8 @@ public class Register implements java.io.Serializable{
         
        
         
-        //Not finished
-        public void submitDetailsToDb(){
-             Connection connection;
-             Statement statement;
-            
-             try{
-               
-               // Register the jdbc driver
-               Class.forName("com.mysql.jdbc.Driver");
-               // Open connection
-               connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-               //Excute query
-               statement = connection.createStatement();
-               //Query to be excuted 
-               String sqlQuery = "";
-               statement.executeUpdate(sqlQuery);
-               //close connection
-               statement.close();
-            }catch(SQLException | ClassNotFoundException err){
-                System.out.println(err);
-            }
-        }
-}
+       
+}               
         
         
 
