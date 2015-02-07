@@ -32,14 +32,15 @@ public class Register implements java.io.Serializable{
                 System.out.println("Error" );
             }
             return isEmailVaild;
-            
-	}
+        }
 
 	public boolean isUniqueEmailAddress()
 	{
             boolean isUnique = false;
             try {
-                String query = "SELECT ";
+                String query = "SELECT email"
+                        + "FROM User"
+                        + "WHERE email = '"+email+"';";
                 ResultSet result;
                 result = sqlHandler.runQuery(query);
                 
@@ -73,7 +74,10 @@ public class Register implements java.io.Serializable{
         public void registerDetailsWithDb()
         {
             
-            String query = "UPDATE";
+            String query = "INSERT INTO User(firstname, secondname, student_no, "
+                           + "email, password"  
+                    + "VALUES(firstName,SecondName, studentNumber,"
+                    + "email, password1);";
             
             try{
                 sqlHandler.runStatement(query);
