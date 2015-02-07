@@ -41,7 +41,7 @@ public class Register implements java.io.Serializable{
             String query = "";
             boolean isUnique = true;
             
-            ResultSet result = runQuery(query);
+            //ResultSet result = runQuery(query);
             
             String resultReturned ="";
             
@@ -53,8 +53,8 @@ public class Register implements java.io.Serializable{
 
 	public boolean isAllowedEmailAddress()
 	{
-            boolean emailAddressContains;
-            emailAddressContains = email.contains(SystemSetting.getProperty(Property.AllowedEmailServices));
+            boolean emailAddressContains = true;
+           // emailAddressContains = email.contains(SystemSetting.getProperty(Property.AllowedEmailServices));
             return emailAddressContains;
         }
 
