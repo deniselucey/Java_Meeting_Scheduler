@@ -28,7 +28,7 @@
             It is <%= register.isValidEmailAddress() %> that this email address is valid.<br>
             Password1: <%= register.getPassword1() %> <br>
             Password2: <%= register.getPassword2() %> <br>
-            <% register.submitDetailsToDb();%>
+          
             
         </p>
                        
