@@ -34,7 +34,17 @@ public class SystemSetting
     private static FileHandler fh;  
     private static boolean initialized = false;
     
-    
+     /**
+     * Set All Properties to their default values;
+     */
+    private static void loadDefault() throws IOException
+    {
+        for(Property p : Property.values())
+        {
+            hardProperties.setProperty(p.name(), p.getDefaultValue());
+            softProperties.setProperty(p.name(), p.getDefaultValue());
+        }
+    }
     /**
      * Set All Properties to their default values;
      */
@@ -42,11 +52,7 @@ public class SystemSetting
     {
         if( canAccess(user))
         {
-            for(Property p : Property.values())
-            {
-                hardProperties.setProperty(p.name(), p.getDefaultValue());
-                softProperties.setProperty(p.name(), p.getDefaultValue());
-            }
+           loadDefault();
         }
     }
     
@@ -56,11 +62,11 @@ public class SystemSetting
      *  creates a new one setting file with default settings.
      *  @param reinitialize Should it re initialize properties.
      */ 
-    public static void initSystemSetting(User user, boolean reinitialize)
+    public static void initSystemSetting(boolean reinitialize)
     {
         
       
-        if(canAccess(user) && (!initialized || reinitialize))
+        if(!initialized || reinitialize)
         {
             hardProperties = new Properties();
             softProperties = new Properties();
@@ -92,7 +98,7 @@ public class SystemSetting
             {
                 //logs creation of properties
                 logger.log(Level.INFO, "{0} Not Found. Trying to create a new {1}\n", new Object[]{fileName, filePath});
-                createNewPropertiesFile(user);
+                createNewPropertiesFile();
             }
             catch (IOException ex)
             {
@@ -101,12 +107,12 @@ public class SystemSetting
         }
     } 
     
-    private static void createNewPropertiesFile(User user)
+    private static void createNewPropertiesFile()
     {
         try
         {
             output = new FileOutputStream(filePath);
-            loadDefault(user);
+            loadDefault();
             initialized = true;
         } 
         catch (IOException  ex1) 
@@ -135,13 +141,9 @@ public class SystemSetting
      * @param user
      * @return property value of key.
      */
-    public static String getProperty(Property key, User user)
+    public static String getProperty(Property key)
     {
-        if( canAccess(user))
-        {
             return hardProperties.getProperty(key.name());
-        }
-        return "";
     }
     
      /**

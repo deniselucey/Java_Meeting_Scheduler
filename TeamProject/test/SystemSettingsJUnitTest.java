@@ -6,6 +6,8 @@
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -48,7 +50,7 @@ public class SystemSettingsJUnitTest
     public static void setUpClass_TestIsInitialized()
     {
         assertThat(SystemSetting.isInitialized(), is(equalTo(false)));
-        SystemSetting.initSystemSetting(null, true);
+        SystemSetting.initSystemSetting( true);
         assertThat(SystemSetting.isInitialized(), is(equalTo(true)));
     }
     
@@ -65,6 +67,15 @@ public class SystemSettingsJUnitTest
     @After
     public void tearDown()
     {
+        try
+        {
+            SystemSetting.loadDefault(null);
+            SystemSetting.saveSettings(null);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(SystemSettingsJUnitTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     // TODO add test methods here.
@@ -81,7 +92,7 @@ public class SystemSettingsJUnitTest
         {
             i++;
             //Tests if setting load is equal to defaul value.
-            assertThat(Sp.getDefaultValue(), is(equalTo(SystemSetting.getProperty(Sp, null))));
+            assertThat(Sp.getDefaultValue(), is(equalTo(SystemSetting.getProperty(Sp))));
         }
         assertThat(Property.values().length, is(equalTo(i)));
     }
@@ -95,7 +106,7 @@ public class SystemSettingsJUnitTest
         {
             --i;
             SystemSetting.setProperty(Sp, i.toString() , null);//sets soft properties, not stored
-            assertThat(i.toString(), is(not(equalTo(SystemSetting.getProperty(Sp, null)))));
+            assertThat(i.toString(), is(not(equalTo(SystemSetting.getProperty(Sp)))));
          
         }
     }
@@ -104,7 +115,7 @@ public class SystemSettingsJUnitTest
     public void TestSavingOfPropertiesAndReloadingOfHardProperties() throws IOException
     {
         //make sure is init
-        SystemSetting.initSystemSetting(null,true);
+        SystemSetting.initSystemSetting(true);
         Integer i = 0;
         for(Property Sp:Property.values())
         {
@@ -115,7 +126,7 @@ public class SystemSettingsJUnitTest
         
         //stores then in file
         SystemSetting.saveSettings(null);
-        SystemSetting.initSystemSetting(null,true);//reloads hardProperties
+        SystemSetting.initSystemSetting(true);//reloads hardProperties
         for(Property Sp:Property.values())
         {
              //sets Properties to i. Property.values().length < i   <= (Property.values().length)*2
@@ -124,11 +135,11 @@ public class SystemSettingsJUnitTest
         }
         //soft propertys are set between Property.values().length and (Property.values().length)*2
         i = 0;
-        SystemSetting.initSystemSetting(null,true);//reload properties from file
+        SystemSetting.initSystemSetting(true);//reload properties from file
         for(Property Sp:Property.values())
         {
             i++;
-            assertThat(i.toString(), is(equalTo(SystemSetting.getProperty(Sp, null))));
+            assertThat(i.toString(), is(equalTo(SystemSetting.getProperty(Sp))));
         }
     } 
 }

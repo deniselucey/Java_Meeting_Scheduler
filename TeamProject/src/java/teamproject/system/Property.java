@@ -10,9 +10,11 @@ import java.time.LocalDate;
     public enum Property
     {
         DatabaseUrl("localhost"),
-        DatabaseUser,
-        DatabasePassword,
-
+        DatabasePort("3306"),
+        DatabaseUser("admin"),
+        DatabasePassword("admin"),
+        DatabaseName("schedulerdatabase"),
+        
         BlockedEmailServices,
         AllowedEmailServices,
 
