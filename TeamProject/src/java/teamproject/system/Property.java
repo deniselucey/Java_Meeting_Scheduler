@@ -12,7 +12,7 @@ import java.time.LocalDate;
         DatabaseUrl("localhost"),
         DatabasePort("3306"),
         DatabaseUser("admin"),
-        DatabasePassword("admin"),
+        DatabasePassword("password"),
         DatabaseName("schedulerdatabase"),
         
         BlockedEmailServices,
