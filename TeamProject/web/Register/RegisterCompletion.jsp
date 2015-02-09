@@ -27,6 +27,10 @@
         <label>Email:</label>
         <jsp:getProperty name = "register" property = "email"/>
         <br>
+        
+        
+            <%register.registerDetailsWithDb();%>
+        
      
     </body>
 </html>
