@@ -29,15 +29,19 @@ public class Register implements java.io.Serializable{
     /**
      * 
      * @return 
+     * 
      */
-    public boolean registerDetailsWithDb()
+    public boolean registerDetailsWithDb() 
     {
+        
         boolean registered = false;
-        String query = "INSERT INTO User(firstname, secondname, student_no, "
+        try{
+            
+            String query = "INSERT INTO User(firstname, secondname, student_no, "
                            + "email, password"  
                     + "VALUES(firstName,SecondName, studentNumber,"
                     + "email, password1);";
-        try{
+        
             sqlHandler.runStatement(query);
             registered = true;
         }catch(SQLException ex) {
@@ -77,7 +81,7 @@ public class Register implements java.io.Serializable{
      * 
      * @return 
      */
-    public boolean sendValidationEmail()
+    public boolean sendValidationEmail() 
     {
         boolean confirmationEmailHasBeenSent = false;
         if(registerDetailsWithDb() == true){
@@ -160,24 +164,13 @@ public class Register implements java.io.Serializable{
             formDetailsCorrect = false;
         }
     
-    
-    
+ 
         if (email.equals("") || (email.indexOf('@') == -1)) 
         {
             errors.put("email","Please enter a valid email address");
             email = "";
             formDetailsCorrect = false;
         }
-    
-        //Get Rid of this . Make user name optonal 
-        if (studentNumber.equals("")) 
-        {
-            errors.put("studentNumber","Please enter your Student Number");
-            password1 = "";
-            formDetailsCorrect = false;
-        }
-   
-    
     
         if (password1.equals("")) 
         {
