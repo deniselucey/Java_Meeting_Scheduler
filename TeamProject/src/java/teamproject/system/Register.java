@@ -26,9 +26,7 @@ public class Register implements java.io.Serializable{
     private SqlHandler sqlHandler;
     
     
-    
-    
-    /**
+  /**
      * 
      * @return 
      * 
@@ -45,8 +43,9 @@ public class Register implements java.io.Serializable{
                      email +"," + password1 +");" ;
             
             System.out.println(query);
-            System.out.println(sqlHandler == null );
+            
             sqlHandler = new SqlHandler();
+            System.out.println(sqlHandler == null );
             sqlHandler.runStatement(query);
             sqlHandler.isConnected();
             
