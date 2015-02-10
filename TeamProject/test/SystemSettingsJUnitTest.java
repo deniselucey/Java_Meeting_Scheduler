@@ -50,7 +50,7 @@ public class SystemSettingsJUnitTest
     public static void setUpClass_TestIsInitialized()
     {
         assertThat(SystemSetting.isInitialized(), is(equalTo(false)));
-        SystemSetting.initSystemSetting( true);
+        SystemSetting.initSystemSetting(true);
         assertThat(SystemSetting.isInitialized(), is(equalTo(true)));
     }
     

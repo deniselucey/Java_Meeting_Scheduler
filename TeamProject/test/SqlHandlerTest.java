@@ -95,4 +95,17 @@ public class SqlHandlerTest
         result = sqlHandler.runQuery(sqlSelect);
         assertThat(result.isBeforeFirst() , is(equalTo(false)));
     }
+   @Test
+    public void TestEmptyString() throws SQLException
+    {
+        
+        String sqlInsert = "";
+ 
+        
+        //insert a row into courses
+        sqlHandler.runStatement(sqlInsert);
+        //retreves rows from courses
+    
+  
+    }
 }
