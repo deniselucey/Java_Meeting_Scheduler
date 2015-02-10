@@ -31,6 +31,7 @@
         
          <%
              try{
+                
                 register.registerDetailsWithDb();
                 out.println("You have registered");
          
