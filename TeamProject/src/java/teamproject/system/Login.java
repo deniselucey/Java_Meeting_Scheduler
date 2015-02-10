@@ -59,6 +59,29 @@ public class Login {
     
     /**
      * 
+     * @param emailSupplied 
+     */
+    public void setEmail(String emailSupplied)
+    {
+        email = emailSupplied;
+    }
+    
+    
+    
+    /**
+     * 
+     * @param passwordOneSupplied 
+     */
+    public void setPassword(String passwordOneSupplied)
+    {
+        password = passwordOneSupplied;
+            
+    }
+    
+    
+
+    /**
+     * 
      * @param message
      * @return 
      */
@@ -66,6 +89,24 @@ public class Login {
     {
         String errorMessage =(String)errors.get(message.trim());
         return (errorMessage == null) ? "":errorMessage;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getEmail()
+    {
+        return email;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getPassword()
+    {
+        return password;
     }
  
     
