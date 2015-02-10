@@ -9,6 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.assertThat;
 import teamproject.system.Property;
 import teamproject.system.SystemSetting;
 
@@ -47,6 +52,7 @@ public class SqlHandler {
             name = SystemSetting.getProperty(Property.DatabaseName);
             //links driver to class may need add labary manuly but it should be all ready part of netbeans mysql-connector-java-5.1.23-bin.jar
             //located in \NetBeans 8.0\ide\modules\ext
+            System.out.println("USER = " +user);
             try
             {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -61,6 +67,7 @@ public class SqlHandler {
             } 
             catch (SQLException ex)
             {
+                System.err.println("shit fucked");
                 Logger.getLogger(SqlHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -119,6 +126,7 @@ public class SqlHandler {
             if(!sql.equals(""))
             {
                 Statement statement = connection.createStatement();
+                
                 return statement.execute(sql);
             }
             return false;
