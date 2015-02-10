@@ -103,7 +103,7 @@ public class SqlHandlerTest
  
         
         //insert a row into courses
-        sqlHandler.runStatement(sqlInsert);
+        assertThat(sqlHandler.runStatement(sqlInsert), is(equalTo(false)));
         //retreves rows from courses
     
   

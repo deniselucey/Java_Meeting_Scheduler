@@ -114,10 +114,14 @@ public class SqlHandler {
 	 * Used to execute table and data modifying statements
 	 * @param sql
 	 */
-	public void runStatement(String sql) throws SQLException
+	public boolean runStatement(String sql) throws SQLException
 	{
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
+            if(!sql.equals(""))
+            {
+                Statement statement = connection.createStatement();
+                return statement.execute(sql);
+            }
+            return false;
 	}
         
         /**
