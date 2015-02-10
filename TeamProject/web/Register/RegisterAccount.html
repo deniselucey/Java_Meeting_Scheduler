@@ -1,40 +1,67 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    
-    <head>
-        <title> Register Account</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang = "en">
+	<head>
+	    <meta charset = "utf-8"/>
+	    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+	    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+            <link rel="stylesheet" href="styles/styles.css"/>
+            <link rel="stylesheet" href="styles/menu.css"/>
+            <link rel="stylesheet" href="styles/normalize.css"/>	
+            <link rel="stylesheet" href="styles/example.css">
+            <link rel="stylesheet" href="styles/font-awesome.min.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Register Account</title>
     </head>
+    
     <body>
-        <form name = "input" action="RegisterAccountAuthentication.jsp" method="POST">
-            <fieldset>
-                <label>First Name:</label>
-                <input type="text" name="firstName" value="" /><br>
+        <a id="skiplink" href="#main">Skip to main content</a>
+	<a id="user" href="#"></a>
+        
+        <div id="wrapper">
+	<header>
+	</header>
+            
+    <nav>
+	    <ul>
+                <li><a href="#">Register</a></li>
+            </ul>
+	</nav>
+	
+    <div id = "main">
+	    <section class = "content">
+               <h1>Register</h1>
+               <form name = "input" action="RegisterAccountProcess.jsp" method="POST">
+                   <fieldset>
+                       <label>First Name:</label>
+                       <input type="text" name="firstName" value="" /><br>
                                 
-                <label>Last Name:</label>
-                <input type="text" name="lastName" value="" /><br>
+                       <label>Last Name:</label>
+                       <input type="text" name="lastName" value="" /><br>
    
-                <label>Student Number:</label>
-                <input type="text" name="studentNumber" value="" /><br>
+                       <label>Student Number:</label>
+                       <input type="text" name="studentNumber" value="" /><br>
                
-                <label>Email:</label>
-                <input type="text" name="email" value="" /><br>
+                       <label>Email:</label>
+                       <input type="text" name="email" value="" /><br>
                
-                <label>Password:</label>
-                <input type="password" name="password1" value="" /><br>
+                       <label>Password:</label>
+                       <input type="password" name="password1" value="" /><br>
                 
-                <label>Confirm Password:</label>
-                <input type="password" name="password2" value="" /><br>
+                       <label>Confirm Password:</label>
+                       <input type="password" name="password2" value="" /><br>
                                 
-               <input type="submit" value="Create Account"><br>
-            </fieldset>
-        </form>
+                      <input type="submit" value="Create Account"><br>
+                   </fieldset>
+               </form>
+            </section>
+        </div>
+        <p class = "status"></p>
+    </div>
+    <footer>
+        <p>
+            <a href="#">Home</a>  | <a href="#">Edit timetable</a> | <a href="#">View timetable</a> | <a href="#">Settings</a>
+        </p>
+    </footer>
+        
     </body>
-
 </html>
