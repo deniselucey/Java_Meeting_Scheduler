@@ -10,7 +10,7 @@
 
 <html> 
     <body>      
-        <form name = "input" action="RegisterAccountProcess.jsp" method="POST">
+        <form name = "input" action="RegisterAccountAuthentication.jsp" method="POST">
             <fieldset>
                 <p><label>First Name:</label>
                 <input type = "text" name = "firstName" value = "<%= register.getFirstName()%>"><br>
