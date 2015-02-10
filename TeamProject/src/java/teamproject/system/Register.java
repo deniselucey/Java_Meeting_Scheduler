@@ -23,7 +23,9 @@ public class Register implements java.io.Serializable{
     private String password1 = "";
     private String password2 = "";
     private final HashMap errors = new HashMap();
-    private final SqlHandler sqlHandler = new SqlHandler();
+    private SqlHandler sqlHandler;
+    
+    
     
     
     /**
@@ -37,12 +39,17 @@ public class Register implements java.io.Serializable{
         boolean registered = false;
         try{
             
-            String query = "INSERT INTO User(firstname, secondname, student_no, "
-                           + "email, password"  
-                    + "VALUES(firstName,SecondName, studentNumber,"
-                    + "email, password1);";
-        
+            String query = "INSERT INTO User(firstname, secondname, student_no,"
+                           + "email, password)"  
+                    + "VALUES(" + firstName+ "," + lastName +"," + studentNumber + "," +
+                     email +"," + password1 +");" ;
+            
+            System.out.println(query);
+            System.out.println(sqlHandler == null );
+            sqlHandler = new SqlHandler();
             sqlHandler.runStatement(query);
+            sqlHandler.isConnected();
+            
             registered = true;
         }catch(SQLException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
