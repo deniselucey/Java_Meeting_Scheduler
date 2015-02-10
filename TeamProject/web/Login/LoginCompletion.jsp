@@ -5,13 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="teamproject.system.Login"%>
+
+<jsp:useBean id = "register" class="teamproject.system.Login" scope="request"/>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
+    
     <body>
-        <h1>Hello World!</h1>
+        <p> Login complete.</p>
+        
+        
+     
     </body>
 </html>

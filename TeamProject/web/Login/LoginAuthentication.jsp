@@ -1,4 +1,5 @@
-<%@page import="teamproject.system.Register"%>
+
+<%@page import="teamproject.system.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:useBean id="login" class="teamproject.system.Login" scope="request">
@@ -9,11 +10,11 @@
 <% 
    if (login.validateForm()) {
 %>
-    <jsp:forward page="RegisterCompletion.jsp"/>
+    <jsp:forward page="LoginCompletion.jsp"/>
 <%
    }  else {
 %>
-    <jsp:forward page="RegisterRetry.jsp"/>
+    <jsp:forward page="LoginRetry.jsp"/>
 <%
    }
 %>
