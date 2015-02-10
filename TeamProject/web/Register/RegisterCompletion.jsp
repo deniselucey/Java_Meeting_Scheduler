@@ -29,7 +29,15 @@
         <br>
         
         
-         <%register.registerDetailsWithDb();%>
+         <%
+             try{
+                register.registerDetailsWithDb();
+         
+             }catch(Exception error){
+                 out.println(error);
+             }
+         
+         %>
         
      
     </body>
