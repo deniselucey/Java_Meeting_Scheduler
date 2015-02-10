@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertThat;
@@ -106,6 +107,7 @@ public class SqlHandlerTest
         assertThat(sqlHandler.runStatement(sqlInsert), is(equalTo(false)));
         //retreves rows from courses
     
-  
+        assertThat(sqlHandler.runQuery(sqlInsert), is(equalTo(nullValue())));
     }
+    
 }
