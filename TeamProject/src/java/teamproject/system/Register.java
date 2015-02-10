@@ -19,7 +19,7 @@ public class Register implements java.io.Serializable{
     private String firstName = "";
     private String lastName = "";
     private String email = "";
-    private String studentNumber = "";
+    private int studentNumber = 0;
     private String password1 = "";
     private String password2 = "";
     private final HashMap errors = new HashMap();
@@ -36,18 +36,19 @@ public class Register implements java.io.Serializable{
         
         boolean registered = false;
         try{
-            
+            SystemSetting.initSystemSetting(true);
             String query = "INSERT INTO User(firstname, secondname, student_no,"
                            + "email, password)"  
-                    + "VALUES(" + firstName+ "," + lastName +"," + studentNumber + "," +
-                     email +"," + password1 +");" ;
+                    + "VALUES('" + firstName+ "','" + lastName +"'," + studentNumber + ",'" +
+                     email +"','" + password1 +"');" ;
             
             System.out.println(query);
             
             sqlHandler = new SqlHandler();
-            System.out.println(sqlHandler == null );
+            System.out.println(" SqlHandler is null :"+ (sqlHandler == null)   );
+            System.out.println("SqlHandler is connected:"+ sqlHandler.isConnected());
             sqlHandler.runStatement(query);
-            sqlHandler.isConnected();
+           
             
             registered = true;
         }catch(SQLException ex) {
@@ -232,7 +233,7 @@ public class Register implements java.io.Serializable{
      * 
      * @param studentNumberSupplied 
      */
-    public void setStudentNumber(String studentNumberSupplied)
+    public void setStudentNumber(int studentNumberSupplied)
     {
         studentNumber = studentNumberSupplied;
     }
@@ -314,7 +315,7 @@ public class Register implements java.io.Serializable{
      * 
      * @return 
      */   
-    public String getStudentNumber()
+    public int getStudentNumber()
     {
         return studentNumber;
     }
