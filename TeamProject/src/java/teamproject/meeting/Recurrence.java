@@ -38,6 +38,14 @@ public enum Recurrence
          */
         public static Recurrence findByPeriod(Period time)
         {
-            return Arrays.stream(Recurrence.values()).parallel().filter(rec -> rec.period.equals(time)).findFirst().orElse(null);
+            //return Arrays.stream(Recurrence.values()).parallel().filter(rec -> rec.period.equals(time)).findFirst().orElse(null);
+            for(Recurrence rec : Recurrence.values())
+            {
+               if( rec.period.equals(time))
+               {
+                   return rec;
+               }
+            }
+            return null;
         }
 }

@@ -28,17 +28,11 @@
         <jsp:getProperty name = "register" property = "email"/>
         <br>
         
+
         
-         <%
-             try{
-                
-                register.registerDetailsWithDb();
+         <%     
+                out.println("SQL succeeded: " + register.registerDetailsWithDb());
                 out.println("You have registered");
-         
-             }catch(Exception error){
-                 out.println(error);
-             }
-         
          %>
         
      

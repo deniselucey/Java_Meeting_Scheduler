@@ -1,5 +1,6 @@
 package teamproject.sql;
 
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -44,15 +45,16 @@ public class SqlHandler {
         public SqlHandler()
         {
             //initilizes(if not allready) and loads settings for database
-            SystemSetting.initSystemSetting(false);
-            password = SystemSetting.getProperty(Property.DatabasePassword);
-            user = SystemSetting.getProperty(Property.DatabaseUser);
-            port = SystemSetting.getProperty(Property.DatabasePort);
-            url = SystemSetting.getProperty(Property.DatabaseUrl);
-            name = SystemSetting.getProperty(Property.DatabaseName);
-            //links driver to class may need add labary manuly but it should be all ready part of netbeans mysql-connector-java-5.1.23-bin.jar
-            //located in \NetBeans 8.0\ide\modules\ext
-            System.out.println("USER = " +user);
+            SystemSetting.initSystemSetting();
+
+            password = SystemSetting.getProperty(Property.DatabasePassword,null);
+            user = SystemSetting.getProperty(Property.DatabaseUser,null);
+            port = SystemSetting.getProperty(Property.DatabasePort,null);
+            url = SystemSetting.getProperty(Property.DatabaseUrl,null);
+            name = SystemSetting.getProperty(Property.DatabaseName,null);
+            
+
+            //links driver to class
             try
             {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -67,7 +69,6 @@ public class SqlHandler {
             } 
             catch (SQLException ex)
             {
-                System.err.println("shit fucked");
                 Logger.getLogger(SqlHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -76,6 +77,7 @@ public class SqlHandler {
         {
             return DriverManager.getConnection("jdbc:mysql://"+ url + ":" + port + "/" + name, user, password); // "jdbc:mysql://localhost:3306/schedulerdatabase");   
         }
+        
         /**
          * returns true if connection is not null and is not closed.
          * @return true if connection is not null and is not closed.
@@ -113,8 +115,12 @@ public class SqlHandler {
 	 */
 	public ResultSet runQuery(String sql) throws SQLException
 	{
-            Statement statement = connection.createStatement();
-            return statement.executeQuery(sql);
+            if(!sql.equals(""))
+            {
+                Statement statement = connection.createStatement();
+                return statement.executeQuery(sql);
+            }
+            return null;
 	}
         
         /**

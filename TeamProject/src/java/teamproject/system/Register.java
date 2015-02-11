@@ -36,7 +36,7 @@ public class Register implements java.io.Serializable{
         
         boolean registered = false;
         try{
-            SystemSetting.initSystemSetting(true);
+            SystemSetting.initSystemSetting();
             String query = "INSERT INTO User(firstname, secondname, student_no,"
                            + "email, password)"  
                     + "VALUES('" + firstName+ "','" + lastName +"'," + studentNumber + ",'" +
@@ -47,10 +47,10 @@ public class Register implements java.io.Serializable{
             sqlHandler = new SqlHandler();
             System.out.println(" SqlHandler is null :"+ (sqlHandler == null)   );
             System.out.println("SqlHandler is connected:"+ sqlHandler.isConnected());
-            sqlHandler.runStatement(query);
+            registered = sqlHandler.runStatement(query);
            
             
-            registered = true;
+
         }catch(SQLException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,7 +108,7 @@ public class Register implements java.io.Serializable{
     {
         boolean emailAddressContains;
         emailAddressContains = email.contains(SystemSetting.getProperty(
-                                                Property.AllowedEmailServices));
+                                                Property.AllowedEmailServices,null));
         return emailAddressContains;
     }
     

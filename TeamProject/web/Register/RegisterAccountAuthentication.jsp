@@ -14,7 +14,6 @@
 <jsp:setProperty name="register" property="*"/>
 </jsp:useBean>
 
-
 <% 
    if (register.validateForm()) {
 %>

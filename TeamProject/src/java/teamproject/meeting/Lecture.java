@@ -9,6 +9,11 @@ public class Lecture extends Meeting {
 	private Module module;
 	private ArrayList<Lecturer> lectures;
 
+        
+        public Lecture(String title, String description, String location, Recurrence repeat, MeetingType piority, MeetingPrivacy privacy)
+        {
+            super(title, description, location, repeat, piority, privacy);
+        }
 	/**
 	 * 
 	 * @param lecture

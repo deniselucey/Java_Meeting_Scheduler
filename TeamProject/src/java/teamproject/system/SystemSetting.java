@@ -1,16 +1,7 @@
 package teamproject.system;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Properties;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.HashMap;
+import java.util.prefs.Preferences;
 import teamproject.user.User;
 
 /**
@@ -20,164 +11,52 @@ import teamproject.user.User;
  */
 public class SystemSetting
 {
-    //properties that the system will be useing
-    private static Properties hardProperties;
-    //properties that hold the user settings 
-    private static Properties softProperties;
-    private static OutputStream output;
-    private static InputStream input;
-
-    private static String fileName = "config.properties";
-    private static String path = "";
-    private static String filePath = path + fileName;
-    private static final Logger logger = Logger.getLogger("SystemLogger");  
-    private static FileHandler fh;  
+    static HashMap<String, String> changes;
+    static Preferences prefs;
     private static boolean initialized = false;
+    private static final String empty = "Empty";
+    private static final String isEmpty = "false";
     
-     /**
-     * Set All Properties to their default values;
-     */
-    private static void loadDefault() throws IOException
+    public static void main(String[] args)
     {
-        for(Property p : Property.values())
-        {
-            hardProperties.setProperty(p.name(), p.getDefaultValue());
-            softProperties.setProperty(p.name(), p.getDefaultValue());
-        }
-    }
-    /**
-     * Set All Properties to their default values;
-     */
-    public static void loadDefault(User user) throws IOException
-    {
-        if( canAccess(user))
-        {
-           loadDefault();
-        }
+        initSystemSetting();   
     }
     
-
-    /**
-     *  Initialized setting class. Tries to load system setting, if that fails 
-     *  creates a new one setting file with default settings.
-     *  @param reinitialize Should it re initialize properties.
-     */ 
-    public static void initSystemSetting(boolean reinitialize)
-    {
-        
-      
-        if(!initialized || reinitialize)
+    public static void initSystemSetting()
+    { 
+        if(!initialized)
         {
-            hardProperties = new Properties();
-            softProperties = new Properties();
-            output = null;
-            input = null;
-
-            //try to set up a logger to log systerm setting changes
-            try  
-            {
-                fh = new FileHandler("SystemLog.log",true);
-                logger.addHandler(fh);
-                logger.setUseParentHandlers(false);
-                SimpleFormatter formatter = new SimpleFormatter();  
-                fh.setFormatter(formatter); 
-            } 
-            catch (IOException | SecurityException ex) 
-            {
-                Logger.getLogger(SystemSetting.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            //tries to load system properties. if it fails it then trys to create a .properties
-            try       
-            {
-                input = new FileInputStream(filePath);
-                hardProperties.load(input);
-                initialized = true;
-            } 
-            catch (FileNotFoundException ex) 
-            {
-                //logs creation of properties
-                logger.log(Level.INFO, "{0} Not Found. Trying to create a new {1}\n", new Object[]{fileName, filePath});
-                createNewPropertiesFile();
-            }
-            catch (IOException ex)
-            {
-                Logger.getLogger(SystemSetting.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            prefs = Preferences.userNodeForPackage(SystemSetting.class.getClass());
+            changes = new HashMap<>();
         }
-    } 
-    
-    private static void createNewPropertiesFile()
-    {
-        try
+        if(prefs.get(empty, "").equals(""))
         {
-            output = new FileOutputStream(filePath);
             loadDefault();
-            initialized = true;
-        } 
-        catch (IOException  ex1) 
-        {
-            Logger.getLogger(SystemSetting.class.getName()).log(Level.SEVERE, null, ex1);
-        } 
-        finally 
-        {
-            if (output != null) 
-            {
-                try 
-                {
-                    output.close();
-                }
-                catch (IOException e) 
-                {
-                    e.printStackTrace();
-                }
-            }
         }
+        initialized = true;
     }
     
-    /**
-     * Gets a Property value.
-     * @param key property key
-     * @param user
-     * @return property value of key.
-     */
-    public static String getProperty(Property key)
+    public static String getProperty(Property key, String defaultValue)
     {
-            return hardProperties.getProperty(key.name());
+        return prefs.get(key.name(),defaultValue);
     }
     
-     /**
-     * Gets a softProperty value.
-     * @param key property key
-     * @param user
-     * @return property value of key.
-     */
-    public static String getSoftProperty(Property key, User user)
+    public static String getChanges(Property key, String defaultValue)
     {
-        if( canAccess(user))
-        {
-            return softProperties.getProperty(key.name());
-        }
-        return "";
+        String result = changes.get(key.name());
+        return result == null ? defaultValue : result;
     }
     
-    /**
-     * Sets a Property value.
-     * @param key property to change
-     * @param value value to change property to.
-     * @param user
-     */
     public static void setProperty(Property key, String value, User user)
     {
         if( canAccess(user))
         {
-            //uncomment logger when user getId is made ############################
-           //TODO logger.info(key.name() + " was set to " + value + " By " + user.getID());
-            softProperties.setProperty(key.name(), value);
+            changes.put(key.name(), value);
         }
     }
-    
-    /**
+     
+     
+      /**
      * Test if a user is allowed to run methods of this class.
      * @param user user calling method
      * @return True if user can access setting. 
@@ -193,29 +72,61 @@ public class SystemSetting
         }
         return access;
     }
-
-   
-    /**
-     * Stores soft properties in output file.
-     * @throws IOException 
-     */
-    private static void saveSettings() throws IOException
+    
+    private static void saveSettings()
     {
-        output = new FileOutputStream(filePath);
-        softProperties.store(output, null); 
+        for(Object pair:changes.entrySet())
+        {
+            HashMap.Entry<String,String> MP = (HashMap.Entry<String,String>)pair;
+            prefs.put(MP.getKey(), MP.getValue());
+        }
     }
     
-    public static void saveSettings(User user) throws IOException
+    public static void saveSettings(User user)
     {
         if(canAccess(user))
         {
             saveSettings();
         }
     }
-
     
-    //Getters & Setters
-    public static String getFileName(){return fileName;}
-    public static String getPath(){return path;}
+    /**
+     * Test if user has privilege to run this method, If true sets All Properties to their default values.
+     * If false logs that user tried to use admin methods.
+     * 
+     * @param user use call the method
+     */
+    public static void loadDefault(User user)
+    {
+        if( canAccess(user))
+        {
+           loadDefault();
+        }
+    }
+    
+    /**
+     * Set All Properties to their default values;
+     */
+    private static void loadDefault()
+    {
+        for(Property p : Property.values())
+        {
+            prefs.put(p.name(), p.getDefaultValue());
+        }
+        prefs.put(empty, isEmpty);
+    }
+    public static void clearChange(User user)
+    {
+        if(canAccess(user))
+        {
+            clearChange();
+        }
+    }
+    
+    private static void clearChange()
+    {
+        changes.clear();
+    }
+    
     public static boolean isInitialized() { return initialized; } 
 }
