@@ -37,12 +37,12 @@ public class Register implements java.io.Serializable{
         boolean registered = false;
         try{
             SystemSetting.initSystemSetting();
-            String query = "INSERT INTO User(firstname, secondname, student_no,"
+            String query = "INSERT INTO User(firstname, secondname,"
                            + "email, password)"  
-                    + "VALUES('" + firstName+ "','" + lastName +"'," + studentNumber + ",'" +
+                    + "VALUES('" + firstName+ "','" + lastName +"','" +
                      email +"','" + password1 +"');" ;
             
-            System.out.println(query);
+       
             
             sqlHandler = new SqlHandler();
             System.out.println(" SqlHandler is null :"+ (sqlHandler == null)   );
