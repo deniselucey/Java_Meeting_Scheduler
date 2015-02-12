@@ -23,8 +23,6 @@ public class Login {
     {
         boolean formDetailsCorrect = true;
     
-        
- 
         if (email.equals("") || (email.indexOf('@') == -1)) 
         {
             errors.put("email","Please enter a valid email address");
@@ -38,12 +36,15 @@ public class Login {
             password = "";
             formDetailsCorrect = false;
         }
-    
-    
-      
-    
         return formDetailsCorrect;
     }
+    
+    public boolean checkDb(){
+        boolean result = false;
+        return result;
+    }
+    
+            
     
     
     /**
