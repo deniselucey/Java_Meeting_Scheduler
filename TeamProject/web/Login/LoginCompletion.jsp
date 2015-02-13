@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="teamproject.system.Login"%>
+<%@ page import ="java.sql.*" %>
 
 <jsp:useBean id = "login" class="teamproject.system.Login" scope="request"/>
 <!DOCTYPE html>
@@ -34,14 +35,25 @@
             
         <nav>
 	    <ul>
-                <li><a href="Login.html">Login</a></li>
+                <li><a href="Login.html">Log In</a></li>
+                <li><a href="..\Logout\Logout.html">Log Out</a></li>
             </ul>
 	</nav>
 	
         <div id = "main">
 	    <section class = "content">
-                <p>Login Complete</p>
                 
+                
+                
+               <% 
+                   String email = login.getEmail();
+                   session.setAttribute("email",email );
+                   
+                   
+                   response.sendRedirect("../TimeTable/TimeTable.jsp");
+                  
+               %>
+              
           </section>
         </div>
         <p class = "status"></p>
