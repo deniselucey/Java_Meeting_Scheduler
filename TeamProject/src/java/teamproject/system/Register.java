@@ -69,7 +69,7 @@ public class Register implements java.io.Serializable{
     {
         boolean isUnique = false;
         try{
-             sqlHandler = new SqlHandler();
+            sqlHandler = new SqlHandler();
             String query = "SELECT email "
                     + "FROM User "
                     + "WHERE email ='"+email+"';";
@@ -79,8 +79,10 @@ public class Register implements java.io.Serializable{
             //returns false if there are no rows in the ResultSet.
             if (queryResult.isBeforeFirst()) 
             {
+                System.out.println("inside");
                 if(queryResult.next() == false){
                 //sets isUnquie to true because the email address is not in DB
+                    
                     isUnique = true;
                 }
             }
