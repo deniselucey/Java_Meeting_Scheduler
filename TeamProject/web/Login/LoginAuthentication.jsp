@@ -8,13 +8,17 @@
 
 
 <% 
-   if (login.validateForm()) {
+   if (login.validateForm() && login.checkDb()) {
 %>
     <jsp:forward page="LoginCompletion.jsp"/>
 <%
-   }  else {
+   }else if (login.validateForm() && !login.checkDb()) {
+%>
+    <jsp:forward page="Login.html"/>
+<%
+   } else{ 
 %>
     <jsp:forward page="LoginRetry.jsp"/>
-<%
-   }
-%>
+
+<% } %>
+   
