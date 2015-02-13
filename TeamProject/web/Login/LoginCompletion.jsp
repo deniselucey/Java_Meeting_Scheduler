@@ -8,7 +8,7 @@
 <%@page import="teamproject.system.Login"%>
 <%@ page import ="java.sql.*" %>
 
-<jsp:useBean id = "login" class="teamproject.system.Login" scope="request"/>
+<jsp:useBean id = "login" class="teamproject.system.Login" scope="session"/>
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -41,10 +41,9 @@
                 
                 
                <% 
+                   
                    String email = login.getEmail();
                    session.setAttribute("email",email );
-                   
-                   
                    response.sendRedirect("../TimeTable/TimeTable.jsp");
                   
                %>
