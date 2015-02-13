@@ -4,6 +4,8 @@ package teamproject.system;
  * @author Ciaran McDonald
  */
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import java.util.logging.Logger;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import teamproject.sql.SqlHandler;
+import static teamproject.system.PasswordHash.createHash;
 
 
 public class Register implements java.io.Serializable{
@@ -25,15 +28,18 @@ public class Register implements java.io.Serializable{
     private final HashMap errors = new HashMap();
     private SqlHandler sqlHandler;
     private String emailUnique ="";
-    
+    private String encryptedPassword ="";
     
   /**
      * 
      * @return 
+     * @throws java.security.NoSuchAlgorithmException 
+     * @throws java.security.spec.InvalidKeySpecException 
      * 
      */
-    public boolean registerDetailsWithDb() 
+    public boolean registerDetailsWithDb() throws NoSuchAlgorithmException, InvalidKeySpecException 
     {
+        String password = encrypt();
         boolean registered1 = false;
         boolean registered2 = false;
         boolean isRegistered = false;
@@ -42,7 +48,7 @@ public class Register implements java.io.Serializable{
             String query1 = "INSERT INTO User(firstname, secondname,"
                            + "email, password)"  
                     + "VALUES('" + firstName+ "','" + lastName +"','" +
-                     email +"','" + password1 +"');" ;
+                     email +"','" + password +"');" ;
             
             String query2 = "INSERT INTO student(student_number)" +
                              "VALUE('" +studentNumber+"');";
@@ -61,30 +67,37 @@ public class Register implements java.io.Serializable{
         return isRegistered;
     }
     
+    
+    private String encrypt() throws NoSuchAlgorithmException, InvalidKeySpecException{
+       encryptedPassword = createHash(password1);
+       return encryptedPassword;
+    }
+    
+    
     /**
      * 
      * @return 
+     *  
      */
-    public boolean isUniqueEmailAddress()
+    public boolean isUniqueEmailAddress() 
     {
+        
         boolean isUnique = false;
         try{
+            
             sqlHandler = new SqlHandler();
             String query = "SELECT email "
                     + "FROM User "
                     + "WHERE email ='"+email+"';";
+            
             ResultSet queryResult;
             queryResult = sqlHandler.runQuery(query);
-                
+         
             //returns false if there are no rows in the ResultSet.
-            if (queryResult.isBeforeFirst()) 
+            if (!queryResult.isBeforeFirst() && !queryResult.next() ) 
             {
-                System.out.println("inside");
-                if(queryResult.next() == false){
                 //sets isUnquie to true because the email address is not in DB
-                    
-                    isUnique = true;
-                }
+                isUnique = true;
             }
         }catch(SQLException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,8 +110,10 @@ public class Register implements java.io.Serializable{
     /**
      * 
      * @return 
+     * @throws java.security.NoSuchAlgorithmException 
+     * @throws java.security.spec.InvalidKeySpecException 
      */
-    public boolean sendValidationEmail() 
+    public boolean sendValidationEmail() throws NoSuchAlgorithmException, InvalidKeySpecException 
     {
         boolean confirmationEmailHasBeenSent = false;
         if(registerDetailsWithDb() == true){
@@ -126,8 +141,10 @@ public class Register implements java.io.Serializable{
     /**
      * 
      * @return 
+     * @throws java.security.NoSuchAlgorithmException 
+     * @throws java.security.spec.InvalidKeySpecException 
      */
-    public boolean checkDetailsAndRegister(){
+    public boolean checkDetailsAndRegister() throws NoSuchAlgorithmException, InvalidKeySpecException{
         boolean details = false;
         if( isUniqueEmailAddress())
         {
