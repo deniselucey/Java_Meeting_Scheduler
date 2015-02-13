@@ -1,8 +1,4 @@
-<%-- 
-    Document   : LoginCompletion
-    Created on : Feb 9, 2015, 11:14:15 PM
-    Author     : zolamcdonald
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
@@ -35,17 +31,21 @@
             
         <nav>
 	    <ul>
-                <li><a href="..\Logout\Logout.html">Log Out</a></li>
+                <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+               
+                
             </ul>
 	</nav>
 	
         <div id = "main">
 	    <section class = "content">
                 
-                
+                <p>Welcome</p>
                 
                <% 
                    
+                
+
                
                %>
                 
