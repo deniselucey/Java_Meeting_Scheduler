@@ -67,8 +67,7 @@
                 <p><label>Email:</label>
                 <input type = "text" name = "email" value = "<%=register.getEmail()%>"><br>
                 <%= register.getErrorMessage("email")%>
-                
-                <%= register.getErrorMessage("emailUnique")%></p> 
+                <%= register.getErrorMessage("emailUnique")%></p>
                 </div>
                 
                 <div>

@@ -36,7 +36,7 @@
             
         <nav>
 	    <ul>
-                <li><a href="#">TimeTable</a></li>
+                <li><a href="../TimeTable/TimeTable.jsp">TimeTable</a></li>
             </ul>
 	</nav>
 	
@@ -73,6 +73,8 @@
                                 out.println("SQL succeeded: " + register.registerDetailsWithDb());
                                 out.println("You have registered");
                             %>
+                                
+                            
                         </div>
      
                     </fieldset>
