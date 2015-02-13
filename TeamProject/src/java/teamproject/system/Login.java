@@ -5,7 +5,13 @@
  */
 package teamproject.system;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import teamproject.sql.SqlHandler;
+import java.sql.ResultSet;
+
 
 /**
  *
@@ -14,6 +20,7 @@ import java.util.HashMap;
 public class Login {
      private String email = "";
      private String password = "";
+     private SqlHandler sqlHandler;
      private final HashMap errors = new HashMap();
     /**
     * 
@@ -23,14 +30,14 @@ public class Login {
     {
         boolean formDetailsCorrect = true;
     
-        if (email.equals("") || (email.indexOf('@') == -1)) 
+        if(email.equals("") || (email.indexOf('@') == -1)) 
         {
             errors.put("email","Please enter a valid email address");
             email = "";
             formDetailsCorrect = false;
         }
     
-        if (password.equals("")) 
+        if(password.equals("")) 
         {
             errors.put("password1","Please enter a valid password");
             password = "";
@@ -40,12 +47,52 @@ public class Login {
     }
     
     public boolean checkDb(){
-        boolean result = false;
-        return result;
+        boolean inDb = false;
+        
+        try{
+            SystemSetting.initSystemSetting();
+            String query = "SELECT email,password "+
+                           "FROM User "+
+                           "WHERE email ='"+email+"' && password ='"+password+"';";
+            
+            ResultSet queryResult;
+            sqlHandler = new SqlHandler();
+            queryResult = sqlHandler.runQuery(query);
+            
+            if(queryResult.isBeforeFirst() == true)
+            {
+                queryResult.next();
+                String emailResult = queryResult.getString("email");
+                String passwordResult = queryResult.getString("password");
+               
+                if(emailResult.equals(email) && passwordResult.equals(password)){
+                    System.out.println("EmailResult: "+ emailResult);
+                    System.out.println("Password: " + passwordResult);
+                    inDb = true;
+                }
+            }else{
+                System.out.println("Not in db");
+                return inDb;
+            }
+        }catch(SQLException ex) {
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return inDb;
     }
     
             
+    private void encrypt(){
+        
+    }
     
+    private String decrypt(){
+     String password;
+         password = "";
+     
+     
+     return password;
+    }
+ 
     
     /**
      * 
@@ -109,7 +156,9 @@ public class Login {
     {
         return password;
     }
- 
+    
+   
+    
     
 }
 
