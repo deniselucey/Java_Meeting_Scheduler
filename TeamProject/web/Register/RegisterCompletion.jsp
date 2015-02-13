@@ -9,33 +9,85 @@
 <%@page import="teamproject.system.Register"%>
 
 <jsp:useBean id = "register" class="teamproject.system.Register" scope="request"/>
-<html>
+
+
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+	    <meta charset = "utf-8"/>
+	    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+	    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+            <link rel="stylesheet" href="../styles/styles.css"/>
+            <link rel="stylesheet" href="../styles/menu.css"/>
+            <link rel="stylesheet" href="../styles/normalize.css"/>	
+            <link rel="stylesheet" href="../styles/example.css">
+            <link rel="stylesheet" href="../styles/font-awesome.min.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Register Account</title>
+    </head>
+    
     <body>
+        <a id="skiplink" href="#main">Skip to main content</a>
+	<a id="user" href="#"></a>
         
-        <label>First Name:</label>
-        <jsp:getProperty name = "register" property = "firstName"/>
-        <br>
-        
-        <label>Last Name:</label>
-        <jsp:getProperty name = "register" property = "lastName"/>
-        <br>
+        <div id="wrapper">
+	<header>
+	</header>
+            
+        <nav>
+	    <ul>
+                <li><a href="#">TimeTable</a></li>
+            </ul>
+	</nav>
+	
+        <div id = "main">
+	    <section class = "content">
+               <h1>You have Registered</h1>
+               <form name = "input" action="RegisterAccountAuthentication.jsp" method="POST">
+                   <fieldset>
                        
-        <label>Student Number:</label>
-        <jsp:getProperty name = "register" property = "studentNumber"/>
-         <br>
-                        
-        <label>Email:</label>
-        <jsp:getProperty name = "register" property = "email"/>
-        <br>
+                        <div>
+                            <label>First Name:</label>
+                            <jsp:getProperty name = "register" property = "firstName"/>
+                        </div>
+                               
+                        <div>   
+                            <label>Last Name:</label>
+                            <jsp:getProperty name = "register" property = "lastName"/>
+                        </div>
+         
+        
+                        <div>
+                            <label>Student Number:</label>
+                            <jsp:getProperty name = "register" property = "studentNumber"/>
+                        </div>
+         
+                        <div>
+                            <label>Email:</label>
+                            <jsp:getProperty name = "register" property = "email"/>
+                        </div>
         
 
-        
-         <%     
-                out.println("SQL succeeded: " + register.registerDetailsWithDb());
-                out.println("You have registered");
-         %>
-        
+                        <div>
+                            <%     
+                                out.println("SQL succeeded: " + register.registerDetailsWithDb());
+                                out.println("You have registered");
+                            %>
+                        </div>
      
+                    </fieldset>
+               </form>
+            </section>
+        </div>
+        <p class = "status"></p>
+        
+        <footer>
+            <p>
+            
+            </p>
+        </footer>
+    </div>    
     </body>
 </html>
+
 

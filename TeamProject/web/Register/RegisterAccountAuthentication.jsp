@@ -15,11 +15,11 @@
 </jsp:useBean>
 
 <% 
-   if (register.validateForm()) {
+   if(register.validateForm()) {
 %>
     <jsp:forward page="RegisterCompletion.jsp"/>
 <%
-   }  else {
+   }else {
 %>
     <jsp:forward page="RegisterRetry.jsp"/>
 <%
