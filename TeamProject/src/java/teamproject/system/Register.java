@@ -19,11 +19,12 @@ public class Register implements java.io.Serializable{
     private String firstName = "";
     private String lastName = "";
     private String email = "";
-    private int studentNumber = 0;
+    private int studentNumber;
     private String password1 = "";
     private String password2 = "";
     private final HashMap errors = new HashMap();
     private SqlHandler sqlHandler;
+    private String emailUnique ="";
     
     
   /**
@@ -33,28 +34,31 @@ public class Register implements java.io.Serializable{
      */
     public boolean registerDetailsWithDb() 
     {
-        
-        boolean registered = false;
+        boolean registered1 = false;
+        boolean registered2 = false;
+        boolean isRegistered = false;
         try{
             SystemSetting.initSystemSetting();
-            String query = "INSERT INTO User(firstname, secondname,"
+            String query1 = "INSERT INTO User(firstname, secondname,"
                            + "email, password)"  
                     + "VALUES('" + firstName+ "','" + lastName +"','" +
                      email +"','" + password1 +"');" ;
             
+            String query2 = "INSERT INTO student(student_number)" +
+                             "VALUE('" +studentNumber+"');";
        
-            
             sqlHandler = new SqlHandler();
-            System.out.println(" SqlHandler is null :"+ (sqlHandler == null)   );
-            System.out.println("SqlHandler is connected:"+ sqlHandler.isConnected());
-            registered = sqlHandler.runStatement(query);
-           
             
-
+            registered1 = sqlHandler.runStatement(query1);
+            registered2 = sqlHandler.runStatement(query2);
+            if(registered1 && registered2 == true){
+                isRegistered = true;
+            }
+           
         }catch(SQLException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return registered;
+        return isRegistered;
     }
     
     /**
@@ -65,16 +69,20 @@ public class Register implements java.io.Serializable{
     {
         boolean isUnique = false;
         try{
-            String query = "SELECT email FROM User"
-                + "WHERE email = '"+email+"';";
-            ResultSet result;
-            result = sqlHandler.runQuery(query);
+             sqlHandler = new SqlHandler();
+            String query = "SELECT email "
+                    + "FROM User "
+                    + "WHERE email ='"+email+"';";
+            ResultSet queryResult;
+            queryResult = sqlHandler.runQuery(query);
                 
             //returns false if there are no rows in the ResultSet.
-            if (!result.isBeforeFirst()) 
+            if (queryResult.isBeforeFirst()) 
             {
+                if(queryResult.next() == false){
                 //sets isUnquie to true because the email address is not in DB
-                isUnique = true;
+                    isUnique = true;
+                }
             }
         }catch(SQLException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,7 +164,7 @@ public class Register implements java.io.Serializable{
         boolean formDetailsCorrect = true;
     
         
-        if (firstName.equals("")) 
+        if(firstName.equals("")) 
         {
             errors.put("firstName","Please enter your first name");
             firstName = "";
@@ -164,7 +172,7 @@ public class Register implements java.io.Serializable{
         }
     
     
-        if (lastName.equals("")) 
+        if(lastName.equals("")) 
         {
             errors.put("lastName","Please enter your last name");
             lastName = "";
@@ -172,14 +180,14 @@ public class Register implements java.io.Serializable{
         }
     
  
-        if (email.equals("") || (email.indexOf('@') == -1)) 
+        if(email.equals("") || (email.indexOf('@') == -1)) 
         {
             errors.put("email","Please enter a valid email address");
             email = "";
             formDetailsCorrect = false;
         }
     
-        if (password1.equals("")) 
+        if(password1.equals("")) 
         {
             errors.put("password1","Please enter a valid password");
             password1 = "";
@@ -187,11 +195,18 @@ public class Register implements java.io.Serializable{
         }
     
     
-        if (!password1.equals("") && (password2.equals("") || 
+        if(!password1.equals("") && (password2.equals("") || 
             !password1.equals(password2))) 
         {
             errors.put("password2","Please confirm your password");
             password2 = "";
+            formDetailsCorrect= false;
+        }
+        
+        if(isUniqueEmailAddress() == false)
+        {
+            errors.put("emailUnique","Email address has already been registered");
+            email = "";
             formDetailsCorrect= false;
         }
     
