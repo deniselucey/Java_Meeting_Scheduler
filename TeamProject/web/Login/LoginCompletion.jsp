@@ -33,12 +33,7 @@
 	<header>
 	</header>
             
-        <nav>
-	    <ul>
-                <li><a href="Login.html">Log In</a></li>
-                <li><a href="..\Logout\Logout.html">Log Out</a></li>
-            </ul>
-	</nav>
+       
 	
         <div id = "main">
 	    <section class = "content">
