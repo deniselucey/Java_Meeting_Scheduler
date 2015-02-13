@@ -66,12 +66,11 @@ public class Login {
                 String passwordResult = queryResult.getString("password");
                
                 if(emailResult.equals(email) && passwordResult.equals(password)){
-                    System.out.println("EmailResult: "+ emailResult);
-                    System.out.println("Password: " + passwordResult);
+                 
                     inDb = true;
                 }
             }else{
-                System.out.println("Not in db");
+                
                 return inDb;
             }
         }catch(SQLException ex) {
