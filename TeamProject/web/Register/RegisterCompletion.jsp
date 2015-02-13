@@ -69,10 +69,20 @@
         
 
                         <div>
-                            <%     
-                                out.println("SQL succeeded: " + register.registerDetailsWithDb());
-                                out.println("You have registered");
-                            %>
+                             <% 
+                                 if(register.registerDetailsWithDb()) {
+                             %>   
+                             <p> You have registered.<br> 
+                                 A email has been sent to confirm email address.  
+                             </p>  
+                             
+                             <%
+                             }else {
+                             %>
+                                  <p> A error has occurred </p>
+                             <% 
+                                 }
+                             %>
                                 
                             
                         </div>
