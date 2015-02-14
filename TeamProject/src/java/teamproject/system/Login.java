@@ -55,7 +55,7 @@ public class Login {
             SystemSetting.initSystemSetting();
             String query = "SELECT email,password "+
                            "FROM User "+
-                           "WHERE email ='"+email+"' && password ='"+password+"';";
+                           "WHERE email ='"+email+"';";
             
             ResultSet queryResult;
             sqlHandler = new SqlHandler();
