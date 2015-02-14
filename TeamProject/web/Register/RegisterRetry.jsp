@@ -36,7 +36,7 @@
             
         <nav>
 	    <ul>
-                <li><a href="Login.html">Log In</a></li>
+                <li><a href="Login.jsp">Log In</a></li>
             </ul>
 	</nav>
 	

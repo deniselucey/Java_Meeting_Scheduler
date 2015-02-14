@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="teamproject.system.Register"%>
 
-<jsp:useBean id = "register" class="teamproject.system.Register" scope="request"/>
+<jsp:useBean id = "register" class="teamproject.system.Register" scope="session"/>
 
 
 <!DOCTYPE html>
@@ -71,6 +71,9 @@
                         <div>
                              <% 
                                  if(register.registerDetailsWithDb()) {
+                                    String email = request.getParameter("email");
+                                    session.setAttribute("email", email );
+                   
                              %>   
                              <p> You have registered.<br> 
                                  A email has been sent to confirm email address.  

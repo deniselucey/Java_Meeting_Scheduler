@@ -23,8 +23,8 @@
             
         <nav>
 	    <ul>
-                <li><a href="..\Login\Login.html">Log In</a></li>
-                <li><a href="RegisterAccount.html">Register</a></li>
+                <li><a href="..\Login\Login.jsp">Login</a></li>
+                <li><a href="RegisterAccount.jsp">Register</a></li>
             </ul>
 	</nav>
 	
@@ -67,7 +67,7 @@
                        <input type="password" name="password2" value="" /><br>
                         </div>      
                       <input type="submit" value="Create Account"><br>
-                      <a href="..\Login\Login.html">Return to Login</a>
+                      <a href="..\Login\Login.jsp">Return to Login</a>
                    </fieldset>
                </form>
             </section>
