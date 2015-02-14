@@ -17,41 +17,51 @@ import teamproject.sql.SqlHandler;
 import static teamproject.system.PasswordHash.createHash;
 
 
+
 public class Register implements java.io.Serializable{
     
     private String firstName = "";
     private String lastName = "";
     private String email = "";
-    private int studentNumber;
+    private int studentNumber = 0;
     private String password1 = "";
     private String password2 = "";
     private final HashMap errors = new HashMap();
     private SqlHandler sqlHandler;
     private String emailUnique ="";
     private String encryptedPassword ="";
+    private String password =""; 
+    private char salt;
+  
     
-  /**
+    /**
      * 
      * @return 
      * @throws java.security.NoSuchAlgorithmException 
      * @throws java.security.spec.InvalidKeySpecException 
      * 
      */
-    public boolean registerDetailsWithDb() throws NoSuchAlgorithmException, InvalidKeySpecException 
+     public boolean registerDetailsWithDb() throws NoSuchAlgorithmException, InvalidKeySpecException 
     {
-        String password = encrypt();
-        boolean registered1 = false;
-        boolean registered2 = false;
+         
+        
+        password = encrypt();
+        boolean registered1;
+        boolean registered2;
         boolean isRegistered = false;
         try{
+            
             SystemSetting.initSystemSetting();
-            String query1 = "INSERT INTO User(firstname, secondname,"
-                           + "email, password)"  
+            String query1 = "INSERT INTO User(firstname, secondname, "
+                           + "email, password,salt)"  
                     + "VALUES('" + firstName+ "','" + lastName +"','" +
-                     email +"','" + password +"');" ;
+                     email +"','" + password +"','" + salt +"');"; ;
+           
             
             String query2 = "INSERT INTO student(student_number)" +
-                             "VALUE('" +studentNumber+"');";
+                             "VALUE('"+studentNumber+"');";
+            
+   
        
             sqlHandler = new SqlHandler();
             
@@ -81,7 +91,6 @@ public class Register implements java.io.Serializable{
      */
     public boolean isUniqueEmailAddress() 
     {
-        
         boolean isUnique = false;
         try{
             
