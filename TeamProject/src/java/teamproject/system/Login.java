@@ -5,13 +5,15 @@
  */
 package teamproject.system;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import teamproject.sql.SqlHandler;
 import java.sql.ResultSet;
-
+import static teamproject.system.PasswordHash.validatePassword;
 
 /**
  *
@@ -46,7 +48,7 @@ public class Login {
         return formDetailsCorrect;
     }
     
-    public boolean checkDb(){
+    public boolean checkDb() throws NoSuchAlgorithmException, InvalidKeySpecException{
         boolean inDb = false;
         
         try{
@@ -65,7 +67,7 @@ public class Login {
                 String emailResult = queryResult.getString("email");
                 String passwordResult = queryResult.getString("password");
                
-                if(emailResult.equals(email) && passwordResult.equals(password))
+                if(emailResult.equals(email) && validatePassword(password, passwordResult))
                 {
                     inDb = true;
                 }
