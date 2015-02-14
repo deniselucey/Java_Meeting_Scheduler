@@ -14,6 +14,9 @@
     </head>
     
     <body>
+        <%--
+            if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+        --%>
         <a id="skiplink" href="#main">Skip to main content</a>
 	<a id="user" href="#"></a>
         
@@ -72,6 +75,10 @@
                </form>
             </section>
         </div>
+            
+        <%--}else{%>
+            <% response.sendRedirect("../TimeTable/TimeTable.jsp"); %>
+        <%}--%>
         <p class = "status"></p>
     </div>
     <footer>
