@@ -112,6 +112,7 @@ public class SystemSetting
         for(Property p : Property.values())
         {
             prefs.put(p.name(), p.getDefaultValue());
+            changes.clear();
         }
         prefs.put(empty, isEmpty);
     }

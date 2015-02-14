@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertThat;
@@ -76,7 +75,7 @@ public class SqlHandlerTest
     public void TestRunStatemtAndQuery() throws SQLException
     {
         String courseName = "TEST_COURSE";
-        String sqlInsert = "INSERT INTO course VALUES(NULL,'" + courseName+ "' , 1)";
+        String sqlInsert = "INSERT INTO course VALUES(NULL,'" + courseName+ "' ,'cs4342' , 1)";
         String sqlSelect = "SELECT * FROM course WHERE course_title = '" + courseName + "'";
         String sqlDelete = "DELETE FROM course WHERE course_title = '" + courseName + "'";
         
@@ -92,7 +91,7 @@ public class SqlHandlerTest
         assertThat(result.getString("course_title"), is(equalTo(courseName)));
         
         //deletes test row(s) and check if the results is empty
-        sqlHandler.runStatement(sqlDelete);
+        assertThat(sqlHandler.runStatement(sqlDelete), is(equalTo(1)));
         result = sqlHandler.runQuery(sqlSelect);
         assertThat(result.isBeforeFirst() , is(equalTo(false)));
     }
@@ -104,10 +103,130 @@ public class SqlHandlerTest
  
         
         //insert a row into courses
-        assertThat(sqlHandler.runStatement(sqlInsert), is(equalTo(false)));
+        assertThat(sqlHandler.runStatement(sqlInsert), is(equalTo(0)));
         //retreves rows from courses
     
-        assertThat(sqlHandler.runQuery(sqlInsert), is(equalTo(nullValue())));
+        assertThat(sqlHandler.runQuery(sqlInsert) == null, is(equalTo(true)));
     }
+    
+    @Test
+    public void testPassingBatch()
+    {
+        String[] sql = {
+            "insert into `User` values" +
+            "(null,\"password\",  \"TEST\",\"TEST\", \"TEST@TEST.ie\",0,1);",
+            "insert into `User` values" +
+            "(null,\"password\",  \"TEST2\",\"TEST2\", \"TEST2@TEST2.ie\",0,1);"};
+        try
+        {
+            sqlHandler.runStatement("Delete from `User` where firstname like \"TES%\";");
+            sqlHandler.executeBatch(sql);
+            
+            ResultSet rs = sqlHandler.runQuery("Select * from `User` where firstname like \"TEST%\";");
+            
+            assertThat(rs.next(), is(equalTo(true)));
+            sqlHandler.runStatement("Delete from `User` where firstname like \"TES%\";");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(SqlHandlerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    @Test
+    public void testFailingBatchRollBack() throws SQLException
+    {
+        String[] sql = {
+            "insert into `User` values" +
+            "(null,\"password\", \"TEST\",\"TEST\", \"TEST@TEST.ie\",0,1);",
+            "insert into `User` values" +
+            "(null,\"password\", \"TEST2\",\"TEST2\", \"TEST@TEST.ie\",0,1);"};
+         sqlHandler.runStatement("Delete from `User` where firstname like \"TES%\";");
+        try
+        {
+            sqlHandler.executeBatch(sql); 
+        } catch (SQLException ex)
+        {
+            //Logger.getLogger(SqlHandlerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet rs = sqlHandler.runQuery("Select * from `User` where firstname like \"TEST2\";");
+        assertThat(rs.next(), is(equalTo(false)));
+            
+        rs = sqlHandler.runQuery("Select * from `User` where firstname like \"TEST\";");
+        assertThat(rs.next(), is(equalTo(true)));
+            
+        sqlHandler.runStatement("Delete from `User` where firstname like \"TES%\";");
+    }
+    
+    public void testBatctOneEmptyStatment() throws SQLException
+    {
+        String[] sql = {
+            "insert into `User` values" +
+            "(null,\"password\", \"TEST\",\"TEST\", \"TEST@TEST.ie\",0,1);",
+            "" ,
+            "", null};
+        try
+        {
+            sqlHandler.runStatement("Delete from `User` where firstname like \"TES%\";");
+           
+            sqlHandler.executeBatch(sql);
+            
+            ResultSet rs = sqlHandler.runQuery("Select * from `User` where firstname like \"TEST2\";");
+            assertThat(rs.next(), is(equalTo(false)));
+            
+            rs = sqlHandler.runQuery("Select * from `User` where firstname like \"TEST\";");
+            assertThat(rs.next(), is(equalTo(false)));
+            
+            sqlHandler.runStatement("Delete from `User` where firstname like \"TEST%\";");
+        } catch (SQLException ex)
+        {
+             Logger.getLogger(SqlHandlerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            sqlHandler.runStatement("Delete from `User` where firstname like \"TEST%\";");
+        }
+        
+    }
+    public void testBatct2DiffrentTables() throws SQLException
+    {
+        String[] sql = {
+            "insert into `User` values" +
+            "(null,\"password\",  \"TEST\",\"TEST\", \"TEST@TEST.ie\",0,1);",
+             
+            "insert into meeting values\n" +
+"(null,1,\"2015-01-21 12:00:00\",\"2015-01-21 12:00:00\",\"2015-01-21\", \"UNITTEST\", 1, \"that place\", 1,\"D0\"),",
+        
+        };
+        try
+        {
+            sqlHandler.runStatement("Delete from `User` where firstname like \"TES%\";");
+            sqlHandler.runStatement("Delete from `meeting` where meeting-name = \"UNITTEST\";");
+            sqlHandler.executeBatch(sql);
+            
+            
+            ResultSet rs = sqlHandler.runQuery("Select * from `User` where firstname like \"TEST\";");
+           
+            assertThat(rs.next(), is(equalTo(false)));
+            
+            rs = sqlHandler.runQuery("Select * from `meeting` wheremeeting-name = \"UNITTEST\";");
+            assertThat(rs.next(), is(equalTo(false)));
+             
+          
+            sqlHandler.runStatement("Delete from `User` where firstname like \"TES%\";");
+            sqlHandler.runStatement("Delete from `meeting` where meeting-name = \"UNITTEST\";");
+        } catch (SQLException ex)
+        {
+             Logger.getLogger(SqlHandlerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            sqlHandler.runStatement("Delete from `User` where firstname like \"TEST%\";");
+        }
+        
+    }
+    
+    
+       
     
 }

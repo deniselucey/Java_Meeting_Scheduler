@@ -61,17 +61,11 @@ public class RecurrenceTest
     {
         //uses finctional programming to test all values of Recurrence 
         //get period of each and uses it to search for a value that matches
-        Arrays.stream(Recurrence.values()).parallel().
-            forEach
-            (
-                r -> assertThat
-                (
-                    Recurrence.findByPeriod(r.getPeriod()).getPeriod(),
-                    is(equalTo(r.getPeriod()))
-                )
-            );
-        
-        Assert.assertTrue( Recurrence.findByPeriod(Period.ofDays(-1)) == null);
+       for(Recurrence rec : Recurrence.values())
+        {
+            assertThat(Recurrence.findByPeriod(rec.getPeriod()).getPeriod(),
+                is(equalTo(rec.getPeriod())));
+        }
     }
     
 }
