@@ -15,10 +15,7 @@
     
     <body>
         <%
-            if((session.getAttribute("email") != null) || (session.getAttribute("email") != "")) {
-                response.sendRedirect("../TimeTable/Timetable.jsp");
-     
-            }
+            if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         
         <a id="skiplink" href="#main">Skip to main content</a>
@@ -54,12 +51,18 @@
                            <input type="submit" value="Log In">
                        </div>
 			      
-                       <a href="..\Register\RegisterAccount.html">Register here</a><br/>
+                       <a href="..\Register\RegisterAccount.jsp">Register here</a><br/>
                        <a href="..\ResetPassword\ResetPassword.html">Forgotten password?</a>
 		   </fieldset>			
                 </form>
             </section>
         </div>
+        
+         <%}else{%>
+            <% response.sendRedirect("../TimeTable/TimeTable.jsp"); %>
+         <%}%>
+
+         
         <p class = "status"></p>
     </div>
     <footer>
