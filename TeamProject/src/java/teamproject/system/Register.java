@@ -18,6 +18,7 @@ import static teamproject.system.PasswordHash.createHash;
 
 
 
+
 public class Register implements java.io.Serializable{
     
     private String firstName = "";
@@ -44,7 +45,7 @@ public class Register implements java.io.Serializable{
      public boolean registerDetailsWithDb() throws NoSuchAlgorithmException, InvalidKeySpecException 
     {
          
-        
+       
         password = encrypt();
         int registered1;
         int registered2;
@@ -59,7 +60,8 @@ public class Register implements java.io.Serializable{
            
             
             String query2 = "INSERT INTO student(student_id,student_number)" +
-                             "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),  '"+studentNumber+"');";
+                             "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),  "
+                    + "'"+studentNumber+"');";
             
    
        
@@ -68,7 +70,7 @@ public class Register implements java.io.Serializable{
             registered1 = sqlHandler.runStatement(query1);
             registered2 = sqlHandler.runStatement(query2);
             if(registered1 == 1 && registered2 == 1){
-                System.out.println("y");
+                
                 isRegistered = true;
             }
            
@@ -141,30 +143,19 @@ public class Register implements java.io.Serializable{
      */
     public boolean isAllowedEmailAddress()
     {
-        boolean emailAddressContains;
-        emailAddressContains = email.contains(SystemSetting.getProperty(
+        boolean emailAddressContains = false;
+        try{
+           
+            emailAddressContains = email.contains(SystemSetting.getProperty(
                                                 Property.AllowedEmailServices,null));
+        }catch(Exception e){
+        System.out.println("error");
+        }
         return emailAddressContains;
     }
     
     
-    /**
-     * 
-     * @return 
-     * @throws java.security.NoSuchAlgorithmException 
-     * @throws java.security.spec.InvalidKeySpecException 
-     */
-    public boolean checkDetailsAndRegister() throws NoSuchAlgorithmException, InvalidKeySpecException{
-        boolean details = false;
-        if( isUniqueEmailAddress())
-        {
-            details = true;
-            registerDetailsWithDb();
-        }
-        //if returns true details are ok and are being registered with db
-        // if returns false details are not correct and arent being registered.
-        return details;   
-    }
+  
     
     
      /**
@@ -212,7 +203,7 @@ public class Register implements java.io.Serializable{
         }
     
  
-        if(email.equals("") || (email.indexOf('@') == -1)) 
+        if(email.equals("") || (!isValidEmailAddress()) ||!isAllowedEmailAddress() ) 
         {
             errors.put("email","Please enter a valid email address");
             email = "";
