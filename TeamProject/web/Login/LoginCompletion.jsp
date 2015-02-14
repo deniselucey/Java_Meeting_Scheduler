@@ -42,8 +42,8 @@
                 
                <% 
                    
-                   String email = login.getEmail();
-                   session.setAttribute("email",email );
+                   String email = request.getParameter("email");
+                   session.setAttribute("email", email );
                    response.sendRedirect("../TimeTable/TimeTable.jsp");
                   
                %>

@@ -14,7 +14,7 @@
 <%
    }else if (login.validateForm() && !login.checkDb()) {
 %>
-    <jsp:forward page="Login.html"/>
+    <jsp:forward page="Login.jsp"/>
 <%
    } else{ 
 %>

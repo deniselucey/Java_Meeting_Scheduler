@@ -9,7 +9,7 @@
 <%@page import="teamproject.system.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:useBean id="login" class="teamproject.system.Login" scope="request"/>
+<jsp:useBean id="login" class="teamproject.system.Login" scope="session"/>
 
 
 
@@ -39,7 +39,7 @@
             
         <nav>
 	    <ul>
-                <li><a href="Login.html">Login</a></li>
+                <li><a href="Login.jsp">Login</a></li>
             </ul>
 	</nav>
 	
@@ -55,9 +55,9 @@
                         </div>		
 		               
                        <div>					
-                           <p><label>Password:</label>
+                            <p><label>Password:</label>
                             <input type = "password" name = "password1" value = "<%= login.getPassword()%>"><br>
-                        <%= login.getErrorMessage("password1")%></p>
+                            <%= login.getErrorMessage("password1")%></p>
                        </div>					
 			           
                        <div>
