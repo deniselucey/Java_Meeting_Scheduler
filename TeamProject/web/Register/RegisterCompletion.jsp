@@ -74,11 +74,16 @@
                                  if(register.registerDetailsWithDb()) {
                                     String email = request.getParameter("email");
                                     session.setAttribute("email", email );
+                                    
+                                    out.println(register.isAllowedEmailAddress());
                    
                              %>   
                                 <p> You have registered.<br> 
-                                    A email has been sent to confirm email address.  
+                                    A confirmation email has been sent to you.<br>
+                                    Confirm  your email address to start using the system.<br>  
                                 </p>  
+                                
+                                
                              
                              <%
                              }else {
