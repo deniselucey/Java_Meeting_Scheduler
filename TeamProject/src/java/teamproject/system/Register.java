@@ -58,8 +58,8 @@ public class Register implements java.io.Serializable{
                      email +"','" + password +"','" + salt +"');"; ;
            
             
-            String query2 = "INSERT INTO student(student_number)" +
-                             "VALUE('"+studentNumber+"');";
+            String query2 = "INSERT INTO student(student_id,student_number)" +
+                             "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),  '"+studentNumber+"');";
             
    
        
