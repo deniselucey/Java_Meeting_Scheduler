@@ -59,18 +59,17 @@ public class Login {
             sqlHandler = new SqlHandler();
             queryResult = sqlHandler.runQuery(query);
             
-            if(queryResult.isBeforeFirst() == true)
+            if(queryResult.isBeforeFirst())
             {
                 queryResult.next();
                 String emailResult = queryResult.getString("email");
                 String passwordResult = queryResult.getString("password");
                
-                if(emailResult.equals(email) && passwordResult.equals(password)){
-                 
+                if(emailResult.equals(email) && passwordResult.equals(password))
+                {
                     inDb = true;
                 }
             }else{
-                
                 return inDb;
             }
         }catch(SQLException ex) {
@@ -80,20 +79,6 @@ public class Login {
     }
     
             
-    private void encrypt(){
-        
-       
-        
-    }
-    
-    private String decrypt(){
-     String password;
-         password = "";
-     
-     
-     return password;
-    }
- 
     
     /**
      * 
