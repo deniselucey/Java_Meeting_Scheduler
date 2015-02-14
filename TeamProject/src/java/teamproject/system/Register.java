@@ -116,7 +116,7 @@ public class Register implements java.io.Serializable{
     public boolean sendValidationEmail() throws NoSuchAlgorithmException, InvalidKeySpecException 
     {
         boolean confirmationEmailHasBeenSent = false;
-        if(registerDetailsWithDb() == true){
+        if(registerDetailsWithDb()){
             // send email comfirming that a account has been set up
                 
             confirmationEmailHasBeenSent = true;
