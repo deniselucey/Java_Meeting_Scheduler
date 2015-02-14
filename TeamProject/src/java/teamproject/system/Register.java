@@ -31,7 +31,7 @@ public class Register implements java.io.Serializable{
     private String emailUnique ="";
     private String encryptedPassword ="";
     private String password =""; 
-    private char salt;
+
   
     
     /**
@@ -46,16 +46,16 @@ public class Register implements java.io.Serializable{
          
         
         password = encrypt();
-        boolean registered1;
-        boolean registered2;
+        int registered1;
+        int registered2;
         boolean isRegistered = false;
         try{
             
             SystemSetting.initSystemSetting();
             String query1 = "INSERT INTO User(firstname, secondname, "
-                           + "email, password,salt)"  
+                           + "email, password)"  
                     + "VALUES('" + firstName+ "','" + lastName +"','" +
-                     email +"','" + password +"','" + salt +"');"; ;
+                     email +"','" + password +"');"; ;
            
             
             String query2 = "INSERT INTO student(student_id,student_number)" +
@@ -67,7 +67,8 @@ public class Register implements java.io.Serializable{
             
             registered1 = sqlHandler.runStatement(query1);
             registered2 = sqlHandler.runStatement(query2);
-            if(registered1 && registered2 == true){
+            if(registered1 == 1 && registered2 == 1){
+                System.out.println("y");
                 isRegistered = true;
             }
            
@@ -182,6 +183,9 @@ public class Register implements java.io.Serializable{
             }
             return isEmailVaild;
         }
+        
+        
+     
     
    /**
     * 
@@ -230,6 +234,8 @@ public class Register implements java.io.Serializable{
             password2 = "";
             formDetailsCorrect= false;
         }
+        
+        
         
         if(isUniqueEmailAddress() == false)
         {
