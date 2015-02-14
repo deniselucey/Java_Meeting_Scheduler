@@ -4,7 +4,7 @@
 <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
 <%@ page import ="java.sql.*" %>
 
-<jsp:useBean id = "login" class="teamproject.system.scheduler.timetable.Timetable" scope="request"/>
+
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -25,6 +25,23 @@
         <a id="skiplink" href="#main">Skip to main content</a>
 	<a id="user" href="#"></a>
         
+        <%
+            if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                response.sendRedirect("../Login/Login.jsp");
+     
+            }else{
+        %>
+            <jsp:useBean id = "timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session"/>
+       <%
+        }
+            
+        
+        %>  
+        
+         
+      
+        
+        
         <div id="wrapper">
 	<header>
 	</header>
@@ -40,15 +57,9 @@
         <div id = "main">
 	    <section class = "content">
                 
-                <p>Welcome</p>
-                
-               <% 
-                   
-                
-
-               
-               %>
-                
+                <p>
+                Welcome <%=session.getAttribute("email")%>
+                </p>
           </section>
         </div>
         <p class = "status"></p>
