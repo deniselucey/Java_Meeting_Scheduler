@@ -20,7 +20,16 @@
         <div id="wrapper">
 	<header>
 	</header>
-            
+        
+        <%
+            if ((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+        %>
+        You are not logged in<br/>
+        <a href="..\Login\Login.html">Please Login</a>
+        <%
+            } else {
+        %>
+                
         <nav>
 	    <ul>
                 <li><a href="#">Home</a></li>
@@ -36,14 +45,6 @@
                 <%@page import="teamproject.user.people.Student"%>
                 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-                <%
-                    if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") == "")) {
-                %>
-                You are not logged in<br/>
-                <a href="..\Login\Login.html">Please Login</a>
-                
-                <%} else {
-                %>
 
                 <jsp:useBean id="enroll" class="teamproject.user.people.Student" scope="session">
                 </jsp:useBean>
