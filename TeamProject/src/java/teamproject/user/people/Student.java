@@ -26,15 +26,15 @@ public class Student extends Person {
 	{
             try{
                 SystemSetting.initSystemSetting();
-                String query1 = "SELECT module_id FROM Module WHERE code = '" + module + "';";               
-                ResultSet queryResult;                
+                String query1 = "SELECT module_id FROM Module WHERE code = '" + module + "';";                              
                 sqlHandler = new SqlHandler();
-                queryResult = sqlHandler.runQuery(query1);
+                ResultSet queryResult = sqlHandler.runQuery(query1);
                 
+                moduleNo = queryResult.getString(1);
                 String query2 = "INSERT INTO User_has_Module(user_id, module_id)"  
                               + "VALUES('" + studentNo + "','" + moduleNo +"');";
                 sqlHandler.runStatement(query2);
-            
+                
                 enrolled = true;
                 
         }catch(SQLException ex) {
