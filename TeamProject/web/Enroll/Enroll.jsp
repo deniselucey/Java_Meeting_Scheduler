@@ -36,16 +36,29 @@
                 <%@page import="teamproject.user.people.Student"%>
                 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+                <%
+                    if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") == "")) {
+                %>
+                You are not logged in<br/>
+                <a href="..\Login\Login.html">Please Login</a>
+                
+                <%} else {
+                %>
+
                 <jsp:useBean id="enroll" class="teamproject.user.people.Student" scope="session">
                 </jsp:useBean>
 
 
                 <% 
-                    out.print(enroll.enrollToModule(request.getParameter("module")));       
+                    out.print(session.getAttribute("email"));
+                    String email = (String) session.getAttribute("email");
+                    out.print(enroll.enrollToModule(request.getParameter("module"), email));       
                 %>
             </section>
         </div>
-
+        <%
+            }
+        %>
          
         <p class = "status"></p>
         </div>
