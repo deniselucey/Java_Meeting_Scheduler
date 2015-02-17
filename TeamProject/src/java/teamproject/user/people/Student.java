@@ -53,7 +53,7 @@ public class Student extends Person {
 	 * 
 	 * @param module
 	 */
-	public boolean unEnrollToModule(String module)
+	public boolean unEnrollToModule(String module, String email)
 	{
             try{
                 SystemSetting.initSystemSetting();
