@@ -7,7 +7,7 @@ import teamproject.meeting.Meeting;
 
 public class Timetable {
     
-    private TimeSlot[][] timeSlots;
+   /** private TimeSlot[][] timeSlots;
     
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -38,5 +38,7 @@ public class Timetable {
 		// TODO - implement Timetable.DaysToHTML
 		throw new UnsupportedOperationException();
 	}
+         
+        * */
 
 }
