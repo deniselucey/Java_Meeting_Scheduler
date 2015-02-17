@@ -12,7 +12,7 @@ import teamproject.system.SystemSetting;
 public class Student extends Person {
 
 	private ArrayList<Module> modules;
-	private int studentNo;
+	private String studentNo;
         private String moduleNo;
         private SqlHandler sqlHandler;
         private boolean enrolled = false;
@@ -22,18 +22,24 @@ public class Student extends Person {
 	 * 
 	 * @param module
 	 */
-	public boolean enrollToModule(String module)
+	public boolean enrollToModule(String module, String email)
 	{
             try{
                 SystemSetting.initSystemSetting();
                 String query1 = "SELECT module_id FROM Module WHERE code = '" + module + "';";                              
                 sqlHandler = new SqlHandler();
-                ResultSet queryResult = sqlHandler.runQuery(query1);
+                ResultSet queryResult1 = sqlHandler.runQuery(query1);
                 
-                moduleNo = queryResult.getString(1);
-                String query2 = "INSERT INTO User_has_Module(user_id, module_id)"  
+                String query2 = "SELECT user_id FROM User WHERE email = '" + email + "';";                              
+                sqlHandler = new SqlHandler();
+                ResultSet queryResult2 = sqlHandler.runQuery(query2);
+                
+                moduleNo = queryResult1.getString(1);
+                studentNo = queryResult2.getString(1);
+                
+                String query3 = "INSERT INTO User_has_Module(user_id, module_id)"  
                               + "VALUES('" + studentNo + "','" + moduleNo +"');";
-                sqlHandler.runStatement(query2);
+                sqlHandler.runStatement(query3);
                 
                 enrolled = true;
                 
@@ -69,11 +75,11 @@ public class Student extends Person {
             return unenrolled;
 	}
         
-        public int getStudentNo() {
+        public String getStudentNo() {
             return studentNo;
         }
         
-        public void setStudentNo(int studentNo) {
+        public void setStudentNo(String studentNo) {
             this.studentNo = studentNo;
         }
 }
