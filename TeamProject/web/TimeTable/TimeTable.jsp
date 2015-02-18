@@ -49,7 +49,7 @@
         <nav>
 	    <ul>
                 <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
-               
+                <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
                 
             </ul>
 	</nav>
