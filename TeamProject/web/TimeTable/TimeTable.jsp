@@ -55,12 +55,18 @@
 	</nav>
 	
         <div id = "main">
-	    <section class = "content">
+	    
                 
-                <p>
+                
                 Welcome <%=session.getAttribute("email")%>
-                </p>
-          </section>
+                
+                <% 
+                    
+                    Timetable timetable = (Timetable)session.getAttribute("timeTable");
+                    out.print(timetable.TabletoHTML());
+                 %>
+                
+          
         </div>
         <p class = "status"></p>
     </div>
