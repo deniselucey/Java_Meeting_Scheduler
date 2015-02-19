@@ -59,7 +59,7 @@
                 
                 <% 
                 
-                 out.println(timeTable.TabletoHTML());
+                 out.println(timeTable.toHTML());
                     
                     
                  %>
