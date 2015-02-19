@@ -51,5 +51,8 @@ public class User {
 		// TODO - implement User.removeFriend
 		throw new UnsupportedOperationException();
 	}
-
+        public int getId()
+        {
+            return self.getId();
+        }
 }
