@@ -215,6 +215,10 @@ public class Meeting {
         return people_attendees;
     }
 
+    public Duration getLength() {
+        return length;
+    }
+        
     @Override
     public String toString() 
     {
@@ -389,5 +393,5 @@ public class Meeting {
         char[] sqlChars = truncate.toCharArray();
         sqlChars[10] = 'T';
         return LocalDateTime.parse(String.valueOf(sqlChars));
-    }
+    }    
 }
