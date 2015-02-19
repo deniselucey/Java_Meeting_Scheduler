@@ -226,7 +226,24 @@ public class SqlHandlerTest
         
     }
     
-    
-       
+    @Test
+    public void TestTransaction()
+    {
+        String sql = "START TRANSACTION;"
+                //+ "SET autocommit = 0; "
+                + "@result = (SELECT meeting_id FROM meeting WHERE meeting_name = 'fight'); "
+                + "INSERT INTO is_attending VALUES"
+                + "(@result, 4); "
+                + "COMMIT;";
+               // + "SET autocommit = 1; ";
+        String set = "SET @result = (SELECT meeting_id FROM meeting WHERE meeting_name = \"fight\" LIMIT 1);";
+
+        try {
+            sqlHandler.runStatement(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(SqlHandlerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     
 }

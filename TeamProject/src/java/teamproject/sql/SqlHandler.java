@@ -20,16 +20,13 @@ import teamproject.system.SystemSetting;
  */
 public class SqlHandler {
 
-    private ArrayList<String> sqlQueres;
-    private Connection connection;
-    private ArrayList<PreparedStatement> statements;
-
-    private String password;
-    private String user;
-    private String port;
-    private String url;
-    private String name;
-    public static int MAXBATCHCOUNT = 1000;
+    protected Connection connection;
+    protected String password;
+    protected String user;
+    protected String port;
+    protected String url;
+    protected String name;
+    public static final int MAXBATCHCOUNT = 1000;
 
     //TODO deletecomment
     //sql below create a database user called admin with a password of password 

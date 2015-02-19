@@ -2,31 +2,30 @@ package teamproject.meeting;
 
 public enum MeetingType
 {
-	PERSONAL(1),
-        LAB(4),
-        LECTURE(5),
-        EXAM(11), 
-        LOW(1), 
-        LOWMID(3), 
-        MID(5), 
-        MIDHIGH(7), 
-        HIGH(9), 
-        VERYHIGH(11),
-        PERFEREDTOBETAKEN(-1);
+	PERSONAL((byte)1),
+        LAB((byte)4),
+        LECTURE((byte)5),
+        EXAM((byte)11), 
+        LOW((byte)1), 
+        LOWMID((byte)3), 
+        MID((byte)5), 
+        MIDHIGH((byte)7), 
+        HIGH((byte)9), 
+        VERYHIGH((byte)11),
+        PERFEREDTOBETAKEN((byte)-1);
 
-	private int priority;
+	private byte priority;
 
 	/**
 	 * 
 	 * @param priority
 	 */
-	private MeetingType(int priority)
+	private MeetingType(byte priority)
 	{
-		// TODO - implement MeetingType.MEETING_TYPE
-		throw new UnsupportedOperationException();
+            this.priority = priority;
 	}
 
-	public int getPriority()
+	public byte getPriority()
 	{
 		return this.priority;
 	}

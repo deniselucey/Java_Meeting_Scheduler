@@ -11,5 +11,21 @@ package teamproject.meeting;
  */
 public enum MeetingPrivacy
 {
-    PRIVATE,PUBLIC,ENVOLVED,GROUP;
+    PRIVATE((byte)1),
+    PUBLIC((byte)2),
+    FRIENDS((byte)3);
+    
+    final byte id;
+    
+    private MeetingPrivacy(byte id)
+    {
+        this.id = id;
+    }
+    
+    public byte getId()
+    {
+        return id;
+    }
+    
+    
 }
