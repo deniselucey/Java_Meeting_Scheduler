@@ -10,7 +10,7 @@ public class Group {
 	private ArrayList<Person> founders;
 	private ArrayList<Person> group;
 	private String HopePage;
-
+        private int id;
 	/**
 	 * 
 	 * @param Url
@@ -77,5 +77,9 @@ public class Group {
 		// TODO - implement Group.notify
 		throw new UnsupportedOperationException();
 	}
-
+        
+        public int getId()
+        {
+            return id;
+        }
 }
