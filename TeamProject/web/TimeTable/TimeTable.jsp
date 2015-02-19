@@ -1,7 +1,6 @@
 
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="teamproject.system.scheduler.timetable.Timetable"%>
+
 <%@ page import ="java.sql.*" %>
 
 
@@ -25,43 +24,55 @@
         <a id="skiplink" href="#main">Skip to main content</a>
 	<a id="user" href="#"></a>
         
-        <%
-            if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                response.sendRedirect("../Login/Login.jsp");
-     
-            }else{
-        %>
-            <jsp:useBean id = "timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session"/>
-       <%
-        }
-            
-        
-        %>  
-        
-         
-      
-        
-        
-        <div id="wrapper">
+       <div id="wrapper">
 	<header>
 	</header>
             
-        <nav>
-	    <ul>
-                <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
-               
+            <%
+                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                    response.sendRedirect("../Login/Login.jsp");
+            %>
+            <%
+                } else {
+            %>
+           
+                <%@page contentType="text/html" pageEncoding="UTF-8"%>
+                <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
+        
+                <jsp:useBean id="timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session">
+                </jsp:useBean>
                 
-            </ul>
-	</nav>
+                
+                
+                 <nav>
+                    <ul>
+                        <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+                        <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                    </ul>
+                </nav>
 	
-        <div id = "main">
-	    <section class = "content">
+                 <div id = "main">
+	    
                 
-                <p>
+                
                 Welcome <%=session.getAttribute("email")%>
-                </p>
-          </section>
-        </div>
+                
+                <% 
+                
+                 out.println(timeTable.TabletoHTML());
+                    
+                    
+                 %>
+                
+          
+                </div>
+                <%
+                   }
+                %>  
+        
+         
+            
+       
         <p class = "status"></p>
     </div>
     <footer>

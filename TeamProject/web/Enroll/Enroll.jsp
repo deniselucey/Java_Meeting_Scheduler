@@ -19,10 +19,10 @@
         
         <div id="wrapper">
 	<header>
-	</header>
+        </header>
         
         <%
-            if ((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+            if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         You are not logged in<br/>
         <a href="..\Login\Login.html">Please Login</a>

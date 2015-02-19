@@ -76,6 +76,7 @@
                                     session.setAttribute("email", email );
                                     
                                     out.println(register.isAllowedEmailAddress());
+                                    out.println(register);
                    
                              %>   
                                 <p> You have registered.<br> 

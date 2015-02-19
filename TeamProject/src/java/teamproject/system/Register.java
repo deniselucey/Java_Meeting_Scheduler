@@ -203,7 +203,7 @@ public class Register implements java.io.Serializable{
         }
     
  
-        if(email.equals("") || (!isValidEmailAddress()) ||!isAllowedEmailAddress() ) 
+        if(email.equals("") || email.indexOf("@") == -1)  //(!isValidEmailAddress()) ||!isAllowedEmailAddress() ) 
         {
             errors.put("email","Please enter a valid email address");
             email = "";
