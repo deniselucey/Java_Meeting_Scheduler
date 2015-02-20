@@ -84,7 +84,6 @@ public class MeetingTest {
     @Test
     public void TestConstructerAndEquals()
     {
-        
         Meeting meeting = new Meeting("TestMeeting", "Test Description" , 1, LocalDateTime.of(2015, Month.MARCH, 4, 3, 30), LocalDateTime.of(2015, Month.MARCH, 4, 4,15), 
                 LocalDate.of(2015, Month.MARCH, 4), "TestLocation", false, Recurrence.NEVER, MeetingPrivacy.PRIVATE, MeetingType.LOW,1);
         String m = meeting.toSQL();
@@ -92,19 +91,23 @@ public class MeetingTest {
         SqlHandler sh = new SqlHandler();
         int i;
         Meeting meeting1 = null;
-        try {
+        
+        try
+        {
             sh.runStatement(m);
             i = meeting.getIdFromDatabase();
             meeting1 = new Meeting(i);
-            
-            
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             Logger.getLogger(MeetingTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        System.out.println(" Meeting \n"+ meeting + "\n" + meeting1 );
         assertThat(meeting1 , is(not(nullValue())));
         assertThat(meeting , is(not(nullValue())));
         assertThat(meeting.equals(meeting1), is(equalTo(true)));
-        System.out.println(" Meeting \n"+ meeting + "\n" + meeting1 );
-        
     }
+    
+    
 }

@@ -45,8 +45,8 @@ public class Meeting {
             this.id = rs.getInt("meeting_id");
             title = rs.getString("meeting_name");
             description = rs.getString("description");
-            //	private HashSet<Person> people_attendees;
-            //	private HashSet<Group> group_attendees;
+            people_attendees = new HashSet<>();
+            group_attendees = new HashSet<>();
             this.hostUserID = rs.getInt("host_id");
             startDateTime = sqlDateStringToLocalDateTime(rs.getString("start_time"));
             endDateTime = sqlDateStringToLocalDateTime(rs.getString("end_time"));
@@ -54,7 +54,7 @@ public class Meeting {
             location = rs.getString("location");
             repeatEvery = Recurrence.findByPeriod( Period.parse(rs.getString("repeteEvery")));
             piority =  (byte)rs.getInt("priority");
-            privacy  =  MeetingPrivacy.values()[rs.getInt("privacy_id")];
+            privacy  =  MeetingPrivacy.getMeetingPrivacyByID(rs.getInt("privacy_id"));
             length = Duration.between(startDateTime, endDateTime);
         }  
     }
@@ -67,6 +67,8 @@ public class Meeting {
         this.repeatEvery = repeat;
         this.piority = piority.getPriority();
         this.privacy = privacy;
+        people_attendees = new HashSet<>();
+        group_attendees = new HashSet<>();
     }
     
     public Meeting(ResultSet rs) throws SQLException
@@ -84,6 +86,8 @@ public class Meeting {
         piority = rs.getByte("priority"); 
         privacy = MeetingPrivacy.getMeetingPrivacyByID(rs.getInt("privacy_id"));
         length = Duration.between(startDateTime, endDateTime);
+        people_attendees = new HashSet<>();
+        group_attendees = new HashSet<>();
     }
     
     public Meeting(String title, String description,
@@ -94,7 +98,7 @@ public class Meeting {
     {
         this.title = title;
         this.description = description;
-        this.length = Duration.between(end_time, start_time);
+        this.length = Duration.between(start_time, end_time);
         this.startDateTime = start_time;
         this.endDateTime = end_time;
         this.runs_until = runs_until;
@@ -104,6 +108,8 @@ public class Meeting {
         this.piority = piority.getPriority();
         this.privacy = privacy;
         this.hostUserID = hostId;
+        people_attendees = new HashSet<>();
+        group_attendees = new HashSet<>();
     }
 
     /**
@@ -291,31 +297,36 @@ public class Meeting {
         if (!Objects.equals(this.group_attendees, other.group_attendees)) {
             return false;
         }
-        if (!Objects.equals(this.length, other.length)) {
+        if (!Objects.equals(this.length,other.length)) {
+            System.out.print(this.length + "Length " + other.length);
             return false;
         }
         if (!Objects.equals(this.startDateTime, other.startDateTime)) {
             return false;
         }
-//        if (!Objects.equals(this.endDateTime, other.endDateTime)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.runs_until, other.runs_until)) {
-//            return false;
-//        }
-//        if (!Objects.equals(this.location, other.location)) {
-//            return false;
-//        }
-//        if (this.recurring != other.recurring) {
-//            return false;
-//        }
-//        if (this.repeatEvery != other.repeatEvery) {
-//            return false;
-//        }
-//        if (this.piority != other.piority) {
-//            return false;
-//        }
-//        return this.privacy == other.privacy;
+        if (!Objects.equals(this.endDateTime, other.endDateTime)) {
+            return false;
+        }
+        if (!Objects.equals(this.runs_until, other.runs_until)) {
+            return false;
+        }
+        if (!Objects.equals(this.location, other.location)) {
+            return false;
+        }
+        if (this.recurring != other.recurring) {
+            return false;
+        }
+        if (this.repeatEvery != other.repeatEvery) {
+            return false;
+        }
+        if (this.piority != other.piority) {
+            return false;
+        }
+        if (this.privacy != other.privacy) {
+            System.out.println(this.privacy +"   "+other.privacy);
+            return false;
+        }
+     
         return true;
     }
    
