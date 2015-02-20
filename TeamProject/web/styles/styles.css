@@ -151,24 +151,41 @@ footer a
 	color: #FFF;
 }
 
+
+table{
+    width: 85%;
+    margin-left: 15%;
+}
+
 th,td
     {
+        height: 15px;
         margin: 0;
         text-align: center;
-        border-collapse: collapse;
         outline: 1px solid #e3e3e3;
+        border-right-style: solid;
+        border-left-style: solid;
+        
+    }
+    
+    tr:nth-child(4n +5) {  
+        border-bottom-style: solid;
+        border-bottom-color: black;
     }
 
     td
     {
-        padding: 5px 10px;
+        padding: 9px;
     }
 
     th
     {
-        background: #666;
-        color: white;
-        padding: 5px 10px;
+        width: 20%;
+        border-bottom-style: solid;
+        border-bottom-color: black;
+        padding: 5px;
+        border-top-style: solid;
+       
     }
 
     td:hover
@@ -176,6 +193,11 @@ th,td
         cursor: pointer;
         background: #666;
         color: white;
+    }
+    
+    .occupied {
+   
+    
     }
     
     
