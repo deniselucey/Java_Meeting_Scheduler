@@ -2,14 +2,7 @@ package teamproject.system.scheduler.timetable;
 
 import teamproject.meeting.Meeting;
 import java.util.HashSet;
-
-
 import javafx.util.Duration;
-
-
-
-
-  
 
 public class TimeSlot {
 
@@ -24,6 +17,14 @@ public class TimeSlot {
             
         }
         
+        public String toHTML(){
+            if(meetings.isEmpty()){
+                return "<td></td>";
+            }
+            
+            return "<td class=\"occupied\">" + ((Meeting)meetings.toArray()[0]).getTitle() +"</td>"; //Its well 1337 boi!
+            
+        }
         
         public void add(Meeting meeting){
             meetings.add(meeting);
