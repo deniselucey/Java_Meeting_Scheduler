@@ -109,11 +109,12 @@ public class localDateTest
     @Test
     public void testDurationBetweenLocalDateTime()
     {
-       LocalDateTime end_time = LocalDateTime.of(2012, Month.MAY, 1,2,30);
+       LocalDateTime end_time   = LocalDateTime.of(2012, Month.MAY, 1,2,30);
        LocalDateTime start_time = LocalDateTime.of(2012, Month.MAY, 2,6,45);
        Duration d = Duration.between(end_time, start_time);
        Duration a = Duration.ofDays(2);
        System.out.println("Durationg between " + d);
-        
+       System.out.println("no minutes " + a.toMinutes());     
+       
     }
 }

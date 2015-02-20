@@ -27,5 +27,15 @@ public enum MeetingPrivacy
         return id;
     }
     
-    
+    public static MeetingPrivacy getMeetingPrivacyByID(int id)
+    {
+        for(MeetingPrivacy mp : MeetingPrivacy.values())
+        {
+            if(id == mp.getId())
+            {
+                return mp;
+            }
+        }
+        return MeetingPrivacy.PRIVATE;
+    }
 }
