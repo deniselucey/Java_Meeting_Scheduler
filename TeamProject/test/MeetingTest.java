@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -109,5 +110,20 @@ public class MeetingTest {
         assertThat(meeting.equals(meeting1), is(equalTo(true)));
     }
     
+    @Test
+    public void TestMeetingExpanding()
+    {
+        Meeting meeting = new Meeting("TestExpandedMeeting", "Test Description" , 1, LocalDateTime.of(2015, Month.MARCH, 1, 3, 30), LocalDateTime.of(2015, Month.MARCH, 1, 4,15), 
+                LocalDate.of(2015, Month.NOVEMBER, 20), "TestLocation", false, Recurrence.NEVER, MeetingPrivacy.PRIVATE, MeetingType.LOW,1);
+        
+       // Recurrence rec = Recurrence.WEEKLY;
+       //ArrayList<LocalDateTime> ldts = rec.findDatesInRange(LocalDateTime.of(2015, Month.JANUARY, 31, 8 , 0), LocalDateTime.of(2015, Month.FEBRUARY, 2, 9 , 0), LocalDate.of(2015, Month.DECEMBER, 31), LocalDate.of(2015, Month.FEBRUARY, 1),  LocalDate.of(2015, Month.MARCH, 1));
+        
+        ArrayList<Meeting> meetings = Meeting.expandMeeting(meeting, LocalDate.of(2015, Month.MARCH, 1), LocalDate.of(2015, Month.MARCH, 31));
     
+        for(Meeting m: meetings)
+        {
+            System.out.println(m.toString());
+        }
+    }
 }

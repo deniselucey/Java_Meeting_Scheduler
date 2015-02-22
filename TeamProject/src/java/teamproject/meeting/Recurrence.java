@@ -1,12 +1,13 @@
 package teamproject.meeting;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public enum Recurrence
 {
-	NEVER(Period.ofDays(0)),
+	NEVER(Period.ofYears(1000)),
         WEEKLY(Period.ofWeeks(1)),
         MONTLY(Period.ofMonths(1)),
         YEARLY(Period.ofYears(1));
@@ -31,6 +32,34 @@ public enum Recurrence
 	{
 		return date.plus(period);
 	}
+        
+        /**
+         * Find all date and time of repeating dates 
+         * @param meetingStartTime
+         * @param meetingEndTime
+         * @param meetingRunsUntil
+         * @param start
+         * @param end
+         * @return 
+         */
+        public ArrayList<LocalDateTime> findDatesInRange(LocalDateTime meetingStartTime, LocalDateTime meetingEndTime, LocalDate meetingRunsUntil, LocalDate start, LocalDate end)
+        {
+            LocalDateTime tempStart = meetingStartTime;
+            LocalDateTime tempEnd = meetingEndTime;
+            
+            ArrayList<LocalDateTime> result = new ArrayList<>();
+            while(tempStart.isBefore(end.atStartOfDay()))
+            {
+                if(tempStart.isAfter(start.atStartOfDay()) || tempEnd.isAfter(start.atStartOfDay()))
+                {
+                   result.add(tempStart);
+                }
+                tempStart = tempStart.plus(this.getPeriod());
+                tempEnd = tempEnd.plus(this.getPeriod());
+            }
+            return result;
+        }
+        
         /**
          * 
          * @param time period of time that you want to get a recurrence of.
@@ -46,6 +75,6 @@ public enum Recurrence
                    return rec;
                }
             }
-            return null;
+            return Recurrence.NEVER;
         }
 }

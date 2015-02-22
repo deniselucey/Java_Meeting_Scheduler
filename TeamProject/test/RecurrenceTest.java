@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-import java.time.Period;
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -61,11 +61,21 @@ public class RecurrenceTest
     {
         //uses finctional programming to test all values of Recurrence 
         //get period of each and uses it to search for a value that matches
-       for(Recurrence rec : Recurrence.values())
+        for(Recurrence rec : Recurrence.values())
         {
             assertThat(Recurrence.findByPeriod(rec.getPeriod()).getPeriod(),
                 is(equalTo(rec.getPeriod())));
         }
     }
-    
+    @Test
+    public void testFindDateInRange()
+    {
+        Recurrence rec = Recurrence.WEEKLY;
+        ArrayList<LocalDateTime> ldts = rec.findDatesInRange(LocalDateTime.of(2015, Month.JANUARY, 31, 8 , 0), LocalDateTime.of(2015, Month.FEBRUARY, 2, 9 , 0), LocalDate.of(2015, Month.DECEMBER, 31), LocalDate.of(2015, Month.FEBRUARY, 1),  LocalDate.of(2015, Month.MARCH, 1));
+        for(LocalDateTime ldt : ldts )
+        {
+            System.out.println("LocalDateTime : " + ldt);
+        }
+        System.out.println("meeting between " + ldts.size() );
+    }
 }

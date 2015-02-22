@@ -12,18 +12,25 @@ public class TimeSlot {
         
         public TimeSlot(){
             meetings= new HashSet<>();
-            
-            
-            
         }
         
         public String toHTML(){
             if(meetings.isEmpty()){
                 return "<td></td>";
-            }
-            
-            return "<td class=\"occupied\">" + ((Meeting)meetings.toArray()[0]).getTitle() +"</td>"; //Its well 1337 boi!
-            
+            } else if(meetings.size() > 1)
+            {
+                int size = meetings.size();
+                
+                String result = "<td class=\"collision\">"; 
+                
+                for(int i = 0; i < size ;i++ )
+                {
+                    result += ((Meeting)meetings.toArray()[i]).getTitle() + "\n";
+                }
+                result += "</td>";
+                return result;  
+            } 
+            return "<td class=\"occupied\">" + ((Meeting)meetings.toArray()[0]).getTitle() +"</td>"; 
         }
         
         public void add(Meeting meeting){

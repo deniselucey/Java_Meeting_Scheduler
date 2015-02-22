@@ -69,10 +69,17 @@ public class TimetableTest {
             Timetable timetable = new Timetable(LocalDate.of(2015, Month.JANUARY, 21), LocalDate.of(2015, Month.JANUARY, 28), meetings);
             System.out.println(timetable.toHTML());
             
-            
         } catch (SQLException ex) {
             Logger.getLogger(TimetableTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
+    
+    @Test
+    public void testConstor() throws SQLException
+    {
+        Timetable t = new Timetable();
+               t.toHTML();
         
     }
 }

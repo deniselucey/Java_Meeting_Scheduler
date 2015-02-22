@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -89,6 +90,26 @@ public class Meeting {
         people_attendees = new HashSet<>();
         group_attendees = new HashSet<>();
     }
+
+    public Meeting(Meeting other) {
+        this.title = other.title;
+        this.description = other.description;
+        this.id = other.id;
+        this.hostUserID = other.hostUserID;
+        this.people_attendees = other.people_attendees;
+        this.group_attendees = other.group_attendees;
+        this.length = other.length;
+        this.startDateTime = other.startDateTime;
+        this.endDateTime = other.endDateTime;
+        this.runs_until = other.runs_until;
+        this.location = other.location;
+        this.recurring = other.recurring;
+        this.repeatEvery = other.repeatEvery;
+        this.piority = other.piority;
+        this.privacy = other.privacy;
+    }
+    
+    
     
     public Meeting(String title, String description,
             int host_id, LocalDateTime start_time, LocalDateTime end_time,
@@ -329,7 +350,30 @@ public class Meeting {
      
         return true;
     }
-   
+   /**
+    * Turns repeating meeting
+    * @param m
+    * @param startDate
+    * @param endDate
+    * @return 
+    */
+    public static ArrayList<Meeting> expandMeeting(Meeting m, LocalDate startDate, LocalDate endDate)
+    {
+//        System.out.println(m);
+        ArrayList<LocalDateTime> dates = m.getRepeatEvery()
+                    .findDatesInRange(m.getStartDateTime(), m.getEndDateTime(),
+                                    m.getRuns_until(), startDate, endDate);
+        ArrayList<Meeting> meetings = new ArrayList<>();
+        for(LocalDateTime date: dates)
+        {
+            Meeting other = new Meeting(m);
+            other.startDateTime = date;
+            other.endDateTime = other.startDateTime.plus(m.getLength());
+            
+            meetings.add(other);
+        }
+        return meetings;
+    }
     
     private class InsertMeeting extends SqlHandler {
     
