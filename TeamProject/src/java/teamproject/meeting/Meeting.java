@@ -75,7 +75,7 @@ public class Meeting {
     public Meeting(ResultSet rs) throws SQLException
     {
         title = rs.getString("meeting_name");
-        description = rs.getString("desciption");
+        description = rs.getString("description");
         id = rs.getInt("meeting_id");
         hostUserID =  rs.getInt("host_id");
         startDateTime = sqlDateStringToLocalDateTime(rs.getString("start_time"));

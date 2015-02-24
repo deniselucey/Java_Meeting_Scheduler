@@ -16,6 +16,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import teamproject.meeting.Meeting;
 import teamproject.system.scheduler.timetable.Timetable;
@@ -58,7 +59,9 @@ public class TimetableTest {
         int minutes = (int) (duration.toMinutes() - (daysIndex*24*60));
         System.out.println(minutes + " " + daysIndex);
     }
+ 
     
+    @Ignore
     @Test
     public void testConstructor(){
         ArrayList<Meeting> meetings = new ArrayList<>();
@@ -66,7 +69,7 @@ public class TimetableTest {
             meetings.add(new Meeting(1));
             meetings.add(new Meeting(2));
             meetings.add(new Meeting(3));
-            Timetable timetable = new Timetable(LocalDate.of(2015, Month.JANUARY, 21), LocalDate.of(2015, Month.JANUARY, 28), meetings);
+            Timetable timetable = new Timetable(LocalDate.of(2015, Month.JANUARY, 21), 4, meetings);
             System.out.println(timetable.toHTML());
             
         } catch (SQLException ex) {

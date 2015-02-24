@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -16,6 +17,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import teamproject.meeting.Meeting;
 import teamproject.meeting.Recurrence;
 
 /**
@@ -77,5 +79,18 @@ public class RecurrenceTest
             System.out.println("LocalDateTime : " + ldt);
         }
         System.out.println("meeting between " + ldts.size() );
+    }
+    @Test
+    public void TestNonReapeting() throws SQLException
+    {
+        Meeting m = new Meeting(1);
+        System.out.println("Non");
+        ArrayList<Meeting> ms = Meeting.expandMeeting(m, LocalDate.of(2015, Month.JANUARY, 1), LocalDate.of(2016, Month.JANUARY, 30));
+        for(Meeting a : ms)
+        {
+            System.out.println(a);
+        }
+        System.out.println("End");
+        
     }
 }

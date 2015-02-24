@@ -20,19 +20,27 @@ public class Timetable {
     public static final int MINUTES_IN_A_TIMESLOT = 15;
     public static final int NUMBER_OF_TIMESLOTS = (HOURS_IN_A_DAY *60) /MINUTES_IN_A_TIMESLOT ;
     private static final Duration DAY_START_TIME = Duration.ofHours(8);
-    private static final Duration DAY_LEFT = Duration.ofDays(1).minus(DAY_START_TIME.plusHours(Timetable.HOURS_IN_A_DAY));
+    private static final Duration DAY_LEFT = Duration.ofDays(1).minusHours(Timetable.HOURS_IN_A_DAY);
+    private int lengthInDays;
+    private int hourRowSpan = 2;
+    
     
     public Timetable() throws SQLException{
-        this(LocalDate.of(2014, Month.DECEMBER, 29), LocalDate.of(2015, Month.JANUARY, 5).plusWeeks(20), loadAllMeeting());
+        this(LocalDate.of(2014, Month.DECEMBER, 29), 20, loadAllMeeting());
         //TODO Delete above line. Just for testing.    Well proper 1337!
     }
     
-    public Timetable(LocalDate startDate, LocalDate endDate, ArrayList<Meeting> meetingWithRepeating){
+    /**
+     * 
+     * @param startDate startDate of 
+     * @param endDate
+     * @param meetingWithRepeating 
+     */
+    public Timetable(LocalDate startDate, int weeks, ArrayList<Meeting> meetingWithRepeating){
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.endDate = startDate.plusWeeks(weeks);
         int days = (int) ChronoUnit.DAYS.between(startDate, endDate);
-        
-//        System.out.println( "DAYS:" + days);
+        lengthInDays = days;
         timeSlots = new TimeSlot[days][NUMBER_OF_TIMESLOTS];
         
         ArrayList<Meeting> meetings = new ArrayList<>();
@@ -48,7 +56,6 @@ public class Timetable {
             }
         }
         
-        //
         for(Meeting meeting : meetings){
                 
                 Duration duration = Duration.between(startDate.atStartOfDay(),meeting.getStartDateTime());
@@ -59,10 +66,6 @@ public class Timetable {
                 float length = ((float)meeting.getLength().toMinutes())/MINUTES_IN_A_TIMESLOT;
                 //int slotOffset;
                 for(int i = 0,slot = slotIndex ; i < length; i++){
-                
-                    //System.out.println("boolean :  " +((slotIndex + slot)%NUMBER_OF_TIMESLOTS) + "  i:" + slot + " daysIndex " + "daysIndex:" +daysIndex+"  slotOffset:"+slotOffset );
-                   //System.out.println("daysIndex:" +daysIndex+"  slotOffset:"+slotOffset );
-                    
                     
                     try{
                         timeSlots[daysIndex][slot].add(meeting);
@@ -70,8 +73,7 @@ public class Timetable {
                     slot++;
                     if(slot == NUMBER_OF_TIMESLOTS){
                         System.out.println("in loop");
-                        i += 14 * 4;//DAY_LEFT.toMinutes();
-                        //TODO change to calculate remaing time in day
+                        i += DAY_LEFT.toHours() * TimeSlot.getDuration().toMinutes()/60 ;//
                         slot = 0 ;
                         daysIndex++;
                     }
@@ -88,7 +90,8 @@ public class Timetable {
             LocalDate weekStart = this.startDate;
             int counter = 0;
             int days = timeSlots.length;
-   
+            
+            int[] timeSlotsFilled = new int[lengthInDays];
             //ArrayList<ArrayList<Integer>>[] colspans = new ArrayList<ArrayList<>>;
 //            for(int i = 0; i < days ;i++ )
 //            {
@@ -110,14 +113,34 @@ public class Timetable {
                 
                 for(int j=0; j < timeSlots[0].length; j++ ){
                     htmlBuilder += "<tr>";
-                    if(j % 4 ==0)
-                    {htmlBuilder += "<th rowspan=\"4\">" + (DAY_START_TIME.toHours() + (j/4)) + ":00</th>";}
+                  if(j % hourRowSpan ==0)
+                  {
+                        htmlBuilder += "<th rowspan=\"" + hourRowSpan + "\" >" + formatDuration(DAY_START_TIME.plusMinutes(j*60/4)) + "</th>"; 
+                  }
+                    
+                    
+                    
                     for(int i =0; i < daysInAWeek; i++){
-//                       System.out.println("counter"+  counter  +" i " + i + "index" +( counter*daysInAWeek + i));
-                        //System.out.println("days"+(counter*daysInAWeek + i) +" J: "+j);
-                        try{
-                        htmlBuilder  += timeSlots[counter*daysInAWeek + i][j].toHTML();
-                        } catch(ArrayIndexOutOfBoundsException e){}
+                        int dayIndex = counter*daysInAWeek + i;
+                        if(timeSlotsFilled[dayIndex] <= j )
+                        {
+                            //try{
+                                int blockOf = 1;
+                                int slotIndex = j;
+                                //test if slotIndex is going to get a array out of bounds execption. 
+                                // if current time slot is equal to the next one.
+                                // Stops joinng if its on an hour boundry.
+                                while(slotIndex < NUMBER_OF_TIMESLOTS -1 && timeSlots[dayIndex][slotIndex].equals(timeSlots[dayIndex][slotIndex+1]) &&  (j + blockOf) % 4 != 0)//j + blockOf%4 != 0)
+                                {
+                                    blockOf++;
+                                    slotIndex++;
+                                }
+                                htmlBuilder  += timeSlots[dayIndex][j].toHTML(blockOf);
+                                //updates dept buffer to store the next slot to consider 
+                                timeSlotsFilled[dayIndex] = timeSlotsFilled[dayIndex]+ blockOf;
+                            //} catch(ArrayIndexOutOfBoundsException e){}
+                        
+                        }
                     }
                     htmlBuilder += "</tr>";
                 }
@@ -145,6 +168,11 @@ public class Timetable {
                 meetings.add(new Meeting(rs));
             }
             return meetings;
+        }
+        
+        public String formatDuration(Duration d)
+        {
+            return String.format("%02d:%02d", d.toHours(),d.toMinutes()%60);
         }
 }
 
