@@ -32,14 +32,15 @@
                 
         <nav>
 	    <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                 <li> <a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
             </ul>
 	</nav>
 	
         <div id = "main">
 	    <section class = "content">
-               <h1>Enroll</h1>
+               <h1>Unenroll</h1>
 
                 <%@page import="teamproject.college.Module"%>
                 <%@page import="teamproject.user.people.Student"%>
