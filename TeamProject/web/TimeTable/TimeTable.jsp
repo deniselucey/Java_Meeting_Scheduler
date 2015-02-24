@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-	     <meta charset = "utf-8"/>
+	    <meta charset = "utf-8"/>
 	    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 	    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
             <link rel="stylesheet" href="../styles/styles.css"/>
