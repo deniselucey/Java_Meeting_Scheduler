@@ -25,7 +25,7 @@
             if ((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         You are not logged in<br/>
-        <a href="..\Login\Login.html">Please Login</a>
+        <a href="..\Login\Login.jsp">Please Login</a>
         <%
             } else {
         %>
@@ -46,14 +46,23 @@
                 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-                <jsp:useBean id="enroll" class="teamproject.user.people.Student" scope="session">
+                <jsp:useBean id="unenroll" class="teamproject.user.people.Student" scope="session">
                 </jsp:useBean>
 
 
-                <%
+                <% 
                     String email = (String) session.getAttribute("email");
-                    out.print(enroll.unEnrollToModule(request.getParameter("module"), email));       
+                    
+                    if (unenroll.unEnrollToModule(request.getParameter("module"), email)) {
+                        out.print("You have been successfully unenrolled from " + request.getParameter("module"));
+                    } else {
+                        out.print("Sorry, you have failed to unenroll from " + request.getParameter("module"));
+                    }
+                           
                 %>
+                <p>
+                    <a href="..\Enroll\enroll.html">Go back.</a>
+                </p>
             </section>
         </div>
         <%
