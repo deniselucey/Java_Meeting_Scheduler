@@ -52,8 +52,8 @@
                     <nav>
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                            <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                             <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                            <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
 	
