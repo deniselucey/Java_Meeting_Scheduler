@@ -73,7 +73,8 @@ public class Timetable {
                     slot++;
                     if(slot == NUMBER_OF_TIMESLOTS){
                         System.out.println("in loop");
-                        i += DAY_LEFT.toHours() * TimeSlot.getDuration().toMinutes()/60 ;//
+                        System.out.println(DAY_LEFT.toHours() * 60/TimeSlot.getDuration().toMinutes() );
+                        i += DAY_LEFT.toHours() * 60/TimeSlot.getDuration().toMinutes() ;//
                         slot = 0 ;
                         daysIndex++;
                     }
