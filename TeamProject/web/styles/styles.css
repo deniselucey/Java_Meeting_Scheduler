@@ -153,8 +153,9 @@ footer a
 
 
 table{
-    width: 85%;
-    margin-left: 15%;
+    width: 100%;
+    
+    margin-bottom:10%;
 }
 
 th,td
@@ -165,10 +166,11 @@ th,td
         outline: 1px solid #e3e3e3;
         border-right-style: solid;
         border-left-style: solid;
+        border-bottom-style: solid;
         
     }
     
-    tr:nth-child(4n +5) {  
+    tr:nth-child(4n+5) {  
         border-bottom-style: solid;
         border-bottom-color: black;
     }
@@ -180,10 +182,13 @@ th,td
 
     th
     {
-        width: 20%;
+        width: 8%;
         border-bottom-style: solid;
         border-bottom-color: black;
-        padding: 5px;
+        padding-right: auto;
+        padding-left: auto;
+        padding-bottom: 6px;
+        padding-top: 6px;
         border-top-style: solid;
        
     }
