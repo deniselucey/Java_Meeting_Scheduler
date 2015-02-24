@@ -74,9 +74,8 @@ public class Student extends Person {
                 moduleNo = queryResult1.getString("module_id");
                 studentNo = queryResult2.getString("user_id");
                 
-                String query3 = "DELETE FROM User_has_Module"  
-                              + "WHERE user_id = '" + studentNo + "' AND module_id = '"
-                               + moduleNo +"');";
+                String query3 = "DELETE FROM User_has_Module WHERE user_id = '" + studentNo + "' AND module_id = '"
+                               + moduleNo + "';";
                 //unenrolled = true;
                 sqlHandler.runStatement(query3);
             
@@ -84,6 +83,8 @@ public class Student extends Person {
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            
+            
         }
             return unenrolled;
 	}
