@@ -25,35 +25,45 @@
             if ((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         You are not logged in<br/>
-        <a href="..\Login\Login.html">Please Login</a>
+        <a href="..\Login\Login.jsp">Please Login</a>
         <%
             } else {
         %>
                 
         <nav>
 	    <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                 <li> <a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
             </ul>
 	</nav>
 	
         <div id = "main">
 	    <section class = "content">
-               <h1>Enroll</h1>
+               <h1>Unenroll</h1>
 
                 <%@page import="teamproject.college.Module"%>
                 <%@page import="teamproject.user.people.Student"%>
                 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
-                <jsp:useBean id="enroll" class="teamproject.user.people.Student" scope="session">
+                <jsp:useBean id="unenroll" class="teamproject.user.people.Student" scope="session">
                 </jsp:useBean>
 
 
-                <%
+                <% 
                     String email = (String) session.getAttribute("email");
-                    out.print(enroll.unEnrollToModule(request.getParameter("module"), email));       
+                    
+                    if (unenroll.unEnrollToModule(request.getParameter("module"), email)) {
+                        out.print("You have been successfully unenrolled from " + request.getParameter("module"));
+                    } else {
+                        out.print("Sorry, you have failed to unenroll from " + request.getParameter("module"));
+                    }
+                           
                 %>
+                <p>
+                    <a href="..\Enroll\enroll.html">Go back.</a>
+                </p>
             </section>
         </div>
         <%

@@ -23,8 +23,9 @@
             
         <nav>
 	    <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                 <li> <a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
             </ul>
 	</nav>
 	
@@ -40,6 +41,20 @@
 			             
                        <div>
                            <input type="submit" value="Enroll">
+                       </div>
+		   </fieldset>			
+                </form>
+               
+               <h1>Unenroll</h1>
+               <form name="input" action="Unenroll.jsp" method="GET">            
+                   <fieldset>
+                       <div>
+                           <label>Module</label>
+                           <input type="text" name="module"> 
+                       </div>				
+			             
+                       <div>
+                           <input type="submit" value="Unenroll">
                        </div>
 		   </fieldset>			
                 </form>

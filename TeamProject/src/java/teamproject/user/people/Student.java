@@ -34,8 +34,11 @@ public class Student extends Person {
                 sqlHandler = new SqlHandler();
                 ResultSet queryResult2 = sqlHandler.runQuery(query2);
                 
-                moduleNo = queryResult1.getString(1);
-                studentNo = queryResult2.getString(1);
+                queryResult1.last();
+                queryResult2.last();
+                
+                moduleNo = queryResult1.getString("module_id");
+                studentNo = queryResult2.getString("user_id");
                 
                 String query3 = "INSERT INTO User_has_Module(user_id, module_id)"  
                               + "VALUES('" + studentNo + "','" + moduleNo +"');";
@@ -57,20 +60,31 @@ public class Student extends Person {
 	{
             try{
                 SystemSetting.initSystemSetting();
-                String query1 = "SELECT module_id FROM Module WHERE code = '" + module + "';";               
-                ResultSet queryResult;                
+                String query1 = "SELECT module_id FROM Module WHERE code = '" + module + "';";                              
                 sqlHandler = new SqlHandler();
-                queryResult = sqlHandler.runQuery(query1);
+                ResultSet queryResult1 = sqlHandler.runQuery(query1);
                 
-                String query2 = "DELETE FROM User_has_Module"  
-                              + "WHERE user_id = '" + studentNo + "' AND module_id = '"
-                               + moduleNo +"');";
-                sqlHandler.runStatement(query2);
+                String query2 = "SELECT user_id FROM User WHERE email = '" + email + "';";                              
+                sqlHandler = new SqlHandler();
+                ResultSet queryResult2 = sqlHandler.runQuery(query2);
+                
+                queryResult1.last();
+                queryResult2.last();
+                
+                moduleNo = queryResult1.getString("module_id");
+                studentNo = queryResult2.getString("user_id");
+                
+                String query3 = "DELETE FROM User_has_Module WHERE user_id = '" + studentNo + "' AND module_id = '"
+                               + moduleNo + "';";
+                //unenrolled = true;
+                sqlHandler.runStatement(query3);
             
                 unenrolled = true;
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            
+            
         }
             return unenrolled;
 	}

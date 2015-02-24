@@ -25,15 +25,16 @@
             if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         You are not logged in<br/>
-        <a href="..\Login\Login.html">Please Login</a>
+        <a href="..\Login\Login.jsp">Please Login</a>
         <%
             } else {
         %>
                 
         <nav>
 	    <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                 <li> <a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
             </ul>
 	</nav>
 	
@@ -51,10 +52,18 @@
 
 
                 <% 
-                    out.print(session.getAttribute("email"));
                     String email = (String) session.getAttribute("email");
-                    out.print(enroll.enrollToModule(request.getParameter("module"), email));       
+                    
+                    if (enroll.enrollToModule(request.getParameter("module"), email)) {
+                        out.print("You have been successfully enrolled to " + request.getParameter("module"));
+                    } else {
+                        out.print("Sorry module " + request.getParameter("module") + " is unavailable.");
+                    }
+                           
                 %>
+                <p>
+                    <a href="..\Enroll\enroll.html">Go back.</a>
+                </p>
             </section>
         </div>
         <%
