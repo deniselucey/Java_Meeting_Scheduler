@@ -58,16 +58,49 @@
                     </nav>
 	
                     <div id = "main">
-	    
-                
+                        
+                        <section class = "content">
+                        <h1>Set Meeting</h1>
+                        <form name="input" action="" method="POST">            
+                            <fieldset>
+                                <div>
+                                    <input type="text" name="meetingTitle" value="" placeholder ="Meeting Title" /><br>
+                                </div>
+                        
+                                <div>
+                                    <label>Meeting Duration:</label>
+                                    <select name="meetingDuration">
+                                        <option>15 minutes</option>
+                                        <option>30 minutes</option>
+                                        <option>45 minutes</option>
+                                        <option>60 minutes</option>
+                                    </select><br>
+                                </div>
+                        
+                        
+                                <div>
+                                    <label>Recurring Meeting:</label>
+                                    <select name="RecurringMeeting">
+                                        <option>No</option>
+                                        <option>Yes</option>
+                                    </select><br>
+                                </div>
+
+                                <div>
+                                    <input type="submit" value="Search Meeting Times" /><br>
+                                </div>
+                           </fieldset>			
+                        </form>
+                    </section>
+                </div>
                 
                
                    
                 
           
-                    </div>
+                   
                 <%
-                   }
+                }
                 %>  
         
          
