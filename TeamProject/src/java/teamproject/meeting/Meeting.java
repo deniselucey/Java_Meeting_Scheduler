@@ -35,6 +35,10 @@ public class Meeting {
     private byte piority;
     private MeetingPrivacy privacy;
     private static final String sqlSelect = "SELECT * FROM meeting ";
+    
+    public Meeting(){
+        
+    }
 
     public Meeting(int id) throws SQLException
     {

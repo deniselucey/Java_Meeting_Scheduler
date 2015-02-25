@@ -26,7 +26,7 @@ public class Timetable {
     
     
     public Timetable() throws SQLException{
-        this(LocalDate.of(2014, Month.DECEMBER, 29), 20, loadAllMeeting());
+        this(LocalDate.of(2014, Month.DECEMBER, 29), 12, loadAllMeeting());
         //TODO Delete above line. Just for testing.    Well proper 1337!
     }
     

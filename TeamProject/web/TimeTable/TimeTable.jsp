@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-	     <meta charset = "utf-8"/>
+	    <meta charset = "utf-8"/>
 	    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 	    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
             <link rel="stylesheet" href="../styles/styles.css"/>
@@ -36,36 +36,35 @@
                 } else {
             %>
            
-                <%@page contentType="text/html" pageEncoding="UTF-8"%>
-                <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
+                    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+                    <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
         
-                <jsp:useBean id="timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session">
-                </jsp:useBean>
+                    <jsp:useBean id="timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session">
+                    </jsp:useBean>
                 
                 
                 
-                 <nav>
-                    <ul>
-                        <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
-                        <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
-                    </ul>
-                </nav>
+                    <nav>
+                        <ul>
+                            <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
+                            <li><a href="..\TimeTable\SetMeeting.jsp">Set Meeting</a></li>
+                            <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                            <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+                        </ul>
+                    </nav>
 	
-                 <div id = "main">
+                    <div id = "main">
 	    
                 
                 
-                Welcome <%=session.getAttribute("email")%>
-                
-                <% 
-                
-                 out.println(timeTable.toHTML());
                     
-                    
-                 %>
+                
+                    <% 
+                        out.println(timeTable.toHTML());
+                     %>
                 
           
-                </div>
+                    </div>
                 <%
                    }
                 %>  

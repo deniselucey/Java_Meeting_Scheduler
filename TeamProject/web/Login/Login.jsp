@@ -27,8 +27,8 @@
             
         <nav>
 	    <ul>
-                <li><a href="Login.jsp">Login</a></li>
-                <li><a href="..\Register\RegisterAccount.jsp">Register</a></li>
+                <li></li>
+                <li></li>
             </ul>
 	</nav>
 	
