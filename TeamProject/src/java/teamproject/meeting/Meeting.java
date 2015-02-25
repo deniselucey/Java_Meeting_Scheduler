@@ -124,8 +124,9 @@ public class Meeting {
         this.endDateTime = end_time;
         this.runs_until = runs_until;
         this.location = location;
-        this.recurring = end_time.toLocalDate().compareTo(runs_until) == -1;
+        
         this.repeatEvery = repeat;
+        this.recurring = repeat != Recurrence.NEVER;
         this.piority = piority.getPriority();
         this.privacy = privacy;
         this.hostUserID = hostId;
@@ -133,6 +134,24 @@ public class Meeting {
         group_attendees = new HashSet<>();
     }
 
+    public Meeting(String title, String description, int hostUserID, HashSet<Person> people_attendees, HashSet<Group> group_attendees, Duration length, LocalDateTime startDateTime, LocalDate runs_until, String location, Recurrence repeatEvery, byte piority, MeetingPrivacy privacy) {
+        this.title = title;
+        this.description = description;
+        this.hostUserID = hostUserID;
+        this.people_attendees = people_attendees;
+        this.group_attendees = group_attendees;
+        this.length = length;
+        this.startDateTime = startDateTime;
+        this.runs_until = runs_until;
+        this.location = location;
+        this.repeatEvery = repeatEvery;
+        this.piority = piority;
+        this.privacy = privacy;
+        this.recurring = repeatEvery != Recurrence.NEVER;
+        
+    }
+
+    
     /**
      * Add start Time and end time and repeat until to this meeting. Add it to the database
      * @param timeSlot
