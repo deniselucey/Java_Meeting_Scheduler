@@ -9,10 +9,20 @@ public class BackUp {
 	private File BackupFile;
 	private ArrayList<File> logs;
 
-	public boolean createBackUp(){
+	public boolean createBackUp(String fileName){
+            Boolean isBackupCreated = false;
+            BackupFile = new File(fileName + ".backup");
+            if(!BackupFile.exists()){
+                try {
+                    BackupFile.createNewFile();
+                    isBackupCreated = true;
+                } catch (IOException ex) {
+                    Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             
             
-            
+            return isBackupCreated; 
 	}
 
 	public boolean storeBackUp(){
