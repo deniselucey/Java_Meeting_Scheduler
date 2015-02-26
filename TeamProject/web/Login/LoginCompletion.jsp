@@ -41,9 +41,9 @@
                 
                 
                <% 
-                   int userId = Integer.parseInt(request.getParameter("user_id"));
+                   int userId = login.getUserId();
                    String email = request.getParameter("email");
-                   session.setAttribute("user_id", userId);
+                   session.setAttribute("userId", userId);
                    session.setAttribute("email", email );
                    response.sendRedirect("../TimeTable/TimeTable.jsp");
                   
