@@ -35,6 +35,7 @@
         
         <div id="wrapper">
 	<header>
+            <img src="../Resources/logo.gif" alt="UCC Logo">
 	</header>
             
         <nav>

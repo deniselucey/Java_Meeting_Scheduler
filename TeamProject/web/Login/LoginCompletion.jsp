@@ -31,6 +31,7 @@
         
         <div id="wrapper">
 	<header>
+            
 	</header>
             
        
@@ -46,6 +47,7 @@
                    session.setAttribute("userId", userId);
                    session.setAttribute("email", email );
                    response.sendRedirect("../TimeTable/TimeTable.jsp");
+                   
                   
                %>
               

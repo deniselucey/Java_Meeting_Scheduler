@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-	     <meta charset = "utf-8"/>
+	    <meta charset = "utf-8"/>
 	    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 	    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
             <link rel="stylesheet" href="../styles/styles.css"/>
@@ -33,6 +33,7 @@
         
        <div id="wrapper">
 	<header>
+            <img src="../Resources/logo.gif" alt="UCC Logo">
 	</header>
             
             <%
@@ -52,6 +53,7 @@
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                             <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                            <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>

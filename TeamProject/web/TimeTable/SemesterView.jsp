@@ -1,5 +1,8 @@
-
-
+<%-- 
+    Document   : SemesterView
+    Created on : Feb 26, 2015, 7:20:03 PM
+    Author     : zolamcdonald
+--%>
 
 <%@ page import ="java.sql.*" %>
 
@@ -50,8 +53,8 @@
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                             <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
                             <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
-                            <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+                            
                         </ul>
                     </nav>
 	
