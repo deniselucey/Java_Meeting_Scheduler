@@ -23,25 +23,31 @@ public class Timetable {
     private static final Duration DAY_LEFT = Duration.ofDays(1).minusHours(Timetable.HOURS_IN_A_DAY);
     private int lengthInDays;
     private int hourRowSpan = 2;
+    private int maxBlock = 4;
     
     
     public Timetable() throws SQLException{
-        this(LocalDate.of(2014, Month.DECEMBER, 29), 12, loadAllMeeting());
+        this(LocalDate.of(2014, Month.DECEMBER, 29), 12, loadAllMeeting(),1,4);
         //TODO Delete above line. Just for testing.    Well proper 1337!
     }
     
     /**
      * 
      * @param startDate startDate of 
+     * @param weeks 
      * @param endDate
+     * @param rowspan
+     * @param block
      * @param meetingWithRepeating 
      */
-    public Timetable(LocalDate startDate, int weeks, ArrayList<Meeting> meetingWithRepeating){
+    public Timetable(LocalDate startDate, int weeks, ArrayList<Meeting> meetingWithRepeating,int rowspan, int block){
         this.startDate = startDate;
         this.endDate = startDate.plusWeeks(weeks);
         int days = (int) ChronoUnit.DAYS.between(startDate, endDate);
         lengthInDays = days;
         timeSlots = new TimeSlot[days][NUMBER_OF_TIMESLOTS];
+        maxBlock = block;
+        hourRowSpan = rowspan;
         
         ArrayList<Meeting> meetings = new ArrayList<>();
         
@@ -131,7 +137,7 @@ public class Timetable {
                                 //test if slotIndex is going to get a array out of bounds execption. 
                                 // if current time slot is equal to the next one.
                                 // Stops joinng if its on an hour boundry.
-                                while(slotIndex < NUMBER_OF_TIMESLOTS -1 && timeSlots[dayIndex][slotIndex].equals(timeSlots[dayIndex][slotIndex+1]) &&  (j + blockOf) % 4 != 0)//j + blockOf%4 != 0)
+                                while(slotIndex < NUMBER_OF_TIMESLOTS -1 && timeSlots[dayIndex][slotIndex].equals(timeSlots[dayIndex][slotIndex+1]) &&  (j + blockOf) % maxBlock != 0)//j + blockOf%4 != 0)
                                 {
                                     blockOf++;
                                     slotIndex++;

@@ -80,6 +80,7 @@ public class RecurrenceTest
         }
         System.out.println("meeting between " + ldts.size() );
     }
+    
     @Test
     public void TestNonReapeting() throws SQLException
     {
@@ -92,5 +93,11 @@ public class RecurrenceTest
         }
         System.out.println("End");
         
+    }
+    
+    @Test 
+    public void TestToHTML()
+    {
+        System.out.println(Recurrence.toHTMLDropDown());
     }
 }
