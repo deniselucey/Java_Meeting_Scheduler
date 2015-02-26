@@ -181,10 +181,12 @@ public class Meeting {
         }
         if(peopleId_attendees != null)
         {
+            
             String[] peopleId = peopleId_attendees.split(",");
             Arrays.stream(peopleId).forEach(i -> this.peopleId_attendees.add(Integer.parseInt(i)));
         }
-    
+        System.out.println("\n\n NOT NULL \n" + peopleId_attendees);
+        System.out.print("\n\n\n HERE IT IS  " + this.toString() + "\n\n\n");
     }
 
     
@@ -335,13 +337,10 @@ public class Meeting {
     public HashSet<Integer> getGroupId_attendees(Scheduler s) {
         return groupId_attendees;
     }
-    
-    
-    
+
     @Override
-    public String toString() 
-    {
-        return "Meeting{" + "title=" + title + ", description=" + description + ", id=" + id + ", hostUserID=" + hostUserID + ", people_attendees=" + people_attendees + ", group_attendees=" + group_attendees + ", length=" + length + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", runs_until=" + runs_until + ", location=" + location + ", recurring=" + recurring + ", repeatEvery=" + repeatEvery + ", piority=" + piority + ", privacy=" + privacy + '}';
+    public String toString() {
+        return "Meeting{" + "title=" + title + ", description=" + description + ", id=" + id + ", hostUserID=" + hostUserID + ", people_attendees=" + people_attendees + ", group_attendees=" + group_attendees + ", length=" + length + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", runs_until=" + runs_until + ", location=" + location + ", recurring=" + recurring + ", repeatEvery=" + repeatEvery + ", piority=" + piority + ", privacy=" + privacy + ", peopleId_attendees=" + peopleId_attendees + ", groupId_attendees=" + groupId_attendees + '}';
     }
 
     @Override

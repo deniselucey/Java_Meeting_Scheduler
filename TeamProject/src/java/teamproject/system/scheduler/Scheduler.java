@@ -46,6 +46,12 @@ public class Scheduler {
         this(meetingToSchedule,startOfRange, meetingToSchedule.getRuns_until());
     }
     
+    public Scheduler(Meeting meetingToSchedule, String startOfRange, String endOfRange) throws RunUntilAfterEndRangeException, SQLException
+    {
+        this(meetingToSchedule, LocalDate.parse(startOfRange), LocalDate.parse(endOfRange));
+        System.out.println( "\n\n\n" + startOfRange +"range "+ endOfRange);
+    }
+    
     /**
      * Schedule a once off or repeating meeting between the dates entered.
      * If meeting is recurring end OF range should be after meetings runs until.
@@ -80,7 +86,6 @@ public class Scheduler {
         this.loadMeeting();
         int weeks = (int) Math.ceil(Duration.between(startOfRange.atStartOfDay(),endOfRange.atStartOfDay()).toDays()/(double)7);
         this.timetable = new Timetable(this.startOfRange, weeks, meetings,1,1);
-        System.out.println(timetable.toHTML());
         
         //LocalDate startDate, int weeks, ArrayList<Meeting> meetingWithRepeating
         
@@ -111,9 +116,9 @@ public class Scheduler {
         String sql = "SELECT * FROM meeting WHERE " +
                 " meeting.start_time <= \"" + this.endOfRange + 
                 "\" AND meeting.runs_until >= \"" + this.startOfRange +
-                "\"\n AND (meeting_id IN ";
+                "\" ";
                 
-        String peopleAttending = "SELECT meeting_id \nFROM is_attending \nWHERE user_id IN (";
+        String peopleAttending = " AND (meeting_id IN (SELECT meeting_id \nFROM is_attending \nWHERE user_id IN (";
         boolean first = true;
         for(Integer id: this.peopleIds)
         {
@@ -125,22 +130,28 @@ public class Scheduler {
             first = false;
         }
         peopleAttending += ")";
-        sql += "\n(" +peopleAttending + ")"; 
+        sql += "\n" +peopleAttending + ")"; 
         
-        String groupAttending = "SELECT meeting_id FROM group_is_attending WHERE group_id IN (";
-        first = true;
-        for(Integer id: this.groupIds)
+        
+        
+        if(groupIds != null && !groupIds.isEmpty())
         {
-            if(!first)
+            String groupAttending = "SELECT meeting_id FROM group_is_attending WHERE group_id IN (";
+            first = true;
+            for(Integer id: this.groupIds)
             {
-                groupAttending += ",";       
+                if(!first)
+                {
+                    groupAttending += ",";       
+                }
+                groupAttending += id;
+                first = false;
             }
-            groupAttending += id;
-            first = false;
+            groupAttending += ")";
+
+            sql += "OR meeting_id IN \n("+ groupAttending + ")";
         }
-        groupAttending += ")";
-        
-        sql += "OR meeting_id IN \n("+ groupAttending + "))";
+        sql += ")";
         System.out.println("\n\n"+ sql +"\n\n");
         
         ResultSet sqlResults = sqlHandler.runQuery(sql);
@@ -186,7 +197,10 @@ public class Scheduler {
             // TODO - implement Scheduler.operation
             throw new UnsupportedOperationException();
     }
-    
+    public String toHTML()
+    {
+        return  this.timetable.toHTML();
+    }
     public static class RunUntilAfterEndRangeException extends Exception{}
 
 }

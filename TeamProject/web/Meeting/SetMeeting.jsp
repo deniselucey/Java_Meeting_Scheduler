@@ -60,7 +60,7 @@
                         
                         <section class = "content">
                         <h1>Set Meeting</h1>
-                        <form name="input" action="" method="POST">            
+                        <form name="input" action="SetMeetingAuthentication.jsp" method="POST">            
                             <fieldset>
                                 
                                 <div>

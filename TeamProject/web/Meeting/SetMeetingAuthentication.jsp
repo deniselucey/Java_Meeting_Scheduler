@@ -4,6 +4,7 @@
     Author     : zolamcdonald
 --%>
 
+<%@page import="java.time.LocalDate"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="teamproject.meeting.Meeting"%>
 <%@page import="teamproject.system.scheduler.Scheduler"%>
@@ -12,29 +13,20 @@
     teamproject.meeting.Meeting meeting = new teamproject.meeting.Meeting(
     request.getParameter("title"),
     request.getParameter("description"),
-    Integer.parseInt(session.getAttribute("user_Id")),
-    request.getParameter("peopleId_attendees"),
+    (int)session.getAttribute("userId"),
+    request.getParameter("addMembersToMeeting"),
     request.getParameter("groupId_attendees"),      
-    Integer.parseInt(request.getParameter("lenght")),      
-    request.getParameter("runs_until"),      
-    request.getParameter("location"),
-    Integer.parseInt(request.getParameter("repeatEvery")),
-    Integer.parseInt(request.getParameter("piority")),      
-    Integer.parseInt(request.getParameter("privacyId")));
+    Integer.parseInt(request.getParameter("duration")),      
+    request.getParameter("endDate"),      
+    "",
+    Integer.parseInt(request.getParameter("Recurrence")),
+    1,     
+    1);
+    //TODO add privates and piority
     
-    //Meeting(String title, String description, int hostUserID, String peopleId_attendees,
-    //String groupId_attendees, int length, String runs_until, String location, int repeatEvery, int piority, int privacyId) 
+    teamproject.system.scheduler.Scheduler scheduler = new teamproject.system.scheduler.Scheduler(meeting,request.getParameter("startDate"),request.getParameter("endDate"));
+    //Meeting meetingToSchedule, LocalDate startOfRange, LocalDate endOfRange
+    out.println(scheduler.toHTML());
+
 %>
 
-<%--<jsp:useBean id="setMeeting" class="teamproject.meeting.Meeting" scope="session">
-    
-    <%--<jsp:setProperty name="setMeeting" property="title"/>
-<jsp:setProperty name="setMeeting" property="description"/>
-<jsp:setProperty name="setMeeting" property="Recurrence"/>
-</jsp:useBean>
-            --%> 
-            <%--        
-<jsp:useBean id="setMeetingScheduler" class="teamproject.system.scheduler.Scheduler" scope="session">
-<jsp:setProperty name="setMeetingScheuler" property=""/>
-<jsp:setProperty name="setMeetingScheuler" property=""/>--%>
-            <%--</jsp:useBean>--%>
