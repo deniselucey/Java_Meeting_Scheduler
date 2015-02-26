@@ -75,19 +75,19 @@
                                 
                                 <div>
                                     <label>Start Date:</label>
-                                    <input type="date" name = /> 
+                                    <input type="date" name ="startDate" /> 
                                     
                                 </div>
                                 
                                 <div>
                                     <label>End Date:</label>
-                                    <input type="date"/> 
+                                    <input type="date" name="endDate"/> 
                                     
                                 </div>
                         
                                 <div>
                                     <label>Meeting Duration in Minutes:</label>
-                                    <input type="number" name="" value="" />
+                                    <input type="number" name="duration" value="" />
                                     
                                 </div>
                                 

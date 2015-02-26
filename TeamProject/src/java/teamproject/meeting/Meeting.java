@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -158,30 +159,44 @@ public class Meeting {
      * @param piority
      * @param privacy 
      */
-    public Meeting(String title, String description, int hostUserID, ArrayList<Integer> peopleId_attendees, ArrayList<Integer> groupId_attendees, Duration length, LocalDate runs_until, String location, Recurrence repeatEvery, byte piority, byte privacyId) {
+    public Meeting(String title, String description, int hostUserID, String peopleId_attendees, String groupId_attendees, int length, String runs_until, String location, int repeatEvery, int piority, int privacyId) 
+    {
         this.title = title;
         this.description = description;
         this.hostUserID = hostUserID;
 //        this.people_attendees = people_attendees;
 //        this.group_attendees = group_attendees;
-        this.length = length;
-        this.runs_until = runs_until;
+        this.length = Duration.ofMinutes(length);
+        this.runs_until = LocalDate.parse(runs_until);
         this.location = location;
-        this.repeatEvery = repeatEvery;
-        this.piority = piority;
+        this.repeatEvery = Recurrence.values()[repeatEvery];
+        this.piority = (byte)piority;
         this.privacy = MeetingPrivacy.getMeetingPrivacyByID(privacyId);
-        this.recurring = repeatEvery != Recurrence.NEVER;
+        this.recurring = this.repeatEvery != Recurrence.NEVER;
         this.peopleId_attendees = new HashSet<>();
         this.groupId_attendees = new HashSet<>();
-        groupId_attendees.stream().forEach(i -> this.groupId_attendees.add(i));
-        peopleId_attendees.stream().forEach(i -> this.peopleId_attendees.add(i));
-        
+        if(groupId_attendees != null){
+            String[] groupId = groupId_attendees.split(",");
+            Arrays.stream(groupId).forEach(i -> this.groupId_attendees.add(Integer.parseInt(i)));
+        }
+        if(peopleId_attendees != null)
+        {
+            String[] peopleId = peopleId_attendees.split(",");
+            Arrays.stream(peopleId).forEach(i -> this.peopleId_attendees.add(Integer.parseInt(i)));
+        }
+    
     }
 
     
     /**
      * Add start Time and end time and repeat until to this meeting. Add it to the database
      * @param timeSlot
+     */
+
+    /**
+     * Add start Time and end time and repeat until to this meeting.Add it to the database
+     * @param timeSlot
+     * @return
      */
     public boolean confirm(TimeSlot timeSlot)
     {
