@@ -12,7 +12,7 @@
     teamproject.meeting.Meeting meeting = new teamproject.meeting.Meeting(
     request.getParameter("title"),
     request.getParameter("description"),
-            session.getAttribute("user_id"),
+    Integer.parseInt(session.getAttribute("user_Id")),
     request.getParameter("peopleId_attendees"),
     request.getParameter("groupId_attendees"),      
     Integer.parseInt(request.getParameter("lenght")),      
