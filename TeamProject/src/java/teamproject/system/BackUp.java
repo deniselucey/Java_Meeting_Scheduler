@@ -1,5 +1,4 @@
 package teamproject.system;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,10 +9,20 @@ public class BackUp {
 	private File BackupFile;
 	private ArrayList<File> logs;
 
-	public boolean createBackUp(){
+	public boolean createBackUp(String fileName){
+            Boolean isBackupCreated = false;
+            BackupFile = new File(fileName + ".backup");
+            if(!BackupFile.exists()){
+                try {
+                    BackupFile.createNewFile();
+                    isBackupCreated = true;
+                } catch (IOException ex) {
+                    Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             
             
-            
+            return isBackupCreated; 
 	}
 
 	public boolean storeBackUp(){
@@ -22,14 +31,14 @@ public class BackUp {
 	}
 
 	public String createDateBaseBackup(String dbName,String dbUserName, String dbPassword, String path){
-            String executeCommand = "mysqldump -u "+ dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path ;
-            Process runtimeProcess;
+            String command = "mysqldump -u "+ dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path ;
+            Process processRuntime;
             String sentence = " ";
             try{
-                System.out.println(executeCommand);
-                runtimeProcess = Runtime.getRuntime().exec(executeCommand);
-                int processComplete = runtimeProcess.waitFor();
-                if (processComplete == 0){
+                System.out.println(command);
+                processRuntime = Runtime.getRuntime().exec(command);
+                int completedProcess = processRuntime.waitFor();
+                if (completedProcess == 0){
                     sentence = "Backup database was created successfully";
                 }else{
                     sentence = "Could not create the database backup";
@@ -41,7 +50,11 @@ public class BackUp {
         }
             	
 	public boolean storeLogfiles(){
+            logs = new ArrayList<>();
+            Logger logger = Logger.getLogger(" ");
             
+            
+            logs.add();
 	}
 
 	/**
@@ -52,8 +65,20 @@ public class BackUp {
             
 	}
 
-	public boolean restore(){
-            
+	public boolean restore(String dbName,String dbUserName, String dbPassword, String path, String source){
+            String[] restoreCommand = new String[]{"mysql ", "--user=" + dbUserName, "--password=" + dbPassword, "-e", "source " + source};
+            Boolean isRestored = false;
+            Process processRuntime;
+            try {
+                processRuntime = Runtime.getRuntime().exec(restoreCommand);
+                int completedProcess = processRuntime.waitFor();
+                if (completedProcess == 0) {
+                    isRestored = true;
+                } else {    
+                }
+            } catch (IOException | InterruptedException ex) {
+            }
+            return isRestored;
 	}
 
 }
