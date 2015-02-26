@@ -39,7 +39,7 @@
             
         <nav>
 	    <ul>
-                <li><a href="Login.jsp">Login</a></li>
+                
             </ul>
 	</nav>
 	
@@ -49,15 +49,15 @@
                <form name="input" action="LoginAuthentication.jsp" method="POST">            
                    <fieldset>
                         <div>
-                            <p><label>Email:</label>
-                            <input type = "text" name = "email" value = "<%=login.getEmail()%>"><br>
-                            <%= login.getErrorMessage("email")%></p>
+                            <label>Email:</label>
+                            <input type="text" name="email" value="<%=login.getEmail()%>"><br>
+                            <%= login.getErrorMessage("email")%>
                         </div>		
 		               
                        <div>					
-                            <p><label>Password:</label>
-                            <input type = "password" name = "password1" value = "<%= login.getPassword()%>"><br>
-                            <%= login.getErrorMessage("password1")%></p>
+                           <label>Password:</label>
+                            <input type = "password" name = "password" value = "<%= login.getPassword()%>"><br>
+                            <%= login.getErrorMessage("password1")%>
                        </div>					
 			           
                        <div>
