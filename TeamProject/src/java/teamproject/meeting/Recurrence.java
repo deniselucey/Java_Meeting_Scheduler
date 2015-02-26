@@ -9,7 +9,7 @@ public enum Recurrence
 {
 	NEVER(Period.ofYears(1000)),
         WEEKLY(Period.ofWeeks(1)),
-        MONTLY(Period.ofWeeks(4)),
+        MONTHLY(Period.ofWeeks(4)),
         YEARLY(Period.ofYears(1));
 
 	private  Period  period;
