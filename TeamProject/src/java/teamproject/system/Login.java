@@ -53,7 +53,7 @@ public class Login {
         
         try{
             SystemSetting.initSystemSetting();
-            String query = "SELECT email,password "+
+            String query = "SELECT email,password,user_id "+
                            "FROM User "+
                            "WHERE email ='"+email+"';";
             
