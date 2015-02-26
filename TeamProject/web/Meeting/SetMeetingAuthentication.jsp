@@ -83,7 +83,7 @@
                 <%
                 }
                 %>  
-      eta
+      
         <p class = "status"></p>
     </div>
     <footer>
