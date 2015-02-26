@@ -20,14 +20,13 @@ public class BackUp {
                     Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-            
             return isBackupCreated; 
 	}
 
 	public boolean storeBackUp(){
             
-            
+            // TODO - implement Group.setHomePage
+	    throw new UnsupportedOperationException();
 	}
 
 	public String createDateBaseBackup(String dbName,String dbUserName, String dbPassword, String path){
@@ -52,17 +51,18 @@ public class BackUp {
 	public boolean storeLogfiles(){
             logs = new ArrayList<>();
             Logger logger = Logger.getLogger(" ");
-            
-            
-            logs.add();
+            //logs.add();
+            // TODO - implement System.storeLogfiles
+	    throw new UnsupportedOperationException();
 	}
-
+        
 	/**
 	 * 
 	 * @param url
 	 */
 	public boolean loadBackup(String url){
-            
+            // TODO - implement System.loadBackup
+	    throw new UnsupportedOperationException();
 	}
 
 	public boolean restore(String dbName,String dbUserName, String dbPassword, String path, String source){
