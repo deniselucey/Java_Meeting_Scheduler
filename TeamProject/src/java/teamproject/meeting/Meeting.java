@@ -41,6 +41,9 @@ public class Meeting {
     
     private static final String sqlSelect = "SELECT * FROM meeting ";
     
+    public Meeting(){
+        
+    }
     
 
     public Meeting(int id) throws SQLException
@@ -247,6 +250,11 @@ public class Meeting {
             result = id;
         }
         return result;
+    }
+    
+    public String RecurrenceHTMLDropDown(){
+        return Recurrence.toHTMLDropDown();
+        
     }
         
     public String getTitle() {

@@ -154,7 +154,7 @@ footer a
 
 table{
     width: 100%;
-    
+    font-size:12px;
     margin-bottom:10%;
 }
 
@@ -164,9 +164,11 @@ th,td
         margin: 0;
         text-align: center;
         outline: 1px solid #e3e3e3;
-        border-right-style: solid;
-        border-left-style: solid;
+        
+        //border-right-style: solid;
+        //border-left-style: solid;
         border-bottom-style: solid;
+        
         
     }
     
@@ -175,21 +177,14 @@ th,td
         border-bottom-color: black;
     }
 
-    td
-    {
-        padding: 9px;
-    }
+    
 
     th
     {
-        width: 8%;
-        border-bottom-style: solid;
-        border-bottom-color: black;
-        padding-right: auto;
-        padding-left: auto;
-        padding-bottom: 6px;
-        padding-top: 6px;
-        border-top-style: solid;
+        width: 12.5%;
+        //border-bottom-style: solid;
+        //border-bottom-color: black;
+         border-top-style: solid;
        
     }
 
@@ -201,8 +196,12 @@ th,td
     }
     
     .occupied {
-   
+       background-color:#2085b3;
+       
     
+    }
+    .collision{
+        background-color:red;
     }
     
     

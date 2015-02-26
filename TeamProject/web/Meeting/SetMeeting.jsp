@@ -7,6 +7,8 @@
 
 
 <%@ page import ="java.sql.*" %>
+<%@page import="teamproject.meeting.Meeting"%>
+
 
 
 <!DOCTYPE html>
@@ -40,13 +42,9 @@
             <%
                 } else {
             %>
-           
-                    <%@page contentType="text/html" pageEncoding="UTF-8"%>
-                    <%@page import="teamproject.meeting.Meeting"%>
-        
-                    <jsp:useBean id="setMeeting" class="teamproject.meeting.Meeting" scope="session">
-                    <jsp:setProperty name="setMeeting" property="*"/>
-                    </jsp:useBean>
+                
+                   <jsp:useBean id="setMeeting" class="teamproject.meeting.Meeting" scope="session"></jsp:useBean>
+                 
                 
                 
                 
@@ -89,7 +87,7 @@
                         
                                 <div>
                                     <label>Meeting Duration in Minutes:</label>
-                                    <input type="number" name="length" value="" />
+                                    <input type="number" name="" value="" />
                                     
                                 </div>
                                 
@@ -97,12 +95,9 @@
                         
                                 <div>
                                     <label>Meeting Reoccur's:</label>
-                                    <select name="reoccurringMeeting">
-                                        <option>Never</option>
-                                        <option>Weekly</option>
-                                        <option>Monthly</option>
-                                        <option>Yearly</option>
-                                    </select><br>
+                                    <%
+                                        out.print(setMeeting.RecurrenceHTMLDropDown());
+                                    %>
                                 </div>
                                 
                                 <div>

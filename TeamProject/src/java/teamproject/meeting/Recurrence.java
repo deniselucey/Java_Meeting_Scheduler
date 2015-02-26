@@ -81,10 +81,10 @@ public enum Recurrence
         public static String toHTMLDropDown()
         {
             String html = "";
-            html += "<select name=\"" + Recurrence.class.getName() + "\">";
+            html += "<select name=\"Recurrence \">";
             for(Recurrence r:Recurrence.values())
             {
-                  html += "<option value=\"" + r.getPeriod() + "\">"+ r.name() +"</option>";
+                  html += "<option value=\"" + r.ordinal() + "\">"+ r.name() +"</option>";
             }
             html += "</select>";
             return html;
