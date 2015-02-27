@@ -1,3 +1,9 @@
+<%-- 
+    Document   : RegisterAccount.jsp
+    Created on : Feb 5, 2015, 4:34:15 PM
+    Author     : zolamcdonald
+--%>
+
 <!DOCTYPE html>
 <html lang = "en">
 	<head>

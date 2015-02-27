@@ -1,4 +1,8 @@
-
+<%-- 
+    Document   : TimeTable
+    
+    Author     : zolamcdonald
+--%>
 
 
 <%@ page import ="java.sql.*" %>

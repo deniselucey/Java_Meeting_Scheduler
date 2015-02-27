@@ -1,7 +1,7 @@
 package teamproject.system;
 /**
  * 
- * @author Ciaran McDonald
+ * @author zolamcdonald
  */
 
 import java.security.NoSuchAlgorithmException;
