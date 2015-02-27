@@ -61,7 +61,7 @@ public class SchedularTest {
         IntStream.range(1, 4).forEach(i -> peopleId_attendees.add(i));
         IntStream.range(1, 2).forEach(i -> groupId_attendees.add(i));
         
-        Meeting meeting = new Meeting("TestMeetingTitle", "description", 1, peopleId_attendees, groupId_attendees, Duration.ofMinutes(60), LocalDate.of(2015, 1, 23), "Location", Recurrence.NEVER, (byte)1,(byte)1);
+        Meeting meeting = new Meeting("TestMeetingTitle", "description", 1, "1,2", "", 60, "2015-01-23", "Location", 0, (byte)1,(byte)1);
         Scheduler s = new Scheduler(meeting,LocalDate.of(2014, Month.DECEMBER, 29),LocalDate.of(2015, Month.JANUARY, 30));
         try {
             ArrayList<Meeting> rs = s.loadMeeting();
