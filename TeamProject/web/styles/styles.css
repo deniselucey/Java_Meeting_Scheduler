@@ -208,6 +208,8 @@ th,td
         color: white;
     }
     
+    
+    
     .occupied {
        background-color:dodgerblue;
        
@@ -216,7 +218,15 @@ th,td
     .collision{
         background-color:buttonface;
     }
+    .canSchedule
+    {
+        color:black;
+    }
     
+    .cantSchedule
+    {
+        background-color:black;
+    }
     
 /* Two-column layout */
 @media screen and (min-width: 768px)

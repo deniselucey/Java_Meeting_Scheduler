@@ -175,11 +175,11 @@ public class Meeting {
         this.recurring = this.repeatEvery != Recurrence.NEVER;
         this.peopleId_attendees = new HashSet<>();
         this.groupId_attendees = new HashSet<>();
-        if(groupId_attendees != null){
+        if(groupId_attendees != null && !groupId_attendees.equals("")){
             String[] groupId = groupId_attendees.split(",");
             Arrays.stream(groupId).forEach(i -> this.groupId_attendees.add(Integer.parseInt(i)));
         }
-        if(peopleId_attendees != null)
+        if(peopleId_attendees != null && !peopleId_attendees.equals(""))
         {
             
             String[] peopleId = peopleId_attendees.split(",");

@@ -25,6 +25,9 @@ public class Scheduler {
     //private ResultSet sqlResults;
     private Timetable timetable;
     private ArrayList<Meeting> meetings;
+    private TimeSlot[][] timeSlots;
+    private int[] maxProitys;
+    private int[] totalProitys;
     /**
      * Schedule a meeting from Now til meetings Runs until.
      * @param meetingToSchedule
@@ -83,14 +86,13 @@ public class Scheduler {
         this.recurrence = meetingToSchedule.getRepeatEvery();
         this.sqlHandler = new SqlHandler();
         meetings = new ArrayList<>(); 
-        this.loadMeeting();
+        System.out.print("THIS ONE"+this.loadMeeting());
         int weeks = (int) Math.ceil(Duration.between(startOfRange.atStartOfDay(),endOfRange.atStartOfDay()).toDays()/(double)7);
         this.timetable = new Timetable(this.startOfRange, weeks, meetings,1,1);
+        timetable.setTimeSlotForScheduler(meetingToSchedule);
         
-        //LocalDate startDate, int weeks, ArrayList<Meeting> meetingWithRepeating
         
         
-        //LocalDate startDate, int weeks, ArrayList<Meeting> meetingWithRepeating
     }
 
     
@@ -199,7 +201,7 @@ public class Scheduler {
     }
     public String toHTML()
     {
-        return  this.timetable.toHTML();
+        return this.timetable.toHTML(true);
     }
     public static class RunUntilAfterEndRangeException extends Exception{}
 

@@ -62,7 +62,7 @@
                     
                 
                     <% 
-                        out.println(timeTable.toHTML());
+                        out.println(timeTable.toHTML(false));
                      %>
                 
           
