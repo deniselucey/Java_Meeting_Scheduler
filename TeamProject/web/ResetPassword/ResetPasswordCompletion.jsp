@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ResetPassword.jsp
-    Created on : Feb 7, 2015, 2:26:08 PM
+    Document   : ResetPasswordCompletion
+    Created on : Feb 27, 2015, 9:47:58 PM
     Author     : zolamcdonald
 --%>
 
@@ -40,7 +40,12 @@
 	
         <div id = "main">
 	    <section class = "content">
-                <p>A email has been sent to your inbox to reset your password.</p>
+                <div>
+                <p>Your password has been reset. Login in here</p>
+                </div>
+                <div>
+                <a href="..\Login\Login.jsp">Return to Login</a>
+                </div>
             </section>
         </div>
             
@@ -52,9 +57,10 @@
             
         </p>
     </footer>
+        
          <%}else{%>
             <% response.sendRedirect("../TimeTable/TimeTable.jsp"); %>
          <%}%>
+        
     </body>
 </html>
-

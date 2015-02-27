@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ResetPassword.jsp
-    Created on : Feb 7, 2015, 2:26:08 PM
+    Document   : NewPassword
+    Created on : Feb 27, 2015, 9:06:05 PM
     Author     : zolamcdonald
 --%>
 
@@ -16,7 +16,7 @@
             <link rel="stylesheet" href="../styles/example.css">
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Reset Password</title>
+            <title>New Password</title>
     </head>
     
     <body>
@@ -40,11 +40,29 @@
 	
         <div id = "main">
 	    <section class = "content">
-                <p>A email has been sent to your inbox to reset your password.</p>
+               <h1>Create New Password</h1>
+               <form name = "input" action="ResetPasswordAuthentication.jsp" method="POST">
+                   <fieldset>
+                       
+                       <div>       
+                       <label>New Password:</label>
+                       <input type="password" name="password1" value="" /><br>
+                       </div>
+                       
+                        <div>       
+                       <label>Confirm New Password:</label>
+                       <input type="password" name="password2" value="" /><br>
+                        </div>      
+                     
+                       <div>
+                       <input type="submit" value="Reset Password"><br>
+                       </div>
+                   </fieldset>
+               </form>
             </section>
         </div>
             
-       
+        
         <p class = "status"></p>
     </div>
     <footer>
@@ -57,4 +75,3 @@
          <%}%>
     </body>
 </html>
-
