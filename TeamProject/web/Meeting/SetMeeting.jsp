@@ -1,7 +1,7 @@
 <%-- 
     Document   : SetMeeting
     Created on : Feb 24, 2015, 11:13:48 PM
-    Author     : Ciaran Mc Donald
+    Author     : zolamcdonald
 --%>
 
 
