@@ -36,8 +36,10 @@ public class Register implements java.io.Serializable{
   
     
     /**
-     * 
-     * @return 
+     * Registers the new users details in the db on sign up
+     * Returns true if the happens successfully,
+     * Returns false if the details are registered.
+     * @return a boolean.
      * @throws java.security.NoSuchAlgorithmException 
      * @throws java.security.spec.InvalidKeySpecException 
      * 
@@ -45,30 +47,50 @@ public class Register implements java.io.Serializable{
      public boolean registerDetailsWithDb() throws NoSuchAlgorithmException, InvalidKeySpecException 
     {
          
-       
+       /**
+        * Encrypts the password.
+        */
         password = encrypt();
         int registered1;
         int registered2;
+        /**
+         * Sets is isRegistered to false.
+         */
         boolean isRegistered = false;
         try{
             
             SystemSetting.initSystemSetting();
+            /**
+             *  Stores the first statement as a string.
+             */
             String query1 = "INSERT INTO User(firstname, secondname, "
                            + "email, password)"  
                     + "VALUES('" + firstName+ "','" + lastName +"','" +
                      email +"','" + password +"');"; ;
            
-            
+            /**
+             * Stores the second statement as a string.
+             */
             String query2 = "INSERT INTO student(student_id,student_number)" +
                              "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),  "
                     + "'"+studentNumber+"');";
             
    
-       
+            /**
+             * Creates a new sqlHandler.
+             */
             sqlHandler = new SqlHandler();
-            
+            /**
+             * Runs the SQL statement's using the sqlHandler
+             * Stores if the statement was successful or not in variable as
+             * a 1 or 0.
+             */
             registered1 = sqlHandler.runStatement(query1);
             registered2 = sqlHandler.runStatement(query2);
+            /**
+             * If both statements have being successfully run,
+             * It sets isRegistered to true.
+             */
             if(registered1 == 1 && registered2 == 1){
                 
                 isRegistered = true;
@@ -77,10 +99,19 @@ public class Register implements java.io.Serializable{
         }catch(SQLException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
+        /**
+         * Returns true if the user's details have been registered in the db,
+         * Returns false if the user's details haven't been registered.
+         */
         return isRegistered;
     }
     
-    
+     /**
+     * Encrypts the password before it is added to the db.
+     * @return String.
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException 
+     */
     private String encrypt() throws NoSuchAlgorithmException, InvalidKeySpecException{
        encryptedPassword = createHash(password1);
        return encryptedPassword;
@@ -88,9 +119,12 @@ public class Register implements java.io.Serializable{
     
     
     /**
+     * Checks is the email the user is providing is unique and
+     * it hasn't been registered already, It returns 
+     * True if the the email is unique,
+     * False if the email has been already registered.
+     * @return a boolean
      * 
-     * @return 
-     *  
      */
     public boolean isUniqueEmailAddress() 
     {
