@@ -33,7 +33,7 @@
         <nav>
 	    <ul>
                 <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                <li> <a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                <li> <a href="..\Enroll\enroll.jsp">Enroll/Un-enroll</a></li>
                 <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
             </ul>
 	</nav>
@@ -54,15 +54,15 @@
                 <% 
                     String email = (String) session.getAttribute("email");
                     
-                    if (unenroll.unEnrollToModule(request.getParameter("module"), email)) {
-                        out.print("You have been successfully unenrolled from " + request.getParameter("module"));
+                    if (unenroll.unEnrollToModule(request.getParameter("Modules"), email)) {
+                        out.print("You have been successfully unenrolled from " + request.getParameter("Modules"));
                     } else {
-                        out.print("Sorry, you have failed to unenroll from " + request.getParameter("module"));
+                        out.print("Sorry, you have failed to unenroll from " + request.getParameter("Modules"));
                     }
                            
                 %>
                 <p>
-                    <a href="..\Enroll\enroll.html">Go back.</a>
+                    <a href="..\Enroll\enroll.jsp">Go back.</a>
                 </p>
             </section>
         </div>
