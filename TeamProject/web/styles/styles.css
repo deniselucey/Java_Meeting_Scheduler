@@ -163,6 +163,8 @@ table{
     width: 100%;
     font-size:12px;
     margin-bottom:10%;
+    font: Arial;
+    font-style:normal;
 }
 
 th,td
@@ -185,6 +187,7 @@ th,td
         border-bottom-color: black;
     }
     
+   
     th:first-of-type{
         background-color:#666;
     }

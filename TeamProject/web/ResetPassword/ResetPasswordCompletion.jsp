@@ -44,7 +44,7 @@
                 <p>Your password has been reset. Login in here</p>
                 </div>
                 <div>
-                <a href="..\Login\Login.jsp">Return to Login</a>
+                <a href="..\LogIn\Login.jsp">Return to Login</a>
                 </div>
             </section>
         </div>

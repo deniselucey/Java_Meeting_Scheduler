@@ -78,7 +78,7 @@
                         </div>
                        <div>
                       <input type="submit" value="Create Account"><br>
-                      <a href="..\Login\Login.jsp">Return to Login</a>
+                      <a href="..\LogIn\Login.jsp">Return to Login</a>
                       </div>
                    </fieldset>
                </form>

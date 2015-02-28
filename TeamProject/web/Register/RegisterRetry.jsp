@@ -37,7 +37,7 @@
             
         <nav>
 	    <ul>
-                <li><a href="Login.jsp">Log In</a></li>
+                <li><a href="..\LogIn\Login.jsp">Log In</a></li>
             </ul>
 	</nav>
 	
