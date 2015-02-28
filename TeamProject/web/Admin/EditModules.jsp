@@ -52,6 +52,7 @@
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
                             <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
+                            <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
