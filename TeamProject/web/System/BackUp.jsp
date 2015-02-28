@@ -32,6 +32,7 @@
              
                 <%
                    
+
                 %>
 
                     <nav>
@@ -44,12 +45,7 @@
 	
                     <div id = "main">
                         <h1>System Settings</h1>
-                
-                
-                    
-                 
-                   
-          
+
                     </div>
                   
         
@@ -59,9 +55,9 @@
         <p class = "status"></p>
     </div>
         
-        <footer>
+    <footer>
             
-        </footer>
+    </footer>
     </body>
 </html>
 
