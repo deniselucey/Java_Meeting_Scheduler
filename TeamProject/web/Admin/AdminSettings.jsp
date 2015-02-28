@@ -58,7 +58,6 @@
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
                             <li><a href="..\Admin\EditModules.jsp">Edit Modules</a></li>
-                            <li><a href="..\Admin\BackUp.jsp">System Backup</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
