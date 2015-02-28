@@ -55,7 +55,7 @@
                             <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
                             <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
                             
-                            <li><a href="..\Enroll\UnenrollModule.jsp">Unenroll in Module</a></li>
+                            <li><a href="..\Enroll\Unenroll.jsp">Unenroll in Module</a></li>
                             <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
                             <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
