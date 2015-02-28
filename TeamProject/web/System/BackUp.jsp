@@ -25,9 +25,39 @@
         <a id="skiplink" href="#main">Skip to main content</a>
 	<a id="user" href="#"></a>
         
-        <footer>
+         <div id="wrapper">
+           <header>
+            <img src="../Resources/logo.gif" alt="UCC Logo">
+	   </header>
+             
+                <%
+                   
+
+                %>
+
+                    <nav>
+                        <ul>
+                            <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
+                
+                            <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+                        </ul>
+                    </nav>
+	
+                    <div id = "main">
+                        <h1>System Settings</h1>
+
+                    </div>
+                  
+        
+         
             
-        </footer>
+       
+        <p class = "status"></p>
+    </div>
+        
+    <footer>
+            
+    </footer>
     </body>
 </html>
 

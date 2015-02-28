@@ -51,7 +51,13 @@ public class BackUp {
 	public boolean storeLogfiles(){
             logs = new ArrayList<>();
             Logger logger = Logger.getLogger(" ");
-            //logs.add();
+            
+            try{
+                //logs.add();
+            }catch(Exception ex){
+                
+            }
+            
             // TODO - implement System.storeLogfiles
 	    throw new UnsupportedOperationException();
             

@@ -1,12 +1,6 @@
 <%-- 
-    Document   : AdminHomePage
-    Created on : Feb 28, 2015, 5:24:21 PM
-    Author     : zolamcdonald
---%>
-
-<%-- 
-    Document   : AdminCreateModule
-    Created on : Feb 28, 2015, 5:25:03 PM
+    Document   : EditModules
+    Created on : Feb 28, 2015, 7:36:38 PM
     Author     : zolamcdonald
 --%>
 
@@ -48,7 +42,7 @@
             %>
            
                     
-                   
+                    
         
                    
                 
@@ -57,17 +51,26 @@
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
-                            <li><a href="..\Admin\EditModules.jsp">Edit Modules</a></li>
                             <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
 	
                     <div id = "main">
-	    
+                        
+                        <section>
+                            <h1>Create a New Module</h1>
+                            
+                            
+                        </section>
                 
-                
-                    
+                        <section>
+                            <h1>Edit Module Details</h1>
+                        </section>
+                        
+                        <section>
+                            <h1>Delete Module</h1>
+                        </section>
                 
                    
           
