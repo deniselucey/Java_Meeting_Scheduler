@@ -1,6 +1,6 @@
 <%-- 
-    Document   : RegisterAccount.jsp
-    Created on : Feb 5, 2015, 4:34:15 PM
+    Document   : NewPassword
+    Created on : Feb 27, 2015, 9:06:05 PM
     Author     : zolamcdonald
 --%>
 
@@ -16,13 +16,13 @@
             <link rel="stylesheet" href="../styles/example.css">
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Register Account</title>
+            <title>New Password</title>
     </head>
     
     <body>
-        <%--
+        <%
             if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-        --%>
+        %>
         <a id="skiplink" href="#main">Skip to main content</a>
 	<a id="user" href="#"></a>
         
@@ -40,54 +40,29 @@
 	
         <div id = "main">
 	    <section class = "content">
-               <h1>Register</h1>
-               <form name = "input" action="RegisterAccountAuthentication.jsp" method="POST">
+               <h1>Create New Password</h1>
+               <form name = "input" action="ResetPasswordAuthentication.jsp" method="POST">
                    <fieldset>
-                       <div>
-                       <label>First Name:</label>
-                       <input type="text" name="firstName" value="" /><br>
-                       </div>
                        
                        <div>       
-                       <label>Last Name:</label>
-                       <input type="text" name="lastName" value="" /><br>
-                       </div>
-                       
-                                                    
-                        <div>       
-                       <label>Student Number:</label>
-                       <input type="text" name="studentNumber" value="" /><br>
-                       </div>
-                       
-                                               <div>       
-
-                       <label>Email:</label>
-                       <input type="text" name="email" value="" /><br>
-               </div>
-                       
-                                               <div>       
-
-                       <label>Password:</label>
+                       <label>New Password:</label>
                        <input type="password" name="password1" value="" /><br>
                        </div>
                        
-                                               <div>       
-
-                       <label>Confirm Password:</label>
+                        <div>       
+                       <label>Confirm New Password:</label>
                        <input type="password" name="password2" value="" /><br>
-                        </div>
+                        </div>      
+                     
                        <div>
-                      <input type="submit" value="Create Account"><br>
-                      <a href="..\LogIn\Login.jsp">Return to Login</a>
-                      </div>
+                       <input type="submit" value="Reset Password"><br>
+                       </div>
                    </fieldset>
                </form>
             </section>
         </div>
             
-        <%--}else{%>
-            <% response.sendRedirect("../TimeTable/TimeTable.jsp"); %>
-        <%}--%>
+        
         <p class = "status"></p>
     </div>
     <footer>
@@ -95,6 +70,8 @@
             
         </p>
     </footer>
-        
+         <%}else{%>
+            <% response.sendRedirect("../TimeTable/TimeTable.jsp"); %>
+         <%}%>
     </body>
 </html>

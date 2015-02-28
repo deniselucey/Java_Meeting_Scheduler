@@ -32,11 +32,12 @@
         
         <div id="wrapper">
 	<header>
+            <img src="../Resources/logo.gif" alt="UCC Logo">
 	</header>
             
         <nav>
 	    <ul>
-                <li><a href="Login.jsp">Log In</a></li>
+                <li><a href="..\LogIn\Login.jsp">Log In</a></li>
             </ul>
 	</nav>
 	

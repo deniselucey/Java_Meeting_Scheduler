@@ -19,7 +19,7 @@
                 <%
                 session.setAttribute("email", null);
                 session.invalidate();
-                response.sendRedirect("../Login/Login.jsp");
+                response.sendRedirect("../LogIn/Login.jsp");
                 %> 
                
         <%

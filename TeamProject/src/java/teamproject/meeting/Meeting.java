@@ -8,11 +8,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import teamproject.sql.SqlHandler;
+import teamproject.system.scheduler.Scheduler;
 import teamproject.system.scheduler.timetable.TimeSlot;
 import teamproject.user.Group;
 import teamproject.user.people.Person;
@@ -34,11 +36,16 @@ public class Meeting {
     private Recurrence repeatEvery;
     private byte piority;
     private MeetingPrivacy privacy;
+    private HashSet<Integer> peopleId_attendees;
+    private HashSet<Integer> groupId_attendees;
+    
+    
     private static final String sqlSelect = "SELECT * FROM meeting ";
     
     public Meeting(){
         
     }
+    
 
     public Meeting(int id) throws SQLException
     {
@@ -128,18 +135,70 @@ public class Meeting {
         this.endDateTime = end_time;
         this.runs_until = runs_until;
         this.location = location;
-        this.recurring = end_time.toLocalDate().compareTo(runs_until) == -1;
+        
         this.repeatEvery = repeat;
+        this.recurring = repeat != Recurrence.NEVER;
         this.piority = piority.getPriority();
         this.privacy = privacy;
         this.hostUserID = hostId;
         people_attendees = new HashSet<>();
         group_attendees = new HashSet<>();
     }
+    /**
+     *  This is should be called by the meetings site 
+     * @param title
+     * @param description
+     * @param hostUserID
+     * @param peopleId_attendees
+     * @param groupId_attendees
+     * @param length
+     * @param startDateTime
+     * @param runs_until
+     * @param location
+     * @param repeatEvery
+     * @param piority
+     * @param privacy 
+     */
+    public Meeting(String title, String description, int hostUserID, String peopleId_attendees, String groupId_attendees, int length, String runs_until, String location, int repeatEvery, int piority, int privacyId) 
+    {
+        this.title = title;
+        this.description = description;
+        this.hostUserID = hostUserID;
+//        this.people_attendees = people_attendees;
+//        this.group_attendees = group_attendees;
+        this.length = Duration.ofMinutes(length);
+        this.runs_until = LocalDate.parse(runs_until);
+        this.location = location;
+        this.repeatEvery = Recurrence.values()[repeatEvery];
+        this.piority = (byte)piority;
+        this.privacy = MeetingPrivacy.getMeetingPrivacyByID(privacyId);
+        this.recurring = this.repeatEvery != Recurrence.NEVER;
+        this.peopleId_attendees = new HashSet<>();
+        this.groupId_attendees = new HashSet<>();
+        if(groupId_attendees != null && !groupId_attendees.equals("")){
+            String[] groupId = groupId_attendees.split(",");
+            Arrays.stream(groupId).forEach(i -> this.groupId_attendees.add(Integer.parseInt(i)));
+        }
+        if(peopleId_attendees != null && !peopleId_attendees.equals(""))
+        {
+            
+            String[] peopleId = peopleId_attendees.split(",");
+            Arrays.stream(peopleId).forEach(i -> this.peopleId_attendees.add(Integer.parseInt(i)));
+        }
+        System.out.println("\n\n NOT NULL \n" + peopleId_attendees);
+        System.out.print("\n\n\n HERE IT IS  " + this.toString() + "\n\n\n");
+    }
 
+    
     /**
      * Add start Time and end time and repeat until to this meeting. Add it to the database
      * @param timeSlot
+     */
+
+    /**
+     * Add start Time and end time and repeat until to this meeting.Add it to the database
+     * @param timeSlot
+     * @return
      */
     public boolean confirm(TimeSlot timeSlot)
     {
@@ -209,6 +268,11 @@ public class Meeting {
         }
         return result;
     }
+    
+    public String RecurrenceHTMLDropDown(){
+        return Recurrence.toHTMLDropDown();
+        
+    }
         
     public String getTitle() {
         return title;
@@ -265,11 +329,18 @@ public class Meeting {
     public Duration getLength() {
         return length;
     }
-        
+
+    public HashSet<Integer> getPeopleId_attendees(Scheduler s) {
+        return peopleId_attendees;
+    }
+
+    public HashSet<Integer> getGroupId_attendees(Scheduler s) {
+        return groupId_attendees;
+    }
+
     @Override
-    public String toString() 
-    {
-        return "Meeting{" + "title=" + title + ", description=" + description + ", id=" + id + ", hostUserID=" + hostUserID + ", people_attendees=" + people_attendees + ", group_attendees=" + group_attendees + ", length=" + length + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", runs_until=" + runs_until + ", location=" + location + ", recurring=" + recurring + ", repeatEvery=" + repeatEvery + ", piority=" + piority + ", privacy=" + privacy + '}';
+    public String toString() {
+        return "Meeting{" + "title=" + title + ", description=" + description + ", id=" + id + ", hostUserID=" + hostUserID + ", people_attendees=" + people_attendees + ", group_attendees=" + group_attendees + ", length=" + length + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", runs_until=" + runs_until + ", location=" + location + ", recurring=" + recurring + ", repeatEvery=" + repeatEvery + ", piority=" + piority + ", privacy=" + privacy + ", peopleId_attendees=" + peopleId_attendees + ", groupId_attendees=" + groupId_attendees + '}';
     }
 
     @Override

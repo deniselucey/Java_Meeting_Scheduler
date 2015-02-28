@@ -1,3 +1,8 @@
+<%-- 
+    Document   : Login
+    Author     : zolamcdonald
+--%>
+
 <!DOCTYPE html>
 <html lang = "en">
     <head>
@@ -23,6 +28,7 @@
         
         <div id="wrapper">
 	<header>
+            <img src="../Resources/logo.gif" alt="UCC Logo">
 	</header>
             
         <nav>

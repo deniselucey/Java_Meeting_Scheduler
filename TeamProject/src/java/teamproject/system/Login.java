@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package teamproject.system;
 
 import java.security.NoSuchAlgorithmException;
@@ -22,6 +18,7 @@ import static teamproject.system.PasswordHash.validatePassword;
 public class Login {
      private String email = "";
      private String password = "";
+     private int userId;
      private SqlHandler sqlHandler;
      private final HashMap errors = new HashMap();
     /**
@@ -53,7 +50,7 @@ public class Login {
         
         try{
             SystemSetting.initSystemSetting();
-            String query = "SELECT email,password "+
+            String query = "SELECT email,password,user_id "+
                            "FROM User "+
                            "WHERE email ='"+email+"';";
             
@@ -66,10 +63,12 @@ public class Login {
                 queryResult.next();
                 String emailResult = queryResult.getString("email");
                 String passwordResult = queryResult.getString("password");
+                
                
                 if(emailResult.equals(email) && validatePassword(password, passwordResult))
                 {
                     inDb = true;
+                    userId = queryResult.getInt("user_id");
                 }
             }else{
                 return inDb;
@@ -144,6 +143,10 @@ public class Login {
     {
         return password;
     }
+    
+   public int getUserId(){
+       return userId;
+   }
     
    
     

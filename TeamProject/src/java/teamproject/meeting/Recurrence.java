@@ -9,7 +9,7 @@ public enum Recurrence
 {
 	NEVER(Period.ofYears(1000)),
         WEEKLY(Period.ofWeeks(1)),
-        MONTLY(Period.ofMonths(1)),
+        MONTHLY(Period.ofWeeks(4)),
         YEARLY(Period.ofYears(1));
 
 	private  Period  period;
@@ -76,5 +76,17 @@ public enum Recurrence
                }
             }
             return Recurrence.NEVER;
+        }
+        
+        public static String toHTMLDropDown()
+        {
+            String html = "";
+            html += "<select name=\"Recurrence\">";
+            for(Recurrence r:Recurrence.values())
+            {
+                  html += "<option value=\"" + r.ordinal() + "\">"+ r.name() +"</option>";
+            }
+            html += "</select>";
+            return html;
         }
 }

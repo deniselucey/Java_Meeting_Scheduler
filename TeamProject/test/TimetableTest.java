@@ -69,7 +69,7 @@ public class TimetableTest {
             meetings.add(new Meeting(1));
             meetings.add(new Meeting(2));
             meetings.add(new Meeting(3));
-            Timetable timetable = new Timetable(LocalDate.of(2015, Month.JANUARY, 21), 4, meetings);
+            Timetable timetable = new Timetable(LocalDate.of(2015, Month.JANUARY, 21), 4, meetings,1,4);
             System.out.println(timetable.toHTML());
             
         } catch (SQLException ex) {
