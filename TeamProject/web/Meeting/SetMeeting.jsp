@@ -52,7 +52,8 @@
                     <nav>
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                            <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                            <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
+                            <li><a href="..\Enroll\UnenrollModule.jsp">Unenroll in Module</a></li>
                             <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
                              <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
