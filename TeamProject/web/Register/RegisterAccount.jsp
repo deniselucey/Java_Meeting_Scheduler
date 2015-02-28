@@ -1,3 +1,9 @@
+<%-- 
+    Document   : RegisterAccount.jsp
+    Created on : Feb 5, 2015, 4:34:15 PM
+    Author     : zolamcdonald
+--%>
+
 <!DOCTYPE html>
 <html lang = "en">
 	<head>
@@ -22,12 +28,13 @@
         
         <div id="wrapper">
 	<header>
+            <img src="../Resources/logo.gif" alt="UCC Logo">
 	</header>
             
         <nav>
 	    <ul>
-                <li><a href="..\Login\Login.jsp">Login</a></li>
-                <li><a href="RegisterAccount.jsp">Register</a></li>
+                <li></li>
+                
             </ul>
 	</nav>
 	
@@ -68,9 +75,11 @@
 
                        <label>Confirm Password:</label>
                        <input type="password" name="password2" value="" /><br>
-                        </div>      
+                        </div>
+                       <div>
                       <input type="submit" value="Create Account"><br>
-                      <a href="..\Login\Login.jsp">Return to Login</a>
+                      <a href="..\LogIn\Login.jsp">Return to Login</a>
+                      </div>
                    </fieldset>
                </form>
             </section>

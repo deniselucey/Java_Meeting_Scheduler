@@ -52,7 +52,7 @@
             
                 <div id = "main">
                         
-                        <section class = "content">
+                        
 
 
                     <%   
@@ -64,7 +64,7 @@
                         request.getParameter("groupId_attendees"),      
                         Integer.parseInt(request.getParameter("duration")),      
                         request.getParameter("endDate"),      
-                        "",
+                        request.getParameter("location"),
                         Integer.parseInt(request.getParameter("Recurrence")),
                         1,     
                         1);
@@ -76,7 +76,7 @@
 
                     %>
 
-                        </section>
+                        
                 </div>
                 
             

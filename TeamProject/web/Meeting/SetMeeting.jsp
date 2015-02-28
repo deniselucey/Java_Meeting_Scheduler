@@ -1,7 +1,7 @@
 <%-- 
     Document   : SetMeeting
     Created on : Feb 24, 2015, 11:13:48 PM
-    Author     : Ciaran Mc Donald
+    Author     : zolamcdonald
 --%>
 
 
@@ -72,7 +72,7 @@
                                 
                                 <div>
                                     <label>Meeting description:</label>
-                                    <input type="text" name="description" value="" />
+                                    <input type="text" name="description" value="" size="35" />
                                 </div>
                                 
                                 <div>
@@ -88,7 +88,7 @@
                                 </div>
                         
                                 <div>
-                                    <label>Meeting Duration in Minutes:</label>
+                                    <label>Duration in Minutes:</label>
                                     <input type="number" name="duration" value="" />
                                     
                                 </div>
@@ -103,10 +103,18 @@
                                 </div>
                                 
                                 <div>
-                                    <label>Add Members to Meeting: </label>
+                                    <label>Location:</label>
+                                    <input type="text" name="location" value=""/><br>
+                                </div>
+                                
+                                <div>
+                                    <label>Add Members: </label>
                                     <input type="text" name="addMembersToMeeting" value="" /><br>
                                     <input type="submit" value="Add Another Member" /><br>
                                 </div>
+                                
+                                
+                                    
 
                                 <div>
                                     <input type="submit" value="Search Meeting Times" /><br>

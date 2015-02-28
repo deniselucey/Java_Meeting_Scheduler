@@ -34,7 +34,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../Login/Login.jsp");
+                    response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
                 } else {
@@ -65,7 +65,7 @@
                     
                 
                     <% 
-                        out.println(timeTable.toHTML());
+                        out.println(timeTable.toHTML(false));
                      %>
                 
           

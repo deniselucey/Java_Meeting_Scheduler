@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -55,11 +56,14 @@ public class Timetable {
             meetings.addAll(Meeting.expandMeeting(m, startDate, endDate));
         }
         
+        LocalDateTime timeSlotStartTime = startDate.atStartOfDay(); 
+        timeSlotStartTime = timeSlotStartTime.plus(DAY_START_TIME);
         
         for(int i =0; i < timeSlots.length; i++){
             for(int j=0; j < timeSlots[i].length; j++){
-                timeSlots[i][j] = new TimeSlot();
+                timeSlots[i][j] = new TimeSlot(timeSlotStartTime.plusMinutes((int)TimeSlot.getDuration().toMinutes()* j));
             }
+            timeSlotStartTime = timeSlotStartTime.plusDays(1);
         }
         
         for(Meeting meeting : meetings){
@@ -77,7 +81,8 @@ public class Timetable {
                         timeSlots[daysIndex][slot].add(meeting);
                     } catch(Exception e){}
                     slot++;
-                    if(slot == NUMBER_OF_TIMESLOTS){
+                    if(slot == NUMBER_OF_TIMESLOTS)
+                    {
                         System.out.println("in loop");
                         System.out.println(DAY_LEFT.toHours() * 60/TimeSlot.getDuration().toMinutes() );
                         i += DAY_LEFT.toHours() * 60/TimeSlot.getDuration().toMinutes() ;//
@@ -91,74 +96,70 @@ public class Timetable {
     }
     
    
-        public String toHTML(){
-            int daysInAWeek = 7;
-            String htmlBuilder = "";
-            LocalDate weekStart = this.startDate;
-            int counter = 0;
-            int days = timeSlots.length;
-            
-            int[] timeSlotsFilled = new int[lengthInDays];
-            //ArrayList<ArrayList<Integer>>[] colspans = new ArrayList<ArrayList<>>;
-//            for(int i = 0; i < days ;i++ )
-//            {
-//                for(int j = 0; j < Timetable.NUMBER_OF_TIMESLOTS ;j++ )
-//                {
-//                    if()
-//                }
-//            }
-            while(weekStart.isBefore(endDate))
+    public TimeSlot[][] getTimeSlots()
+    {
+        return this.timeSlots;
+    }
+    public String toHTML(boolean scheduling)
+    {
+        int daysInAWeek = 7;
+        String htmlBuilder = "";
+        LocalDate weekStart = this.startDate;
+        int counter = 0;
+        int days = timeSlots.length;
+
+        int[] timeSlotsFilled = new int[lengthInDays];
+
+        while(weekStart.isBefore(endDate))
+        {
+
+            htmlBuilder += "<table><tr>";
+            htmlBuilder += "<th>" + weekStart.toString() + "</th>";
+            for(int day = 0; day < daysInAWeek; day++ )
             {
-               
-                htmlBuilder += "<table><tr>";
-                htmlBuilder += "<th>" + weekStart.toString() + "</th>";
-                for(int day = 0; day < daysInAWeek; day++ )
+                htmlBuilder += "<th>" + weekStart.plusDays(day).getDayOfWeek() + "</th>";
+            }
+            htmlBuilder += "</tr>";
+
+            for(int j=0; j < timeSlots[0].length; j++ )
+            {
+                htmlBuilder += "<tr>";
+                if(j % hourRowSpan ==0)
                 {
-                    htmlBuilder += "<th>" + weekStart.plusDays(day).getDayOfWeek() + "</th>";
-                }
-                htmlBuilder += "</tr>";
-                
-                for(int j=0; j < timeSlots[0].length; j++ ){
-                    htmlBuilder += "<tr>";
-                  if(j % hourRowSpan ==0)
-                  {
-                        htmlBuilder += "<th rowspan=\"" + hourRowSpan + "\" >" + formatDuration(DAY_START_TIME.plusMinutes(j*60/4)) + "</th>"; 
-                  }
-                    
-                    
-                    
-                    for(int i =0; i < daysInAWeek; i++){
-                        int dayIndex = counter*daysInAWeek + i;
-                        if(timeSlotsFilled[dayIndex] <= j )
-                        {
-                            //try{
-                                int blockOf = 1;
-                                int slotIndex = j;
-                                //test if slotIndex is going to get a array out of bounds execption. 
-                                // if current time slot is equal to the next one.
-                                // Stops joinng if its on an hour boundry.
-                                while(slotIndex < NUMBER_OF_TIMESLOTS -1 && timeSlots[dayIndex][slotIndex].equals(timeSlots[dayIndex][slotIndex+1]) &&  (j + blockOf) % maxBlock != 0)//j + blockOf%4 != 0)
-                                {
-                                    blockOf++;
-                                    slotIndex++;
-                                }
-                                htmlBuilder  += timeSlots[dayIndex][j].toHTML(blockOf);
-                                //updates dept buffer to store the next slot to consider 
-                                timeSlotsFilled[dayIndex] = timeSlotsFilled[dayIndex]+ blockOf;
-                            //} catch(ArrayIndexOutOfBoundsException e){}
-                        
-                        }
-                    }
-                    htmlBuilder += "</tr>";
+                    htmlBuilder += "<th rowspan=\"" + hourRowSpan + "\" >" + formatDuration(DAY_START_TIME.plusMinutes(j*60/4)) + "</th>"; 
                 }
 
-                htmlBuilder += "</table>";
-                weekStart = weekStart.plusWeeks(1);
-                counter++;
-//                System.out.println("TIMES through loop"+ counter);
+                for(int i =0; i < daysInAWeek; i++)
+                {
+                    int dayIndex = counter*daysInAWeek + i;
+                    if(timeSlotsFilled[dayIndex] <= j )
+                    {
+                    
+                        int blockOf = 1;
+                        int slotIndex = j;
+                        //test if slotIndex is going to get a array out of bounds execption. 
+                        // if current time slot is equal to the next one.
+                        // Stops joining if its on an hour boundry.
+                        while(slotIndex < NUMBER_OF_TIMESLOTS -1 && timeSlots[dayIndex][slotIndex].equals(timeSlots[dayIndex][slotIndex+1]) &&  (j + blockOf) % maxBlock != 0)//j + blockOf%4 != 0)
+                        {
+                            blockOf++;
+                            slotIndex++;
+                        }
+                        htmlBuilder  += scheduling?timeSlots[dayIndex][j].toSchedulerHTML():timeSlots[dayIndex][j].toHTML(blockOf);
+                        //updates dept buffer to store the next slot to consider 
+                        timeSlotsFilled[dayIndex] = timeSlotsFilled[dayIndex]+ blockOf;
+                    }
+                }
+                htmlBuilder += "</tr>";
             }
-            return htmlBuilder;
-	}
+
+            htmlBuilder += "</table>";
+            weekStart = weekStart.plusWeeks(1);
+            counter++;
+//                System.out.println("TIMES through loop"+ counter);
+        }
+        return htmlBuilder;
+    }
         
         
         
@@ -180,6 +181,34 @@ public class Timetable {
         public String formatDuration(Duration d)
         {
             return String.format("%02d:%02d", d.toHours(),d.toMinutes()%60);
+        }
+        
+        public boolean setTimeSlotForScheduler(Meeting meeting)
+        {
+            for(int i =0; i < timeSlots.length; i++)
+            {
+                for(int j=0; j < timeSlots[i].length; j++)
+                {
+                     System.out.println("isjLoop:");
+                    if(!timeSlots[i][j].isFree())
+                    {
+                         System.out.println("isFreeLoop:");
+                           
+                        if(timeSlots[i][j].getMaxPriority() < meeting.getPiority())
+                        {
+                            timeSlots[i][j].setOveridable(true);
+                        }
+                        for(int k = 1; k < meeting.getLength().toMinutes() / TimeSlot.getDuration().toMinutes(); k++)
+                        {
+                            System.out.println("k :" + k);
+                            timeSlots[i][j - k].setNotFree();
+                            timeSlots[i][j - k].setCantScheduleTo();
+                            
+                        }
+                    }
+                }
+            }
+            return true;
         }
 }
 

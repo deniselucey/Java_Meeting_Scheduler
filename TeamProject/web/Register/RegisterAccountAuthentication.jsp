@@ -1,8 +1,6 @@
 
-
-
 <%-- 
-    Document   : RegisterAccount.jsp
+    Document   : RegisterAccountAuthentication.jsp
     Created on : Feb 5, 2015, 6:22:52 PM
     Author     : zolamcdonald
 --%>

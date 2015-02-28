@@ -1,4 +1,8 @@
-
+<%-- 
+    Document   : TimeTable
+    
+    Author     : zolamcdonald
+--%>
 
 
 <%@ page import ="java.sql.*" %>
@@ -62,7 +66,7 @@
                     
                 
                     <% 
-                        out.println(timeTable.toHTML());
+                        out.println(timeTable.toHTML(false));
                      %>
                 
           

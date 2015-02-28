@@ -35,7 +35,12 @@ body
 
 header
 {
-	text-align: center;
+    text-align: center;
+}
+
+footer
+{
+    
 }
 
 #main
@@ -158,6 +163,8 @@ table{
     width: 100%;
     font-size:12px;
     margin-bottom:10%;
+    font: Arial;
+    font-style:normal;
 }
 
 th,td
@@ -180,6 +187,7 @@ th,td
         border-bottom-color: black;
     }
     
+   
     th:first-of-type{
         background-color:#666;
     }
@@ -203,6 +211,8 @@ th,td
         color: white;
     }
     
+    
+    
     .occupied {
        background-color:dodgerblue;
        
@@ -211,7 +221,15 @@ th,td
     .collision{
         background-color:buttonface;
     }
+    .canSchedule
+    {
+        color:black;
+    }
     
+    .cantSchedule
+    {
+        background-color:black;
+    }
     
 /* Two-column layout */
 @media screen and (min-width: 768px)
