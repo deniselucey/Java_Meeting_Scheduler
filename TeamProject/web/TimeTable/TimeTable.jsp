@@ -35,7 +35,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../Login/Login.jsp");
+                    response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
                 } else {
@@ -55,6 +55,7 @@
                             <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
                             <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
                             <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
+                            <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>

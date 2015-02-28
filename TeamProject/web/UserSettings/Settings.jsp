@@ -1,9 +1,10 @@
 <%-- 
-    Document   : SemesterView
-    Created on : Feb 26, 2015, 7:20:03 PM
+    Document   : Settings
+    Created on : Feb 28, 2015, 5:25:31 PM
     Author     : zolamcdonald
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 
 
@@ -40,11 +41,10 @@
                 } else {
             %>
            
-                    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+                    
                     <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
         
-                    <jsp:useBean id="timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session">
-                    </jsp:useBean>
+                   
                 
                 
                 
@@ -53,9 +53,8 @@
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                             <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
                             <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
-                             <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
+                            <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
-                            
                         </ul>
                     </nav>
 	
@@ -65,10 +64,7 @@
                 
                     
                 
-                    <% 
-                        out.println(timeTable.toHTML(false));
-                     %>
-                
+                   
           
                     </div>
                 <%

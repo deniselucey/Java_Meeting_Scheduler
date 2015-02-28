@@ -71,22 +71,18 @@
 
                         <div>
                              <% 
-                                
+                                String registeredResult="";
+                                String emailResult = " A confirmation email has been sent to you.";
                                  if(register.registerDetailsWithDb()) {
                                     String email = request.getParameter("email");
                                     session.setAttribute("email", email );
                                     
-                                    out.println(register.isAllowedEmailAddress());
-                                    out.println(register);
+                                    registeredResult= "You have registered. ";
+                                   
                    
                              %>   
-                                <p> You have registered.<br> 
-                                    A confirmation email has been sent to you.<br>
-                                    Confirm  your email address to start using the system.<br>  
-                                </p>  
                                 
-                                
-                             
+                           
                              <%
                              }else {
                              %>
@@ -94,7 +90,9 @@
                              <% 
                                  }
                              %>
-                                
+                            <% 
+                                 out.println(registeredResult + "/n" + emailResult);
+                            %>  
                             
                         </div>
      
