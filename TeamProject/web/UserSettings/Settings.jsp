@@ -1,9 +1,8 @@
 <%-- 
-    Document   : TimeTable
-    
+    Document   : Settings
+    Created on : Feb 28, 2015, 5:16:05 PM
     Author     : zolamcdonald
 --%>
-
 
 <%@ page import ="java.sql.*" %>
 
@@ -42,11 +41,9 @@
             %>
            
                     <%@page contentType="text/html" pageEncoding="UTF-8"%>
-                    <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
+                   
         
-                    <jsp:useBean id="timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session">
-                    </jsp:useBean>
-                
+                   
                 
                 
                     <nav>
@@ -55,7 +52,6 @@
                             <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
                             <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
                             <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
-                            <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
@@ -66,10 +62,7 @@
                 
                     
                 
-                    <% 
-                        out.println(timeTable.toHTML(false));
-                     %>
-                
+                    
           
                     </div>
                 <%
