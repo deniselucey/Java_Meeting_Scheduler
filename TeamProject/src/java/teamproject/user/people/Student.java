@@ -85,7 +85,7 @@ public class Student extends Person {
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-            
+            Bugzilla.reportBug("Issue with unenrolling student to module");
             
         }
             return unenrolled;
