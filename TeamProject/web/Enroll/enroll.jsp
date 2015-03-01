@@ -92,12 +92,14 @@
                         <%
                         try{
                            String moduleCode = "";
+                           String email = "";
+                           email = (String) session.getAttribute("email");
                            SystemSetting.initSystemSetting();
                            SqlHandler handler2 = new SqlHandler();
                            String sql2 = "SELECT DISTINCT M.code "
                                    + "FROM Module AS M JOIN User AS U JOIN User_has_Module AS H "
                                    + "WHERE U.email = \" "
-                                   + session.getAttribute("email")
+                                   + email
                                    + "\" AND M.module_id = H.module_id;";
                            ResultSet queryResult2 = handler2.runQuery(sql2);
                            
