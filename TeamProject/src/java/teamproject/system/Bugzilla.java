@@ -24,11 +24,11 @@ public class Bugzilla {
                 .setOperatingSystem("WINDOWS")
                 .setPlatform("PC")
                 //.setPriority("P1")
-                .setProduct("TestProduct")
-                .setComponent("TestComponent")
-                .setSummary("Broken test bug.")
+                .setProduct("TeamProject")
+                .setComponent("Enroll")
+                .setSummary(bugerror)
                 .setVersion("unspecified")
-                .setDescription("It doesn't work.")
+                .setDescription(bugerror)
                 .createBug();
             
             ReportBug report = new ReportBug(bug);
