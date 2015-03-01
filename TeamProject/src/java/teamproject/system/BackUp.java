@@ -25,6 +25,7 @@ public class BackUp {
 
 	public boolean storeBackUp(){
             
+            
             // TODO - implement Group.setHomePage
 	    throw new UnsupportedOperationException();
 	}
@@ -49,18 +50,22 @@ public class BackUp {
         }
             	
 	public boolean storeLogfiles(){
+            Boolean logFilesStored = false;
             logs = new ArrayList<>();
-            Logger logger = Logger.getLogger(" ");
+            Logger logger = Logger.getLogger(BackUp.class.getName());
             
             try{
-                //logs.add();
-            }catch(Exception ex){
+                /**
+                for(int i=0; i< ; i++){
+                    logs.add(BackupFile);
+                    logFilesStored = true;
+                }
+                */
                 
+            }catch(Exception ex){
+                logFilesStored = false;
             }
-            
-            // TODO - implement System.storeLogfiles
-	    throw new UnsupportedOperationException();
-            
+            return logFilesStored;
 	}
         
 	/**
@@ -68,9 +73,9 @@ public class BackUp {
 	 * @param url
 	 */
 	public boolean loadBackup(String url){
+            
             // TODO - implement System.loadBackup
 	    throw new UnsupportedOperationException();
-            
 	}
 
 	public boolean restore(String dbName,String dbUserName, String dbPassword, String path, String source){
