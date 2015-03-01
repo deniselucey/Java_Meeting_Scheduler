@@ -7,6 +7,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="teamproject.system.Register"%>
+<%@ page import="java.io.*,java.util.*,javax.mail.*"%>
+<%@ page import="javax.mail.internet.*,javax.activation.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 <jsp:useBean id = "register" class="teamproject.system.Register" scope="request"/>
 
@@ -70,28 +73,66 @@
         
 
                         <div>
-                             <% 
+                            <% 
                                 String registeredResult="";
-                                String emailResult = " A confirmation email has been sent to you.";
-                                 if(register.registerDetailsWithDb()) {
+                                String emailResult = "";
+                                if(register.registerDetailsWithDb()) {
                                     String email = request.getParameter("email");
                                     session.setAttribute("email", email );
                                     
                                     registeredResult= "You have registered. ";
-                                   
+                                    
+                                        // Sender's email ID needs to be mentioned
+                                        String sendingEmail = "cs3305GroupProject@gmail.com";
+
+                                        // Sets the host
+                                        String host = "smtp.gmail.com";
+                                        String port = "mail.smtp.port";
+
+                                        // Gets the system properties object
+                                        Properties properties = System.getProperties();
+
+                                        // Setups mail server
+                                        properties.setProperty("mail.smtp.host", host);
+                                        properties.setProperty("mail.smtp.port", "587");
+                                        properties.setProperty("mail.smtp.starttls.enable", "true");
+                                        properties.setProperty("mail.smtp.auth", "true");
+
+                                        // Gets the default Session object.
+                                        Session mailSession = Session.getDefaultInstance(properties);
+                                        try{
+                                          
+                                            // Creates a default MimeMessage object.
+                                            MimeMessage message = new MimeMessage(mailSession);
+                                            // Set From: header field of the header.
+                                            message.setFrom(new InternetAddress(sendingEmail));
+                                            // Set To: header field of the header.
+                                            message.addRecipient(Message.RecipientType.TO,
+                                                                     new InternetAddress(email));
+                                            // Sets the email Subject: header field
+                                            message.setSubject("UCC TimeTable Registration");
+                                            // Sets the body of the email.
+                                            message.setText("Thank you for signing up for UCC TimeTable");
+                                            // Sends the email.
+                                            Transport.send(message);
+                                            //Sets the emailResult to confirm the email has been sent.
+                                            emailResult = "A confirmation email has been sent to you. ";
+                                        }catch (MessagingException mex) {
+                                           mex.printStackTrace();
+                                           emailResult = "The email confirmation wasn't sent due to a error.";
+                                        }
+
                    
-                             %>   
-                                
-                           
-                             <%
-                             }else {
-                             %>
+                            %>   
+                            <%
+                                }else {
+                            %>
                                   <p> A error has occurred </p>
-                             <% 
-                                 }
-                             %>
                             <% 
-                                 out.println(registeredResult + "/n" + emailResult);
+                                }
+                            %>
+                            <% 
+                                 out.println(registeredResult+ emailResult);
                             %>  
                             
                         </div>
