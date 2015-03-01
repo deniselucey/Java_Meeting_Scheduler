@@ -4,11 +4,6 @@
     Author     : zolamcdonald
 --%>
 
-<%-- 
-    Document   : AdminCreateModule
-    Created on : Feb 28, 2015, 5:25:03 PM
-    Author     : zolamcdonald
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
@@ -59,6 +54,7 @@
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
                             <li><a href="..\Admin\EditModules.jsp">Edit Modules</a></li>
                             <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
+                            <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
