@@ -23,7 +23,6 @@ public class Bugzilla {
             Bug bug = factory.newBug()
                 .setOperatingSystem("WINDOWS")
                 .setPlatform("PC")
-                //.setPriority("P1")
                 .setProduct("TeamProject")
                 .setComponent("Other")
                 .setSummary(bugerror)
@@ -37,7 +36,6 @@ public class Bugzilla {
             
             int id = report.getID();
             reported = true;
-            
     
         } catch (ConnectionException e) {
            e.printStackTrace();
