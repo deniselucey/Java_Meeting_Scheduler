@@ -71,6 +71,7 @@
                    createModule.CreateModule(module_id, credit, title, code, description, year);
                            
                 %>
+                <jsp:forward page="AdminHomePage.jsp"/>
                 <p>
                     <a href="..\Enroll\enroll.jsp">Go back.</a>
                 </p>
