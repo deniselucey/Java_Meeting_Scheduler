@@ -4,6 +4,8 @@
     Author     : zolamcdonald
 --%>
 
+<%@page import="teamproject.sql.SqlHandler"%>
+<%@page import="teamproject.system.SystemSetting"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
 
@@ -39,38 +41,133 @@
             %>
             <%
                 } else {
-            %>
-           
-                    
-                    
-        
-                   
-                
-                
-                
-                    <nav>
-                        <ul>
-                            <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
-                            <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
-                            <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
-                            <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
-                        </ul>
-                    </nav>
+            %>     
+            
+            <nav>
+                    <ul>
+                        <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
+                        <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
+                        <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
+                        <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+                    </ul>
+            </nav>
 	
                     <div id = "main">
                         
                         <section>
                             <h1>Create a New Module</h1>
+               <form name="input" action="AdminCreateModule.jsp" method="GET">            
+                   <fieldset>
+                       <div>
+                           <input type="number" name="module_id">
+                       </div>
+                       
+                       <div>
+                           <input type="number" name="credit">
+                       </div>
+                       
+                       <div>
+                           <input type="text" name="title">
+                       </div>
+                       
+                       <div>
+                           <input type="text" name="code">
+                       </div>
+                       
+                       <div>
+                           <input type="text" name="description">
+                       </div>
+                       
+                       <div>
+                           <input type="number" name="year">
+                       </div>
+			             
+                       <div>
+                           <input type="submit" value="Create">
+                       </div>
+		   </fieldset>			
+                </form>
                             
                             
                         </section>
                 
                         <section>
                             <h1>Edit Module Details</h1>
+                            <form name="input" action="#" method="GET">            
+                   <fieldset>
+                       <div>
+                           <label>Module</label>
+                           <select name="Modules">
+                           
+                        <%
+                        try{
+                           String moduleCode = "";
+                           SystemSetting.initSystemSetting();
+                           SqlHandler handler1 = new SqlHandler();
+                           String sql1 = "SELECT code FROM Module";
+                           ResultSet queryResult1 = handler1.runQuery(sql1);
+                           
+                           queryResult1.first();
+                           
+                           while (queryResult1.next() ) {
+                               moduleCode = queryResult1.getString("code");
+                               out.print("<option value=\"");
+                               out.print(moduleCode);
+                               out.print("\">");
+                               out.print(moduleCode);
+                           }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }      
+                        %>
+                           </select>
+                       </div>				
+			             
+                       <div>
+                           <input type="submit" value="Edit">
+                       </div>
+		   </fieldset>			
+                </form>
+
                         </section>
                         
                         <section>
                             <h1>Delete Module</h1>
+                            <form name="input" action="#" method="GET">            
+                   <fieldset>
+                       <div>
+                           <label>Module</label>
+                           <select name="Modules">
+                           
+                        <%
+                        try{
+                           String moduleCode = "";
+                           SystemSetting.initSystemSetting();
+                           SqlHandler handler1 = new SqlHandler();
+                           String sql1 = "SELECT code FROM Module";
+                           ResultSet queryResult1 = handler1.runQuery(sql1);
+                           
+                           queryResult1.first();
+                           
+                           while (queryResult1.next() ) {
+                               moduleCode = queryResult1.getString("code");
+                               out.print("<option value=\"");
+                               out.print(moduleCode);
+                               out.print("\">");
+                               out.print(moduleCode);
+                           }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }      
+                        %>
+                           </select>
+                       </div>				
+			             
+                       <div>
+                           <input type="submit" value="Delete">
+                       </div>
+		   </fieldset>			
+                </form>
                         </section>
                 
                    
