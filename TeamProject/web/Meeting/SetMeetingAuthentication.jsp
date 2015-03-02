@@ -61,7 +61,7 @@
                         teamproject.meeting.Meeting meeting = new teamproject.meeting.Meeting(
                         request.getParameter("title"),
                         request.getParameter("description"),
-                        (int)session.getAttribute("userId"),
+                        (Integer)session.getAttribute("userId"),
                         request.getParameter("addMembersToMeeting"),
                         request.getParameter("groupId_attendees"),      
                         Integer.parseInt(request.getParameter("duration")),      

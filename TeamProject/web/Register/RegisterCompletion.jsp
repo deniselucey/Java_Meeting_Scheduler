@@ -39,7 +39,7 @@
             
         <nav>
 	    <ul>
-                <li><a href="../TimeTable/TimeTable.jsp">TimeTable</a></li>
+                <li><a href="../LogIn/Login.jsp">Login</a></li>
             </ul>
 	</nav>
 	
@@ -75,11 +75,12 @@
                             <% 
                                 String registeredResult="";
                                 boolean emailResult;
+                                boolean setConfirmed;
                                 String emailSent="";
-                                if(register.registerDetailsWithDb()) {
+                                
+                                if(register.registerDetailsWithDb() && emailClass.updateDb(register.getEmail())) {
                                     String email = request.getParameter("email");
                                     session.setAttribute("email", email );
-                                    
                                     registeredResult= "You have registered. ";
                                   
                                    
