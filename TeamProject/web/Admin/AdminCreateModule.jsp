@@ -35,7 +35,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../LogIn/Login.jsp");
+                    response.sendRedirect("../Login/Login.jsp");
             %>
             <%
                 } else {
@@ -67,28 +67,25 @@
                    String code = request.getParameter("code");
                    String description = request.getParameter("description");
                    int year = Integer.parseInt(request.getParameter("year"));
-    
-                   createModule.CreateModule(module_id, credit, title, code, description, year);
+
+                    if (createModule.CreateModule(module_id, credit, title, code, description, year)) {
+                        out.print("You have been successfully created module " + request.getParameter("code"));
+                    } else {
+                        out.print("Sorry you failed to create module " + request.getParameter("code"));
+                    }
                            
                 %>
                 <p>
-                    <a href="..\Enroll\enroll.jsp">Go back.</a>
+                    <a href="..\Admin\EditModules.jsp">Go back.</a>
                 </p>
             </section>
                 
-                
-                    
-                
-                   
           
                     </div>
                 <%
                    }
                 %>  
         
-         
-            
-       
         <p class = "status"></p>
     </div>
     <footer>

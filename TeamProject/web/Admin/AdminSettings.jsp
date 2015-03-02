@@ -1,8 +1,3 @@
-<%-- 
-    Document   : AdminSettings
-    Created on : Feb 28, 2015, 5:24:32 PM
-    Author     : zolamcdonald
---%>
 
 <%-- 
     Document   : AdminCreateModule
@@ -41,19 +36,12 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../LogIn/Login.jsp");
+                    response.sendRedirect("../Login/Login.jsp");
             %>
             <%
                 } else {
             %>
-           
-                    
-                   
-        
-                   
-                
-                
-                
+                      
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
@@ -65,11 +53,7 @@
 	
                     <div id = "main">
                         <h1>System Settings</h1>
-                
-                
-                    
-                
-                   
+ 
           
                     </div>
                 <%

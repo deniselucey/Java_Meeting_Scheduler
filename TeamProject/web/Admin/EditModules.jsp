@@ -37,7 +37,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../LogIn/Login.jsp");
+                    response.sendRedirect("../Login/Login.jsp");
             %>
             <%
                 } else {
@@ -59,26 +59,32 @@
                <form name="input" action="AdminCreateModule.jsp" method="GET">            
                    <fieldset>
                        <div>
+                           <label>Module ID</label>
                            <input type="number" name="module_id">
                        </div>
                        
                        <div>
+                           <label>Credits</label>
                            <input type="number" name="credit">
                        </div>
                        
                        <div>
+                           <label>Title</label>
                            <input type="text" name="title">
                        </div>
                        
                        <div>
+                           <label>Module Code</label>
                            <input type="text" name="code">
                        </div>
                        
                        <div>
+                           <label>Description</label>
                            <input type="text" name="description">
                        </div>
                        
                        <div>
+                           <label>Year</label>
                            <input type="number" name="year">
                        </div>
 			             
@@ -86,18 +92,16 @@
                            <input type="submit" value="Create">
                        </div>
 		   </fieldset>			
-                </form>
-                            
-                            
+                </form>      
                         </section>
                 
                         <section>
                             <h1>Edit Module Details</h1>
-                            <form name="input" action="#" method="GET">            
+                            <form name="input" action="AdminEditModule.jsp" method="GET">            
                    <fieldset>
                        <div>
                            <label>Module</label>
-                           <select name="Modules">
+                           <select name="code">
                            
                         <%
                         try{
@@ -121,8 +125,28 @@
                         }      
                         %>
                            </select>
-                       </div>				
-			             
+                       </div>
+                       
+                       <div>
+                           <label>Credits</label>
+                           <input type="number" name="credit">
+                       </div>
+                       
+                       <div>
+                           <label>Title</label>
+                           <input type="text" name="title">
+                       </div>
+                       
+                       <div>
+                           <label>Description</label>
+                           <input type="text" name="description">
+                       </div>
+                       
+                       <div>
+                           <label>Year</label>
+                           <input type="number" name="year">
+                       </div>
+                           
                        <div>
                            <input type="submit" value="Edit">
                        </div>
@@ -133,11 +157,11 @@
                         
                         <section>
                             <h1>Delete Module</h1>
-                            <form name="input" action="#" method="GET">            
+                            <form name="input" action="AdminDeleteModule.jsp" method="GET">            
                    <fieldset>
                        <div>
                            <label>Module</label>
-                           <select name="Modules">
+                           <select name="code">
                            
                         <%
                         try{

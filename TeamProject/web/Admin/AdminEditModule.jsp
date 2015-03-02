@@ -1,9 +1,8 @@
 <%-- 
-    Document   : AdminHomePage
-    Created on : Feb 28, 2015, 5:24:21 PM
+    Document   : AdminCreateModule
+    Created on : Feb 28, 2015, 5:25:03 PM
     Author     : zolamcdonald
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
@@ -41,24 +40,54 @@
             <%
                 } else {
             %>
+                
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
-                            <li><a href="..\Admin\EditModules.jsp">Edit Modules</a></li>
                             <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
-                            <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
 	
                     <div id = "main">
-	    
+	            	<section class = "content">
+                       <h1>Enroll</h1>
+
+                <%@page import="teamproject.user.people.Lecturer"%>
+
+
+                <jsp:useBean id="editModule" class="teamproject.user.people.Lecturer" scope="session">
+                </jsp:useBean>
+
+
+                <% 
+                   int credit = Integer.parseInt(request.getParameter("credit"));
+                   String title = request.getParameter("title");
+                   String code = request.getParameter("code");
+                   String description = request.getParameter("description");
+                   int year = Integer.parseInt(request.getParameter("year"));
+
+                    if (editModule.EditModule(code, credit, title, description, year)) {
+                        out.print("You have been successfully edited module " + request.getParameter("code"));
+                    } else {
+                        out.print("Sorry you failed to edit module " + request.getParameter("code"));
+                    }
+                           
+                %>
+                <p>
+                    <a href="..\Admin\EditModules.jsp">Go back.</a>
+                </p>
+            </section>
                 
           
                     </div>
                 <%
                    }
                 %>  
+        
+         
+            
+       
         <p class = "status"></p>
     </div>
     <footer>

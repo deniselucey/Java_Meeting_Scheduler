@@ -3,16 +3,18 @@ import com.j2bugzilla.base.*;
 import com.j2bugzilla.rpc.*;
 
 /**
- *
+ * Sends bug reports to Bugzilla
  * @author deniselucey
  */
 public class Bugzilla {
     
-    private String bugerror;
+    private String bugerror = "";
     private static boolean reported = false;
     
-    public static boolean reportBug(String bugerror) { 
+    public static boolean reportBug(String bugerror) {
+        
         try {
+            
             BugzillaConnector conn = new BugzillaConnector();
             conn.connectTo("http://52.16.9.114/");
             
@@ -23,11 +25,10 @@ public class Bugzilla {
             Bug bug = factory.newBug()
                 .setOperatingSystem("WINDOWS")
                 .setPlatform("PC")
-                //.setPriority("P1")
                 .setProduct("TeamProject")
-                .setComponent("Enroll")
+                .setComponent("Other")
                 .setSummary(bugerror)
-                .setVersion("unspecified")
+                .setVersion("1")
                 .setDescription(bugerror)
                 .createBug();
             
@@ -37,18 +38,13 @@ public class Bugzilla {
             
             int id = report.getID();
             reported = true;
-            
     
         } catch (ConnectionException e) {
-           System.out.print("Exception with connection"); 
+           e.printStackTrace();
         } catch (BugzillaException e) {
-            System.out.print("Bugzilla Exception");
             e.printStackTrace();
-            e.getMessage();
         }
-        
         return reported;
     }
-    
 }
 
