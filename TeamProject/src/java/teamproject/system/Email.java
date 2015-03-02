@@ -4,10 +4,18 @@
  * and open the template in the editor.
  */
 package teamproject.system;
+
+import static java.lang.Math.random;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.sql.SQLException;
 import javax.mail.*;
 import javax.mail.internet.*;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import teamproject.sql.SqlHandler;
 /**
  *
  * @author zolamcdonald
@@ -22,8 +30,9 @@ public class Email {
     private String emailSubject;
     private String host = "smtp.gmail.com";
     private String port = "mail.smtp.port";
-    
     private boolean emailResult;
+    private SqlHandler sqlHandler;
+    private String randomNumber;
 
     public boolean sendEmail(String emailSubject1,String emailText, String email1){
         email = email1;
@@ -80,5 +89,48 @@ public class Email {
         return emailResult;
     }               
 
+    
+    public boolean updateDb(String email1){
+        
+         email = email1;
+        int registered;
+        /**
+         * Sets is isRegistered to false.
+         */
+        boolean isRegistered = false;
+        try{
+            SecureRandom random = new SecureRandom();
+            System.out.println(randomNumber = new BigInteger(48, random).toString(16));
+            SystemSetting.initSystemSetting();
+            /**
+             *  Stores the statement as a string.
+             */
+            String query1 ="INSERT INTO Register "+
+                            "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),"
+                           + "0, NOW(),'"+randomNumber +"')" ;
+            
+            System.out.println(query1);
+            /**
+             * Creates a new sqlHandler.
+             */
+            sqlHandler = new SqlHandler();
+            /**
+             * Runs the SQL statement's using the sqlHandler
+             * Stores if the statement was successful or not in variable as
+             * a 1 or 0.
+             */
+            registered = sqlHandler.runStatement(query1);
+            isRegistered =true;
+            
+           
+        }catch(SQLException ex) {
+            Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /**
+         * Returns true if the user's details have been registered in the db,
+         * Returns false if the user's details haven't been registered.
+         */
+        return isRegistered;
+    }
    
 }

@@ -82,32 +82,6 @@ public class Login {
         return inDb;
     }
     
-//    public boolean isAdmin(){
-//        boolean isAdmin = false;
-//       try{
-//            SystemSetting.initSystemSetting();
-//            String query="SELECT";
-//            ResultSet queryResult;
-//            sqlHandler = new SqlHandler();
-//            queryResult = sqlHandler.runQuery(query);
-//            
-//            if(queryResult.isBeforeFirst())
-//            {
-//                queryResult.next();
-//            
-//                if(){
-//                    isAdmin = true;
-//                }
-//            }else{
-//                return isAdmin;
-//            }
-//                
-//        }catch(SQLException ex){
-//              Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);   
-//        }    
-//        
-//        return isAdmin;
-//    }
     
             
     

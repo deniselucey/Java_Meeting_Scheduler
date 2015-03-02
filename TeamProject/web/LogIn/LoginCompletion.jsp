@@ -43,12 +43,12 @@
                 
                <% 
                   
-                if((boolean)session.getAttribute("admin")){
+                if((Boolean)session.getAttribute("admin")){
                        response.sendRedirect("../Admin/AdminHomePage.jsp");
                        
-                   }else{
+                }else{
                        response.sendRedirect("../TimeTable/TimeTable.jsp");
-                   }
+                }
                   
                %>
               

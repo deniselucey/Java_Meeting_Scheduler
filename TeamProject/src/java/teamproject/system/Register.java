@@ -4,6 +4,7 @@ package teamproject.system;
  * @author zolamcdonald
  */
 
+import static java.lang.Math.random;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.ResultSet;
@@ -66,7 +67,7 @@ public class Register implements java.io.Serializable{
             String query1 = "INSERT INTO User(firstname, secondname, "
                            + "email, password)"  
                     + "VALUES('" + firstName+ "','" + lastName +"','" +
-                     email +"','" + password +"');"; ;
+                     email +"','" + password +"');"; 
            
             /**
              * Stores the second statement as a string.
@@ -74,6 +75,7 @@ public class Register implements java.io.Serializable{
             String query2 = "INSERT INTO student(student_id,student_number)" +
                              "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),  "
                     + "'"+studentNumber+"');";
+            
             
    
             /**

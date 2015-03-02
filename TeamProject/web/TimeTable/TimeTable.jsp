@@ -34,18 +34,19 @@
 	</header>
             
             <%
-                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                if((session.getAttribute("email") == null) || ((String)session.getAttribute("email") == "")) {
                     response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
                 } else {
             %>
-           
+                    
                     <%@page contentType="text/html" pageEncoding="UTF-8"%>
                     <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
         
-                    <jsp:useBean id="timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session">
-                    </jsp:useBean>
+                     <%
+                        teamproject.system.scheduler.timetable.Timetable timeTable = new teamproject.system.scheduler.timetable.Timetable((Integer)session.getAttribute("userId"));
+                    %>
                 
                 
                 

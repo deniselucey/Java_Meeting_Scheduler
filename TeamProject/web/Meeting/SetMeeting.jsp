@@ -114,9 +114,6 @@
                                     <input type="text" name="addMembersToMeeting" value="" /><br>
                                     <input type="submit" value="Add Another Member" /><br>
                                 </div>
-                                
-                                
-                                    
 
                                 <div>
                                     <input type="submit" value="Search Meeting Times" /><br>

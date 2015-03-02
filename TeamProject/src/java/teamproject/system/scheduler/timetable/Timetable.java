@@ -9,6 +9,7 @@ import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import teamproject.meeting.Meeting;
+import teamproject.meeting.Recurrence;
 import teamproject.sql.SqlHandler;
 
 public class Timetable {
@@ -26,9 +27,14 @@ public class Timetable {
     private int hourRowSpan = 2;
     private int maxBlock = 4;
     
+    public Timetable(int userId) throws SQLException{
+        this(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue()-1), 1, loadAllMeeting(userId),1,4);
+        //TODO Delete above line. Just for testing.    Well proper 1337!
+    }
     
-    public Timetable() throws SQLException{
-        this(LocalDate.of(2014, Month.DECEMBER, 29), 12, loadAllMeeting(),1,4);
+    
+    public Timetable(int weeks,int userId) throws SQLException{
+        this(LocalDate.of(2015, Month.JANUARY, 12), weeks, loadAllMeeting(userId),1,4);
         //TODO Delete above line. Just for testing.    Well proper 1337!
     }
     
@@ -72,7 +78,7 @@ public class Timetable {
                 int daysIndex = (int) duration.toDays();
                 int minutes = (int) (duration.toMinutes() - (daysIndex*24*60) - DAY_START_TIME.toMinutes());
                 int slotIndex = minutes / MINUTES_IN_A_TIMESLOT;
-
+                System.out.println(meeting);
                 float length = ((float)meeting.getLength().toMinutes())/MINUTES_IN_A_TIMESLOT;
                 //int slotOffset;
                 for(int i = 0,slot = slotIndex ; i < length; i++){
@@ -110,7 +116,7 @@ public class Timetable {
 
         int[] timeSlotsFilled = new int[lengthInDays];
 
-        while(weekStart.isBefore(endDate))
+        while(weekStart.isBefore(endDate) && counter < days/7 )
         {
 
             htmlBuilder += "<table><tr>";
@@ -132,6 +138,7 @@ public class Timetable {
                 for(int i =0; i < daysInAWeek; i++)
                 {
                     int dayIndex = counter*daysInAWeek + i;
+                    System.out.println("counter :"+counter+ " days:" +daysInAWeek +" i: "+ i);
                     if(timeSlotsFilled[dayIndex] <= j )
                     {
                     
@@ -163,52 +170,79 @@ public class Timetable {
         
         
         
-        /**
-         * should not be part of finished product
-         */
-        private static ArrayList<Meeting> loadAllMeeting() throws SQLException
+    /**
+     * should not be part of finished product
+     */
+    private static ArrayList<Meeting> loadAllMeeting(int userId) throws SQLException
+    {
+        SqlHandler sh = new SqlHandler();
+        ResultSet rs = sh.runQuery("SELECT * FROM meeting WHERE meeting_id in (SELECT meeting_id FROM is_attending WHERE user_id = '" + userId + "');");
+        ArrayList<Meeting> meetings = new ArrayList<>();
+        while(rs.next())
         {
-            SqlHandler sh = new SqlHandler();
-            ResultSet rs = sh.runQuery("SELECT * FROM meeting");
-            ArrayList<Meeting> meetings = new ArrayList<>();
-            while(rs.next())
-            {
-                meetings.add(new Meeting(rs));
-            }
-            return meetings;
+            meetings.add(new Meeting(rs));
         }
-        
-        public String formatDuration(Duration d)
+        return meetings;
+    }
+
+    public String formatDuration(Duration d)
+    {
+        return String.format("%02d:%02d", d.toHours(),d.toMinutes()%60);
+    }
+
+    public boolean setTimeSlotForScheduler(Meeting meeting)
+    {
+        Recurrence repeating= meeting.getRepeatEvery();
+        if(repeating != Recurrence.NEVER)
         {
-            return String.format("%02d:%02d", d.toHours(),d.toMinutes()%60);
-        }
-        
-        public boolean setTimeSlotForScheduler(Meeting meeting)
-        {
+            int days = repeating.getPeriod().getDays();
+            TimeSlot[][] newTimetable= new TimeSlot[days][NUMBER_OF_TIMESLOTS];
+            
+            int newTimeTableDaysIndex = 0;
             for(int i =0; i < timeSlots.length; i++)
             {
+                newTimeTableDaysIndex = i % days;
+                System.out.println("DAys" + newTimeTableDaysIndex);
                 for(int j=0; j < timeSlots[i].length; j++)
                 {
-                     System.out.println("isjLoop:");
-                    if(!timeSlots[i][j].isFree())
+                    if(newTimetable[newTimeTableDaysIndex][j] == null)
                     {
-                         System.out.println("isFreeLoop:");
-                           
-                        if(timeSlots[i][j].getMaxPriority() < meeting.getPiority())
+                        newTimetable[newTimeTableDaysIndex][j] = this.timeSlots[i][j];
+                    }
+                    else
+                    {
+                        newTimetable[newTimeTableDaysIndex][j].add(this.timeSlots[i][j]);
+                    }    
+                }
+            }
+            this.timeSlots = newTimetable;
+            
+            
+            
+        }
+        for(int i =0; i < timeSlots.length; i++)
+        {
+            for(int j=0; j < timeSlots[i].length; j++)
+            {
+                if(!timeSlots[i][j].isFree())
+                {
+                    if(timeSlots[i][j].getMaxPriority() < meeting.getPiority())
+                    {
+                        timeSlots[i][j].setOveridable(true);
+                    }
+                    for(int k = 1; k < meeting.getLength().toMinutes() / TimeSlot.getDuration().toMinutes(); k++)
+                    {
+                        System.out.println("k :" + k);
+                        if(j - k >= 0)
                         {
-                            timeSlots[i][j].setOveridable(true);
-                        }
-                        for(int k = 1; k < meeting.getLength().toMinutes() / TimeSlot.getDuration().toMinutes(); k++)
-                        {
-                            System.out.println("k :" + k);
-                            timeSlots[i][j - k].setNotFree();
                             timeSlots[i][j - k].setCantScheduleTo();
-                            
                         }
+                        
                     }
                 }
             }
-            return true;
         }
+        return true;
+    }
 }
 

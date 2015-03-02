@@ -1,8 +1,14 @@
 <%-- 
-    Document   : RegisterCompletion
-    Created on : Feb 8, 2015, 11:57:13 PM
-    Author     : zolamcdonald
+    Document   : ConfirmMeeting
+    Created on : 28-Feb-2015, 15:07:05
+    Author     : drgex_000
 --%>
+
+
+            
+         
+ 
+
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -39,7 +45,14 @@
             
         <nav>
 	    <ul>
-                <li><a href="../LogIn/Login.jsp">Login</a></li>
+                <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
+                            <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
+                            <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
+                            
+                            <li><a href="..\Enroll\Unenroll.jsp">Unenroll in Module</a></li>
+                            <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
+                            <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
+                            <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
             </ul>
 	</nav>
 	
@@ -73,34 +86,41 @@
 
                         <div>
                             <% 
-                                String registeredResult="";
-                                boolean emailResult;
-                                boolean setConfirmed;
-                                String emailSent="";
-                                
-                                if(register.registerDetailsWithDb() && emailClass.updateDb(register.getEmail())) {
-                                    String email = request.getParameter("email");
-                                    session.setAttribute("email", email );
-                                    registeredResult= "You have registered. ";
-                                  
-                                   
-                                   emailResult = emailClass.sendEmail("UCC TimeTable Registration","Thank you for signing up for UCC TimeTable",email);
-                                   if(emailResult){
-                                      emailSent = "A confirmation email has been sent to you. ";
-                                   }else{
-                                      emailSent ="The email confirmation wasn't sent due to an error. ";
-                                   }
+//                                String registeredResult="";
+//                                boolean emailResult;
+//                                boolean setConfirmed;
+//                                String emailSent="";
+//                                
+//                                if(register.registerDetailsWithDb() && emailClass.updateDb(register.getEmail())) {
+//                                    String email = request.getParameter("email");
+//                                    session.setAttribute("email", email );
+//                                    registeredResult= "You have registered. ";
+//                                  
+//                                   
+//                                   emailResult = emailClass.sendEmail("UCC TimeTable Registration","Thank you for signing up for UCC TimeTable",email);
+//                                   if(emailResult){
+//                                      emailSent = "A confirmation email has been sent to you. ";
+//                                   }else{
+//                                      emailSent ="The email confirmation wasn't sent due to an error. ";
+                                 //  }
                                        
                             %>   
                             <%
-                                }else {
+                               // }else {
                             %>
-                                  <p> A error has occurred </p>
+                                  
                             <% 
-                                }
+                               // }
                             %>
                             <% 
-                                 out.println(registeredResult+ emailSent);
+                                   
+                                String dateString = request.getParameter("dates");
+                                teamproject.meeting.Meeting meeting = (teamproject.meeting.Meeting)session.getAttribute("meeting");
+                                out.print("<p>" + meeting + "</p>");
+                                boolean success = teamproject.meeting.Meeting.insertMeeting(meeting,dateString);
+                                out.print("<p>" + success + "</p>");
+           
+                                 //out.println(registeredResult+ emailSent);
                             %>  
                             
                         </div>
