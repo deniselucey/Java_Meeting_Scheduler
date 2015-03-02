@@ -109,6 +109,8 @@ public class Meeting {
         this.hostUserID = other.hostUserID;
         this.people_attendees = other.people_attendees;
         this.group_attendees = other.group_attendees;
+        this.groupId_attendees = other.groupId_attendees;
+        this.peopleId_attendees = other.peopleId_attendees;
         this.length = other.length;
         this.startDateTime = other.startDateTime;
         this.endDateTime = other.endDateTime;
@@ -200,12 +202,34 @@ public class Meeting {
      * @param timeSlot
      * @return
      */
-    public boolean confirm(TimeSlot timeSlot)
+    public boolean setTime(LocalDateTime time)
+    {
+        if(!checkCollisions())
+        {
+            this.startDateTime = time;
+            this.endDateTime = startDateTime.plus(this.length);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean setTime(String time)
     {
             // TODO - implement Meeting.confirm
-            throw new UnsupportedOperationException();
+        LocalDateTime dateTime;
+        try{
+            dateTime= LocalDateTime.parse(time);
+            return setTime(dateTime);
+        } 
+        catch(Exception e){return false;}
+            
     }
 
+    public boolean checkCollisions()
+    {
+        //TODO implement check the database to ensure no collisions
+        return false;
+    }
     public String toSQL()
     {
         String meetingSql="";
@@ -450,7 +474,41 @@ public class Meeting {
         return meetings;
     }
     
-    private class InsertMeeting extends SqlHandler {
+    public static boolean insertMeeting(Meeting meeting, String dateString)
+    {
+        String[] dates = dateString.split(",");
+        Meeting[] meetings = new Meeting[dates.length];
+       // boolean[] success = new boolean[dates.length];
+        String failed = "";
+        int i = 0;
+        for(String date: dates)
+        {
+            meetings[i] = new Meeting(meeting);
+            System.out.println("meeting " +i+"  is Null?" + (meetings[i] == null) +" ");
+            if(!meetings[i].setTime(date))
+            {
+                failed += "Date " + date + " Could not be set.\n" ;
+                System.err.println("FAILED TO SET DATE" + i);
+            }   
+            i++;
+        }
+        if(!failed.equals(""))
+        {
+            System.out.println(failed);
+            return false;
+        }
+        for(Meeting m: meetings)
+        {
+            if(m == null)
+            {
+                System.out.println("Meetings is null");
+            }
+            InsertMeeting im = new InsertMeeting(m);
+        }
+        return true;
+    }
+    
+    private static class InsertMeeting extends SqlHandler {
     
         protected PreparedStatement insertMeeting;
         protected PreparedStatement insertPeople;
@@ -473,8 +531,9 @@ public class Meeting {
             super();
             boolean meetingInserted = true; 
             try {
-                this.connection.setAutoCommit(false);
+            //    this.connection.setAutoCommit(false);
                 this.insertMeeting = connection.prepareStatement(meetingString);
+                System.out.println((insertMeeting  == null) + " insertMeeting == null"+ meeting.getHostUserID() + meeting == null);
                 insertMeeting.setInt(1, meeting.getHostUserID());
                 insertMeeting.setString(2, meeting.getStartDateTime().toString());
                 insertMeeting.setString(3, meeting.getEndDateTime().toString());
@@ -488,33 +547,41 @@ public class Meeting {
 
 
     //this.insertPeople = connection.prepareStatement(peopleString);
+                
                 int id = meeting.getId();
+                System.out.println(id + ":ID");
                 if(id == 0)
                 {
                     insertMeeting.execute();
                     id = meeting.getIdFromDatabase();
                 }
-
-                String personAttending = "INSERT INTO is_attending VALUES ";
-                HashSet<Person> people = meeting.getPeople_attendees();
+                System.out.println(id + ":ID");
+                String personAttending = "INSERT INTO `SchedulerDatabase`.`Is_Attending` VALUES ";
+                HashSet<Integer> people = meeting.peopleId_attendees;
                 int length = people.size();
-                for(Person person:people)
+                for(Integer person:people)
                 {
-                    personAttending += "(" + id + ", " +  person.getId() + ")" ;
+                    personAttending += "(" + id + ", " +  person + ")" ;
                     --length;
                     personAttending += length == 0?";":",";  
                 }
-
-                String groupAttending = "INSERT INTO group_is_attending VALUES ";
-                HashSet<Group> groups = meeting.getGroup_attendees();
-                length = groups.size();
-                for(Group group : groups)
+                System.out.println("People Attending" + personAttending);
+                String groupAttending = "INSERT INTO `SchedulerDatabase`.`Group_Is_Attending` VALUES ";
+                HashSet<Integer> groups = meeting.groupId_attendees;
+                if(groups != null && groups.size()>0)
                 {
-                    groupAttending += "(" + id + ", " +  group.getId() + ")" ;
-                    --length;
-                    groupAttending += length == 0?";":",";  
+                    length = groups.size();
+                    for(Integer group : groups)
+                    {
+                        groupAttending += "(" + id + ", " +  group + ")" ;
+                        --length;
+                        groupAttending += length == 0?";":",";  
+                    }
+                    this.runStatement(groupAttending);
                 }
-
+                this.runStatement(personAttending);
+                
+                
             }
             catch (SQLException ex) 
             {

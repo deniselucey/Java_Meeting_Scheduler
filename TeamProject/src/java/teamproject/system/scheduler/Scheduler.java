@@ -86,8 +86,11 @@ public class Scheduler {
         this.recurrence = meetingToSchedule.getRepeatEvery();
         this.sqlHandler = new SqlHandler();
         meetings = new ArrayList<>(); 
-        System.out.print("THIS ONE"+this.loadMeeting());
-        int weeks = (int) Math.ceil(Duration.between(startOfRange.atStartOfDay(),endOfRange.atStartOfDay()).toDays()/(double)7);
+        this.loadMeeting();
+                
+        int days = (int)Duration.between(startOfRange.atStartOfDay(),endOfRange.atStartOfDay()).toDays();
+        days = days==0?1:days;
+        int weeks = ((int) Math.ceil(days/(double)7));
         this.timetable = new Timetable(this.startOfRange, weeks, meetings,1,1);
         timetable.setTimeSlotForScheduler(meetingToSchedule);
         

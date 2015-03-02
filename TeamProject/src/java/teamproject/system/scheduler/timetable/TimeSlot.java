@@ -63,16 +63,19 @@ public class TimeSlot {
     public String toSchedulerHTML(){
         
         //TODO create a page to link to
-        String html = "<a href=\"" + ((free && schedulable)?"  ":"#") + "\"><td class =";
+        String html = "<td class =";
 
-        if(free && schedulable)
+        if(!free)
         {
-            html += "\"canSchedule\"";
+            html += "\"notFree\"";
+        }
+        else if(!schedulable)
+        {
+             html += "\"cantSchedule\"";
         }
         else
         {
-            System.out.println("cantSchedule");
-            html += "\"cantSchedule\"";
+            html += "\"canSchedule\" onclick=\"TDClicked('" + startTime.toString() + "')\"";
         }
         
         
@@ -82,9 +85,8 @@ public class TimeSlot {
             html += "Max Priority:" + this.maxPriority;
             html += " Total:" + this.totalPriority;
         }
-       
 
-        html+="</td></a>";
+        html+="</td>";
         return html;
     }
 
@@ -100,6 +102,13 @@ public class TimeSlot {
         this.totalPriority += piority;
         this.maxPriority = piority < maxPriority?maxPriority:piority;
         meetings.add(meeting);
+    }
+     
+    public void add(TimeSlot ts){
+        for(Meeting m : ts.meetings)
+        {
+            this.add(m);
+        }
     }
     /**
      * Returns true if this set contains no elements.

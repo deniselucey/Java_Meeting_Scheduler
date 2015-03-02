@@ -17,14 +17,14 @@
             <link rel="stylesheet" href="../styles/example.css">
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            
+            <script src="SchedulerClickEvent.js"></script>
             <title>Set Meeting</title>
     </head>
     
     <body>
         <a id="skiplink" href="#main">Skip to main content</a>
 	<a id="user" href="#"></a>
-        
+        <p id="TEST"></p>
        <div id="wrapper">
 	<header>
             <img src="../Resources/logo.gif" alt="UCC Logo">
@@ -55,12 +55,17 @@
                         
 
 
-                    <%   
+                    <%  
+                        String peopleAttending=  request.getParameter("addMembersToMeeting");
+                        if(peopleAttending.equals(""))
+                        {
+                                peopleAttending += session.getAttribute("userId");
+                        }
                         teamproject.meeting.Meeting meeting = new teamproject.meeting.Meeting(
                         request.getParameter("title"),
                         request.getParameter("description"),
                         (int)session.getAttribute("userId"),
-                        request.getParameter("addMembersToMeeting"),
+                        peopleAttending,
                         request.getParameter("groupId_attendees"),      
                         Integer.parseInt(request.getParameter("duration")),      
                         request.getParameter("endDate"),      
@@ -69,13 +74,13 @@
                         1,     
                         1);
                         //TODO add privates and piority
-
+                        session.setAttribute("meeting", meeting);
                         teamproject.system.scheduler.Scheduler scheduler = new teamproject.system.scheduler.Scheduler(meeting,request.getParameter("startDate"),request.getParameter("endDate"));
                         //Meeting meetingToSchedule, LocalDate startOfRange, LocalDate endOfRange
                         out.println(scheduler.toHTML());
 
                     %>
-
+                    
                         
                 </div>
                 
@@ -83,9 +88,13 @@
                 <%
                 }
                 %>  
-      
+                <div>
+                    <input type="submit" value="Confirm Meeting" onclick="Commit()">
+                </div>
+                
         <p class = "status"></p>
     </div>
+                
     <footer>
         <p>
           
