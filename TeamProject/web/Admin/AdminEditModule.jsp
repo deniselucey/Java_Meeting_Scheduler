@@ -35,7 +35,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../LogIn/Login.jsp");
+                    response.sendRedirect("../Login/Login.jsp");
             %>
             <%
                 } else {
@@ -61,14 +61,13 @@
 
 
                 <% 
-                   int module_id = Integer.parseInt(request.getParameter("module_id"));
                    int credit = Integer.parseInt(request.getParameter("credit"));
                    String title = request.getParameter("title");
                    String code = request.getParameter("code");
                    String description = request.getParameter("description");
                    int year = Integer.parseInt(request.getParameter("year"));
 
-                    if (editModule.EditModule(module_id, credit, title, code, description, year)) {
+                    if (editModule.EditModule(code, credit, title, description, year)) {
                         out.print("You have been successfully edited module " + request.getParameter("code"));
                     } else {
                         out.print("Sorry you failed to edit module " + request.getParameter("code"));
