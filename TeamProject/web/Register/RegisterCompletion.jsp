@@ -7,8 +7,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="teamproject.system.Register"%>
+<%@page import="teamproject.system.Email" %>
 
 <jsp:useBean id = "register" class="teamproject.system.Register" scope="request"/>
+<jsp:useBean id = "emailClass" class="teamproject.system.Email" scope="request"/>
 
 
 <!DOCTYPE html>
@@ -70,28 +72,34 @@
         
 
                         <div>
-                             <% 
+                            <% 
                                 String registeredResult="";
-                                String emailResult = " A confirmation email has been sent to you.";
-                                 if(register.registerDetailsWithDb()) {
+                                boolean emailResult;
+                                String emailSent="";
+                                if(register.registerDetailsWithDb()) {
                                     String email = request.getParameter("email");
                                     session.setAttribute("email", email );
                                     
                                     registeredResult= "You have registered. ";
+                                  
                                    
-                   
-                             %>   
-                                
-                           
-                             <%
-                             }else {
-                             %>
+                                   emailResult = emailClass.sendEmail("UCC TimeTable Registration","Thank you for signing up for UCC TimeTable",email);
+                                   if(emailResult){
+                                      emailSent = "A confirmation email has been sent to you. ";
+                                   }else{
+                                      emailSent ="The email confirmation wasn't sent due to an error. ";
+                                   }
+                                       
+                            %>   
+                            <%
+                                }else {
+                            %>
                                   <p> A error has occurred </p>
-                             <% 
-                                 }
-                             %>
                             <% 
-                                 out.println(registeredResult + "/n" + emailResult);
+                                }
+                            %>
+                            <% 
+                                 out.println(registeredResult+ emailSent);
                             %>  
                             
                         </div>

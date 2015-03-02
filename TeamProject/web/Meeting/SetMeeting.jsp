@@ -74,7 +74,7 @@
                                 
                                 <div>
                                     <label>Meeting description:</label>
-                                    <input type="text" name="description" value="" size="35" />
+                                    <input type="text" name="description" value="" size="34" />
                                 </div>
                                 
                                 <div>
