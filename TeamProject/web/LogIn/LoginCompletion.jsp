@@ -42,12 +42,13 @@
                 
                 
                <% 
-                   int userId = login.getUserId();
-                   String email = request.getParameter("email");
-                   session.setAttribute("userId", userId);
-                   session.setAttribute("email", email );
-                   response.sendRedirect("../TimeTable/TimeTable.jsp");
-                   
+                  
+                if((boolean)session.getAttribute("admin")){
+                       response.sendRedirect("../Admin/AdminHomePage.jsp");
+                       
+                   }else{
+                       response.sendRedirect("../TimeTable/TimeTable.jsp");
+                   }
                   
                %>
               

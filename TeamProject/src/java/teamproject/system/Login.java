@@ -19,6 +19,7 @@ public class Login {
      private String email = "";
      private String password = "";
      private int userId;
+     private boolean admin;
      private SqlHandler sqlHandler;
      private final HashMap errors = new HashMap();
     /**
@@ -50,7 +51,7 @@ public class Login {
         
         try{
             SystemSetting.initSystemSetting();
-            String query = "SELECT email,password,user_id "+
+            String query = "SELECT email,password,user_id,admin "+
                            "FROM User "+
                            "WHERE email ='"+email+"';";
             
@@ -63,12 +64,14 @@ public class Login {
                 queryResult.next();
                 String emailResult = queryResult.getString("email");
                 String passwordResult = queryResult.getString("password");
+               
                 
                
                 if(emailResult.equals(email) && validatePassword(password, passwordResult))
                 {
                     inDb = true;
                     userId = queryResult.getInt("user_id");
+                    admin = queryResult.getBoolean("admin");
                 }
             }else{
                 return inDb;
@@ -78,6 +81,33 @@ public class Login {
         }
         return inDb;
     }
+    
+//    public boolean isAdmin(){
+//        boolean isAdmin = false;
+//       try{
+//            SystemSetting.initSystemSetting();
+//            String query="SELECT";
+//            ResultSet queryResult;
+//            sqlHandler = new SqlHandler();
+//            queryResult = sqlHandler.runQuery(query);
+//            
+//            if(queryResult.isBeforeFirst())
+//            {
+//                queryResult.next();
+//            
+//                if(){
+//                    isAdmin = true;
+//                }
+//            }else{
+//                return isAdmin;
+//            }
+//                
+//        }catch(SQLException ex){
+//              Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);   
+//        }    
+//        
+//        return isAdmin;
+//    }
     
             
     
@@ -146,6 +176,10 @@ public class Login {
     
    public int getUserId(){
        return userId;
+   }
+   
+   public boolean getIsAdmin(){
+       return admin;
    }
     
    
