@@ -59,41 +59,45 @@
                <form name="input" action="AdminCreateModule.jsp" method="GET">            
                    <fieldset>
                        <div>
+                           <label>Module ID</label>
                            <input type="number" name="module_id">
                        </div>
                        
                        <div>
+                           <label>Credits</label>
                            <input type="number" name="credit">
                        </div>
                        
                        <div>
+                           <label>Title</label>
                            <input type="text" name="title">
                        </div>
                        
                        <div>
+                           <label>Module Code</label>
                            <input type="text" name="code">
                        </div>
                        
                        <div>
+                           <label>Description</label>
                            <input type="text" name="description">
                        </div>
                        
                        <div>
+                           <label>Year</label>
                            <input type="number" name="year">
                        </div>
 			             
-                       <div>
+                       <div>s
                            <input type="submit" value="Create">
                        </div>
 		   </fieldset>			
-                </form>
-                            
-                            
+                </form>      
                         </section>
                 
                         <section>
                             <h1>Edit Module Details</h1>
-                            <form name="input" action="#" method="GET">            
+                            <form name="input" action="AdminEditModule.jsp" method="GET">            
                    <fieldset>
                        <div>
                            <label>Module</label>

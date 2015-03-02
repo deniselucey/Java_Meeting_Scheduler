@@ -66,7 +66,7 @@
                    
                 %>
                 <p>
-                    <a href="..\Enroll\enroll.jsp">Go back.</a>
+                    <a href="..\Admin\EditModules.jsp">Go back.</a>
                 </p>
             </section>
                 

@@ -56,7 +56,7 @@
                 <%@page import="teamproject.user.people.Lecturer"%>
 
 
-                <jsp:useBean id="createModule" class="teamproject.user.people.Lecturer" scope="session">
+                <jsp:useBean id="editModule" class="teamproject.user.people.Lecturer" scope="session">
                 </jsp:useBean>
 
 
@@ -68,10 +68,10 @@
                    String description = request.getParameter("description");
                    int year = Integer.parseInt(request.getParameter("year"));
 
-                    if (createModule.CreateModule(module_id, credit, title, code, description, year)) {
-                        out.print("You have been successfully created module " + request.getParameter("code"));
+                    if (editModule.EditModule(module_id, credit, title, code, description, year)) {
+                        out.print("You have been successfully edited module " + request.getParameter("code"));
                     } else {
-                        out.print("Sorry you failed to create module " + request.getParameter("code"));
+                        out.print("Sorry you failed to edit module " + request.getParameter("code"));
                     }
                            
                 %>
@@ -86,6 +86,9 @@
                    }
                 %>  
         
+         
+            
+       
         <p class = "status"></p>
     </div>
     <footer>
