@@ -61,6 +61,37 @@
                         
                         <section>
                             <h1>Create a New Module</h1>
+               <form name="input" action="AdminCreateModule.jsp" method="GET">            
+                   <fieldset>
+                       <div>
+                           <input type="number" name="module_id">
+                       </div>
+                       
+                       <div>
+                           <input type="number" name="credit">
+                       </div>
+                       
+                       <div>
+                           <input type="text" name="title">
+                       </div>
+                       
+                       <div>
+                           <input type="text" name="code">
+                       </div>
+                       
+                       <div>
+                           <input type="text" name="description">
+                       </div>
+                       
+                       <div>
+                           <input type="number" name="year">
+                       </div>
+			             
+                       <div>
+                           <input type="submit" value="Create">
+                       </div>
+		   </fieldset>			
+                </form>
                             
                             
                         </section>
