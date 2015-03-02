@@ -3,7 +3,7 @@ import com.j2bugzilla.base.*;
 import com.j2bugzilla.rpc.*;
 
 /**
- *
+ * Sends bug reports to Bugzilla
  * @author deniselucey
  */
 public class Bugzilla {
