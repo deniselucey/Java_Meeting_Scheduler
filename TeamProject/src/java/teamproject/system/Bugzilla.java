@@ -8,11 +8,13 @@ import com.j2bugzilla.rpc.*;
  */
 public class Bugzilla {
     
-    private String bugerror;
+    private String bugerror = "";
     private static boolean reported = false;
     
-    public static boolean reportBug(String bugerror) { 
+    public static boolean reportBug(String bugerror) {
+        
         try {
+            
             BugzillaConnector conn = new BugzillaConnector();
             conn.connectTo("http://52.16.9.114/");
             
@@ -42,7 +44,6 @@ public class Bugzilla {
         } catch (BugzillaException e) {
             e.printStackTrace();
         }
-        
         return reported;
     }
 }
