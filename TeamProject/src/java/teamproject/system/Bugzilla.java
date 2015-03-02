@@ -25,9 +25,9 @@ public class Bugzilla {
                 .setPlatform("PC")
                 //.setPriority("P1")
                 .setProduct("TeamProject")
-                .setComponent("Enroll")
+                .setComponent("Other")
                 .setSummary(bugerror)
-                .setVersion("unspecified")
+                .setVersion("1")
                 .setDescription(bugerror)
                 .createBug();
             
@@ -40,15 +40,12 @@ public class Bugzilla {
             
     
         } catch (ConnectionException e) {
-           System.out.print("Exception with connection"); 
+           e.printStackTrace();
         } catch (BugzillaException e) {
-            System.out.print("Bugzilla Exception");
             e.printStackTrace();
-            e.getMessage();
         }
         
         return reported;
     }
-    
 }
 
