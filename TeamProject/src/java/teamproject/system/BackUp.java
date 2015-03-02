@@ -8,6 +8,7 @@ public class BackUp {
 
 	private File BackupFile;
 	private ArrayList<File> logs;
+        private ArrayList<File> backupFiles;
 
 	public boolean createBackUp(String fileName){
             Boolean isBackupCreated = false;
@@ -24,10 +25,13 @@ public class BackUp {
 	}
 
 	public boolean storeBackUp(){
-            
-            
-            // TODO - implement Group.setHomePage
-	    throw new UnsupportedOperationException();
+            Boolean backupStored = false;
+            backupFiles = new ArrayList<>();
+            if(BackupFile.exists()){
+                backupFiles.add(BackupFile);
+                backupStored = true;
+            }
+            return backupStored;
 	}
 
 	public String createDateBaseBackup(String dbName,String dbUserName, String dbPassword, String path){
@@ -55,13 +59,10 @@ public class BackUp {
             Logger logger = Logger.getLogger(BackUp.class.getName());
             
             try{
-                /**
-                for(int i=0; i< ; i++){
-                    logs.add(BackupFile);
-                    logFilesStored = true;
+                if(){
+                    
                 }
-                */
-                
+                logFilesStored = true;
             }catch(Exception ex){
                 logFilesStored = false;
             }
