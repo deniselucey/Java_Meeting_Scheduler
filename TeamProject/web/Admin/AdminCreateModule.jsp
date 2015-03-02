@@ -40,13 +40,6 @@
             <%
                 } else {
             %>
-           
-                    
-                    
-        
-                   
-                
-                
                 
                     <nav>
                         <ul>
@@ -57,7 +50,31 @@
                     </nav>
 	
                     <div id = "main">
-	    
+	            	<section class = "content">
+                       <h1>Enroll</h1>
+
+                <%@page import="teamproject.user.people.Lecturer"%>
+
+
+                <jsp:useBean id="createModule" class="teamproject.user.people.Lecturer" scope="session">
+                </jsp:useBean>
+
+
+                <% 
+                   int module_id = Integer.parseInt(request.getParameter("module_id"));
+                   int credit = Integer.parseInt(request.getParameter("credit"));
+                   String title = request.getParameter("title");
+                   String code = request.getParameter("code");
+                   String description = request.getParameter("description");
+                   int year = Integer.parseInt(request.getParameter("year"));
+    
+                   createModule.CreateModule(module_id, credit, title, code, description, year);
+                           
+                %>
+                <p>
+                    <a href="..\Enroll\enroll.jsp">Go back.</a>
+                </p>
+            </section>
                 
                 
                     
