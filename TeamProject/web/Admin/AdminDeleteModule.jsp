@@ -57,10 +57,14 @@
 
                 <% 
                    String code = request.getParameter("code");
-                   deleteModule.DeleteModule(code);
+                                  
+                    if (deleteModule.DeleteModule(code)) {
+                        out.print("You have been successfully deleted module " + request.getParameter("code"));
+                    } else {
+                        out.print("Sorry you failed to delete module " + request.getParameter("code"));
+                    }
                    
                 %>
-                <jsp:forward page="AdminHomePage.jsp"/>
                 <p>
                     <a href="..\Enroll\enroll.jsp">Go back.</a>
                 </p>
