@@ -11,6 +11,7 @@ import teamproject.system.SystemSetting;
 
 public class Lecturer extends Staff {
         private static boolean createdModule = false;
+        private static boolean deleteModule = false;
 
 	/**
 	 * 
@@ -50,9 +51,29 @@ public class Lecturer extends Staff {
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-            Bugzilla.reportBug("Issue with creating module by Lecturer.");
+            Bugzilla.reportBug("Issue with creating module by the lecturer.");
         }
          return createdModule;
+	}
+        
+        
+        public boolean DeleteModule(String code)
+	{
+            try{
+                SystemSetting.initSystemSetting();                             
+                SqlHandler sqlHandler = new SqlHandler();               
+                
+                String query = "DELETE FROM Module WHERE code = '" + code + "';";
+                sqlHandler.runStatement(query);
+            
+                deleteModule = true;
+                
+        }catch(SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            Bugzilla.reportBug("Issue with deleting module by a lecturer");
+            
+        }
+         return deleteModule;
 	}
 
 }
