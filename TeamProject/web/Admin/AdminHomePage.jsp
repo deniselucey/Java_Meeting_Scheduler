@@ -41,14 +41,6 @@
             <%
                 } else {
             %>
-           
-                    
-                   
-        
-                   
-                
-                
-                
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
@@ -62,10 +54,6 @@
                     <div id = "main">
 	    
                 
-                
-                    
-                
-                   
           
                     </div>
                 <%
