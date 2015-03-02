@@ -43,16 +43,18 @@
                     <%@page contentType="text/html" pageEncoding="UTF-8"%>
                     <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
         
-                    <jsp:useBean id="timeTable" class="teamproject.system.scheduler.timetable.Timetable" scope="session">
-                    </jsp:useBean>
-                
+                    <%
+                        teamproject.system.scheduler.timetable.Timetable timeTable = new teamproject.system.scheduler.timetable.Timetable(12,(Integer)session.getAttribute("userId"));
+                    %>
                 
                 
                     <nav>
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                             <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
-                            <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                            <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
+                            <li><a href="..\Enroll\Unenroll.jsp">Unenroll in Module</a></li>
+                            <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                             
                         </ul>

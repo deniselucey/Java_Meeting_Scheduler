@@ -27,9 +27,14 @@ public class Timetable {
     private int hourRowSpan = 2;
     private int maxBlock = 4;
     
+    public Timetable(int userId) throws SQLException{
+        this(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek().getValue()-1), 1, loadAllMeeting(userId),1,4);
+        //TODO Delete above line. Just for testing.    Well proper 1337!
+    }
     
-    public Timetable() throws SQLException{
-        this(LocalDate.of(2014, Month.DECEMBER, 29), 12, loadAllMeeting(),1,4);
+    
+    public Timetable(int weeks,int userId) throws SQLException{
+        this(LocalDate.of(2015, Month.JANUARY, 12), weeks, loadAllMeeting(userId),1,4);
         //TODO Delete above line. Just for testing.    Well proper 1337!
     }
     
@@ -168,10 +173,10 @@ public class Timetable {
     /**
      * should not be part of finished product
      */
-    private static ArrayList<Meeting> loadAllMeeting() throws SQLException
+    private static ArrayList<Meeting> loadAllMeeting(int userId) throws SQLException
     {
         SqlHandler sh = new SqlHandler();
-        ResultSet rs = sh.runQuery("SELECT * FROM meeting");
+        ResultSet rs = sh.runQuery("SELECT * FROM meeting WHERE meeting_id in (SELECT meeting_id FROM is_attending WHERE user_id = '" + userId + "');");
         ArrayList<Meeting> meetings = new ArrayList<>();
         while(rs.next())
         {

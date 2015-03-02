@@ -7,8 +7,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="teamproject.system.Register"%>
+<%@page import="teamproject.system.Email" %>
 
 <jsp:useBean id = "register" class="teamproject.system.Register" scope="request"/>
+<jsp:useBean id = "emailClass" class="teamproject.system.Email" scope="request"/>
 
 
 <!DOCTYPE html>
@@ -37,7 +39,7 @@
             
         <nav>
 	    <ul>
-                <li><a href="../TimeTable/TimeTable.jsp">TimeTable</a></li>
+                <li><a href="../LogIn/Login.jsp">Login</a></li>
             </ul>
 	</nav>
 	
@@ -70,31 +72,36 @@
         
 
                         <div>
-                             <% 
+                            <% 
+                                String registeredResult="";
+                                boolean emailResult;
+                                boolean setConfirmed;
+                                String emailSent="";
                                 
-                                 if(register.registerDetailsWithDb()) {
+                                if(register.registerDetailsWithDb() && emailClass.updateDb(register.getEmail())) {
                                     String email = request.getParameter("email");
                                     session.setAttribute("email", email );
-                                    
-                                    out.println(register.isAllowedEmailAddress());
-                                    out.println(register);
-                   
-                             %>   
-                                <p> You have registered.<br> 
-                                    A confirmation email has been sent to you.<br>
-                                    Confirm  your email address to start using the system.<br>  
-                                </p>  
-                                
-                                
-                             
-                             <%
-                             }else {
-                             %>
+                                    registeredResult= "You have registered. ";
+                                  
+                                   
+                                   emailResult = emailClass.sendEmail("UCC TimeTable Registration","Thank you for signing up for UCC TimeTable",email);
+                                   if(emailResult){
+                                      emailSent = "A confirmation email has been sent to you. ";
+                                   }else{
+                                      emailSent ="The email confirmation wasn't sent due to an error. ";
+                                   }
+                                       
+                            %>   
+                            <%
+                                }else {
+                            %>
                                   <p> A error has occurred </p>
-                             <% 
-                                 }
-                             %>
-                                
+                            <% 
+                                }
+                            %>
+                            <% 
+                                 out.println(registeredResult+ emailSent);
+                            %>  
                             
                         </div>
      

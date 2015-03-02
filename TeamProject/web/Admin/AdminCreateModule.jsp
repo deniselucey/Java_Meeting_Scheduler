@@ -1,11 +1,11 @@
 <%-- 
-    Document   : TimeTable
-    
+    Document   : AdminCreateModule
+    Created on : Feb 28, 2015, 5:25:03 PM
     Author     : zolamcdonald
 --%>
 
-
-<%@ page import ="java.sql.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import ="java.sql.*" %>
 
 
 <!DOCTYPE html>
@@ -34,45 +34,52 @@
 	</header>
             
             <%
-                if((session.getAttribute("email") == null) || ((String)session.getAttribute("email") == "")) {
+                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
                     response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
                 } else {
             %>
-                    
-                    <%@page contentType="text/html" pageEncoding="UTF-8"%>
-                    <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
-        
-                     <%
-                        teamproject.system.scheduler.timetable.Timetable timeTable = new teamproject.system.scheduler.timetable.Timetable((Integer)session.getAttribute("userId"));
-                    %>
-                
-                
                 
                     <nav>
                         <ul>
-                            <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                            <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
-                            <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
-                            
-                            <li><a href="..\Enroll\Unenroll.jsp">Unenroll in Module</a></li>
-                            <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
-                            <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
+                            <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
+                            <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
 	
                     <div id = "main">
-	    
+	            	<section class = "content">
+                       <h1>Enroll</h1>
+
+                <%@page import="teamproject.user.people.Lecturer"%>
+
+
+                <jsp:useBean id="createModule" class="teamproject.user.people.Lecturer" scope="session">
+                </jsp:useBean>
+
+
+                <% 
+                   int module_id = Integer.parseInt(request.getParameter("module_id"));
+                   int credit = Integer.parseInt(request.getParameter("credit"));
+                   String title = request.getParameter("title");
+                   String code = request.getParameter("code");
+                   String description = request.getParameter("description");
+                   int year = Integer.parseInt(request.getParameter("year"));
+    
+                   createModule.CreateModule(module_id, credit, title, code, description, year);
+                           
+                %>
+                <p>
+                    <a href="..\Enroll\enroll.jsp">Go back.</a>
+                </p>
+            </section>
                 
                 
                     
                 
-                    <% 
-                        out.println(timeTable.toHTML(false));
-                     %>
-                
+                   
           
                     </div>
                 <%

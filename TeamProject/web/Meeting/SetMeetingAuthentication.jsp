@@ -32,7 +32,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../Login/Login.jsp");
+                    response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
                 } else {
@@ -44,8 +44,10 @@
                  <nav>
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                            <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                            <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
+                            <li><a href="..\Enroll\Unenroll.jsp">Unenroll in Module</a></li>
                             <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
+                             <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
@@ -64,8 +66,8 @@
                         teamproject.meeting.Meeting meeting = new teamproject.meeting.Meeting(
                         request.getParameter("title"),
                         request.getParameter("description"),
-                        (int)session.getAttribute("userId"),
-                        peopleAttending,
+                        (Integer)session.getAttribute("userId"),
+                        request.getParameter("addMembersToMeeting"),
                         request.getParameter("groupId_attendees"),      
                         Integer.parseInt(request.getParameter("duration")),      
                         request.getParameter("endDate"),      

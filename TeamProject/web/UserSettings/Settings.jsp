@@ -1,10 +1,10 @@
 <%-- 
-    Document   : TimeTable
-    
+    Document   : Settings
+    Created on : Feb 28, 2015, 5:25:31 PM
     Author     : zolamcdonald
 --%>
 
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 
 
@@ -34,19 +34,17 @@
 	</header>
             
             <%
-                if((session.getAttribute("email") == null) || ((String)session.getAttribute("email") == "")) {
+                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
                     response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
                 } else {
             %>
+           
                     
-                    <%@page contentType="text/html" pageEncoding="UTF-8"%>
                     <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
         
-                     <%
-                        teamproject.system.scheduler.timetable.Timetable timeTable = new teamproject.system.scheduler.timetable.Timetable((Integer)session.getAttribute("userId"));
-                    %>
+                   
                 
                 
                 
@@ -55,10 +53,8 @@
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                             <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
                             <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
-                            
                             <li><a href="..\Enroll\Unenroll.jsp">Unenroll in Module</a></li>
                             <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
-                            <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
@@ -69,10 +65,7 @@
                 
                     
                 
-                    <% 
-                        out.println(timeTable.toHTML(false));
-                     %>
-                
+                   
           
                     </div>
                 <%

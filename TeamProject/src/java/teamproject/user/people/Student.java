@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import teamproject.college.Module;
 import teamproject.sql.SqlHandler;
+import teamproject.system.Bugzilla;
 import teamproject.system.SystemSetting;
 
 public class Student extends Person {
@@ -48,6 +49,7 @@ public class Student extends Person {
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            Bugzilla.reportBug("Issue with enrolling student to module");
         }
          return enrolled;
 	}
@@ -83,7 +85,7 @@ public class Student extends Person {
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-            
+            Bugzilla.reportBug("Issue with unenrolling student to module");
             
         }
             return unenrolled;

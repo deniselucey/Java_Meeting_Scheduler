@@ -11,11 +11,20 @@
 
 
 <% 
-   if (login.validateForm() && login.checkDb()) {
+   boolean checkDb = login.checkDb();
+   boolean validateForm = login.validateForm();
+   if ( validateForm && checkDb) {
+                   int userId = login.getUserId();
+                   String email = request.getParameter("email");
+                   boolean admin = login.getIsAdmin();
+                   session.setAttribute("admin", admin);
+                   session.setAttribute("userId", userId);
+                   session.setAttribute("email", email );
 %>
     <jsp:forward page="LoginCompletion.jsp"/>
+    
 <%
-   }else if (login.validateForm() && !login.checkDb()) {
+   }else if (validateForm && !checkDb) {
 %>
     <jsp:forward page="Login.jsp"/>
 <%

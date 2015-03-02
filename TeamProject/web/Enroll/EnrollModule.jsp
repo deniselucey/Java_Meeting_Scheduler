@@ -30,13 +30,16 @@
             } else {
         %>
                 
-        <nav>
-	    <ul>
-                <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                <li> <a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
-                <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
-            </ul>
-	</nav>
+                   <nav>
+                        <ul>
+                            <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
+                            <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
+                            <li><a href="..\Enroll\enroll.jsp">Enroll/Un-enroll</a></li>
+                            <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
+                            <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
+                            <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+                        </ul>
+                    </nav>
 	
         <div id = "main">
 	    <section class = "content">
@@ -54,15 +57,15 @@
                 <% 
                     String email = (String) session.getAttribute("email");
                     
-                    if (enroll.enrollToModule(request.getParameter("module"), email)) {
-                        out.print("You have been successfully enrolled to " + request.getParameter("module"));
+                    if (enroll.enrollToModule(request.getParameter("Modules"), email)) {
+                        out.print("You have been successfully enrolled to " + request.getParameter("Modules"));
                     } else {
-                        out.print("Sorry module " + request.getParameter("module") + " is unavailable.");
+                        out.print("Sorry module " + request.getParameter("Modules") + " is unavailable.");
                     }
                            
                 %>
                 <p>
-                    <a href="..\Enroll\enroll.html">Go back.</a>
+                    <a href="..\Enroll\enroll.jsp">Go back.</a>
                 </p>
             </section>
         </div>

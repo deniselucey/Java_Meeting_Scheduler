@@ -38,7 +38,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../Login/Login.jsp");
+                    response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
                 } else {
@@ -52,8 +52,10 @@
                     <nav>
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                            <li><a href="..\Enroll\enroll.html">Enroll/Un-enroll</a></li>
+                            <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
+                            <li><a href="..\Enroll\Unenroll.jsp">Unenroll in Module</a></li>
                             <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
+                             <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
@@ -72,7 +74,7 @@
                                 
                                 <div>
                                     <label>Meeting description:</label>
-                                    <input type="text" name="description" value="" size="35" />
+                                    <input type="text" name="description" value="" size="34" />
                                 </div>
                                 
                                 <div>
