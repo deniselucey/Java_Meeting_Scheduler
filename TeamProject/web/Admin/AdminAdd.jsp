@@ -1,10 +1,3 @@
-
-<%-- 
-    Document   : AdminCreateModule
-    Created on : Feb 28, 2015, 5:25:03 PM
-    Author     : zolamcdonald
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
 
@@ -41,41 +34,47 @@
             <%
                 } else {
             %>
-                      
+                
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
-                            <li><a href="..\Admin\EditModules.jsp">Edit Modules</a></li>
-                             <li><a href="..\Admin\BackUp.jsp"> System BackUp</a></li>
+                            <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
 	
                     <div id = "main">
-                        <section>
-                            <h1>Add new administrator</h1>
-                   <form name="input" action="AdminAdd.jsp" method="GET">            
-                   <fieldset>
-                       <div>
-                           <label>Email</label>
-                           <input type="number" name="email">
-                       </div>
-                       
-                       <div>
-                           <input type="submit" value="Add">
-                       </div>
-		   </fieldset>			
-                </form>      
- 
+	            	<section class = "content">
+                       <h1>Enroll</h1>
+
+                <%@page import="teamproject.user.privilege.AdminPrivlege"%>
+
+
+                <jsp:useBean id="addAdmin" class="teamproject.user.privilege.AdminPrivlege" scope="session">
+                </jsp:useBean>
+
+
+                <% 
+                   String email = request.getParameter("email");
+
+                    if (addAdmin.add(email)) {
+                        out.print("You have been successfully created a new administrator: " + email);
+                    } else {
+                        out.print("Sorry you failed to add new administrator: " + email);
+                    }
+                           
+                %>
+                <p>
+                    <a href="..\Admin\AdminSettings.jsp">Go back.</a>
+                </p>
+            </section>
+                
           
                     </div>
                 <%
                    }
                 %>  
         
-         
-            
-       
         <p class = "status"></p>
     </div>
     <footer>
