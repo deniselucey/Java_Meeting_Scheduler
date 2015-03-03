@@ -7,7 +7,6 @@ import java.util.logging.*;
 public class BackUp {
 
 	private File BackupFile;
-	private ArrayList<File> logs;
         private ArrayList<File> backupFiles;
        
 
@@ -68,7 +67,7 @@ public class BackUp {
                     sentence = "Could not create the database backup";
                 }
             } catch (IOException | InterruptedException ex){
-                
+                Bugzilla.reportBug("Issue with creating backup");
             }
              return sentence;
         }
@@ -94,7 +93,9 @@ public class BackUp {
                 } else {    
                 }
             } catch (IOException | InterruptedException ex) {
+                Bugzilla.reportBug("Issue with restoring");
             }
+       
             return isRestored;
 	}
 }
