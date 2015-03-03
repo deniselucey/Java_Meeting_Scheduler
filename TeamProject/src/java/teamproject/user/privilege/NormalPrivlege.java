@@ -43,7 +43,7 @@ public class NormalPrivlege extends Privilege {
         }             
     }
     @Override
-    public void setAdmin(Person person, boolean value)
+    public void setAdmin(String email)
     {
         log();
     }
