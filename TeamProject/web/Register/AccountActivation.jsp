@@ -6,10 +6,10 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="teamproject.system.Register"%>
+
 <%@page import="teamproject.system.Email" %>
 
-<jsp:useBean id = "register" class="teamproject.system.Register" scope="request"/>
+
 <jsp:useBean id = "emailClass" class="teamproject.system.Email" scope="request"/>
 
 
@@ -25,7 +25,7 @@
             <link rel="stylesheet" href="../styles/example.css">
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Register Account</title>
+            <title>Account Activation</title>
     </head>
     
     <body>
@@ -47,46 +47,25 @@
 	    <section class = "content">
                <h1>You have activated your account</h1>
                
-                   <fieldset>
-                       
-                        
-
-                        <div>
-                            <%--
-                                String registeredResult="";
-                                boolean emailResult;
-                                boolean setConfirmed;
-                                String emailSent="";
-                                
-                                if(register.registerDetailsWithDb() && emailClass.updateDb(register.getEmail())) {
-                                    String email = request.getParameter("email");
-                                    session.setAttribute("email", email );
-                                    registeredResult= "You have registered. ";
-                                  
-                                   
-                                   emailResult = emailClass.sendEmail("UCC TimeTable Registration","Thank you for signing up for UCC TimeTable",email);
-                                   if(emailResult){
-                                      emailSent = "A confirmation email has been sent to you. ";
-                                   }else{
-                                      emailSent ="The email confirmation wasn't sent due to an error. ";
-                                   }
-                                   
-                            --%>   
-                            <p>You have activated your account.</p>
-                            <p><a href="../LogIn/Login.jsp">Login Now</a></p>
+                    <fieldset>
+                       <div>
                             
-                            <%--
-                                }else {
-                            --%>
-                                  
-                                  <p> A error has occurred </p>
-                            <%--
+                            <% 
+                                boolean activationResult = emailClass.confirmAccount("");
+                                
+                                if(activationResult){
+                            %>
+                                    <p>You have activated your account.</p>
+                                    <p><a href="../LogIn/Login.jsp">Login Now</a></p>
+                            <%
+                                }else{
+                            %>
+                                    <p> A error has occurred </p>;
+                            <%
                                 }
-                            --%>
-                           
+                            %>
                             
                         </div>
-     
                     </fieldset>
                
             </section>
