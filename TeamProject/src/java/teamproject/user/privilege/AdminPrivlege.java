@@ -117,8 +117,8 @@ public class AdminPrivlege extends Privilege {
                 SystemSetting.initSystemSetting();
                 SqlHandler sqlHandler = new SqlHandler();
                 String query3 = "INSERT INTO Module(module_id, credit, title, code, description, year)"  
-                              + "VALUES(" + module_id + "," + credit + ",'" + title + "'," + code 
-                              +   ",'" + description + "'," + year + ");";
+                              + "VALUES(" + module_id + "," + credit + ",'" + title + "', '" + code 
+                              +   "','" + description + "'," + year + ");";
                 sqlHandler.runStatement(query3);
                 
                 createdModule = true;
@@ -150,19 +150,26 @@ public class AdminPrivlege extends Privilege {
     }
         
     
-    public boolean EditModule(int module_id, int credit, String title, String code, String description, int year )
+    public boolean EditModule(String code, int credit, String title, String description, int year )
     {
             try{
                 SystemSetting.initSystemSetting();                             
-                SqlHandler sqlHandler = new SqlHandler();               
+                SqlHandler sqlHandler = new SqlHandler();
                 
-                String query = "UPDATE Module" +
-                               "SET module_id=" + module_id +
-                               ", credit = " + credit + 
-                               ", title = '" + title + "'" +
-                               ", description = '" + description + "'" +
-                               ", year = " + year +
-                               "WHERE code = ' " + code;
+                /*
+                UPDATE Module 
+                               SET credit = 5 
+                               , title = 'test'
+                               , description = 'test'
+                               , year = 4
+                                WHERE code = 'CS0000';
+                
+                */
+                String query = "UPDATE Module SET credit = " + credit
+                        + ", title = '" + title + "'"
+                        + ", description = '" + description + "'"
+                        + ", year = " + year 
+                        + "  WHERE code = '" + code + "';";
                 sqlHandler.runStatement(query);
             
                 editModule = true;
@@ -174,3 +181,4 @@ public class AdminPrivlege extends Privilege {
          return editModule;
     }
 }
+
