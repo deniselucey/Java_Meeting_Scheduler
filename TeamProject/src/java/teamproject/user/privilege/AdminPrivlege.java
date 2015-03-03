@@ -26,7 +26,7 @@ public class AdminPrivlege extends Privilege {
     }
     
     @Override
-    public void setAdmin(String email)
+    public boolean setAdmin(String email)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

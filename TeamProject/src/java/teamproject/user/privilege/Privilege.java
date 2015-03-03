@@ -24,7 +24,7 @@ public abstract class Privilege {
 	 * @param value
          * @return True if success false if failed. 
 	 */
-	public abstract void setAdmin(String email);
+	public abstract boolean setAdmin(String email);
 
 	/**
 	 * 
