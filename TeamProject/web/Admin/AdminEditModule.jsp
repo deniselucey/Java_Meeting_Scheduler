@@ -56,7 +56,7 @@
                 <%@page import="teamproject.user.people.Lecturer"%>
 
 
-                <jsp:useBean id="editModule" class="teamproject.user.people.Lecturer" scope="session">
+                <jsp:useBean id="editModule" class="teamproject.user.privilege.AdminPrivlege" scope="session">
                 </jsp:useBean>
 
 
