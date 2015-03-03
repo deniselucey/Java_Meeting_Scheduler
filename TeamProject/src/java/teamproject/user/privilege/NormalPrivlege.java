@@ -49,12 +49,6 @@ public class NormalPrivlege extends Privilege {
         return true;
     }
 
-    @Override
-    public boolean remove(int Meeting)
-    {
-        log();
-        return false;
-    }
 
     @Override
     public boolean remove(Group group)
@@ -64,18 +58,12 @@ public class NormalPrivlege extends Privilege {
     }
 
     @Override
-    public boolean add(Person person)
+    public boolean add(String email)
     {
         log();
         return false;
     }
 
-    @Override
-    public boolean remove(Person person)
-    {
-        log();
-        return false;
-    }
 
     @Override
     public boolean reserveTimeBlock(Meeting meeting)
