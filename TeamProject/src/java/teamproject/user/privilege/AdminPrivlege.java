@@ -15,11 +15,21 @@ import teamproject.user.people.Lecturer;
 import teamproject.user.people.Person;
 import teamproject.user.people.Student;
 
+/**
+ * An Admin class which allows users who act as administrators to create, edit
+ * and delete modules. 
+ * It also provides a way for administrators to add further administrators.
+ * 
+ * @author Denise Lucey - 112700291
+ */
 public class AdminPrivlege extends Privilege {
         private static boolean createdModule = false;
         private static boolean deleteModule = false;
         private static boolean editModule = false;
 
+    /**
+     *
+     */
     public AdminPrivlege()
     {
         super(true,true);
@@ -35,6 +45,11 @@ public class AdminPrivlege extends Privilege {
     @Override
     public boolean add(String email)
     {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public boolean remove(Group group) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -93,7 +108,19 @@ public class AdminPrivlege extends Privilege {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-            
+    /**
+     * Allows a module to be created and added to the system.
+     * It achieves this by adding an entry in the Module table with the details
+     * of the module.
+     * 
+     * @param module_id - id of the module
+     * @param credit - amount of credits the module is worth
+     * @param title - title of the module
+     * @param code - module code of the module, i.e. CS3505
+     * @param description - short description of the teachings of the module.
+     * @param year - the year to which the module is taught.
+     * @return true if module is successfully created or false otherwise.
+     */
     public boolean CreateModule(int module_id, int credit, String title, String code, String description, int year )
     {
             try{
@@ -113,7 +140,13 @@ public class AdminPrivlege extends Privilege {
          return createdModule;
     }
         
-        
+    /**
+     * Allows a module to be deleted from the system.
+     * It achieves this by deleting all details of a module from the Module table
+     * using its code.
+     * @param code - module code of module to be deleted.
+     * @return true if module is successfully deleted or false otherwise.
+     */
     public boolean DeleteModule(String code)
     {
             try{
@@ -132,7 +165,19 @@ public class AdminPrivlege extends Privilege {
          return deleteModule;
     }
         
-    
+    /**
+     * Allows the details of an active module in the system to be edited.
+     * It achieves this by altering its entry in the Module table with the 
+     * updated details of the module.
+     * 
+     * @param module_id - id of the module
+     * @param credit - amount of credits the module is worth
+     * @param title - title of the module
+     * @param code - module code of the module, i.e. CS3505
+     * @param description - short description of the teachings of the module.
+     * @param year - the year to which the module is taught.
+     * @return true if module is successfully edited or false otherwise.
+     */
     public boolean EditModule(String code, int credit, String title, String description, int year )
     {
             try{
@@ -153,11 +198,6 @@ public class AdminPrivlege extends Privilege {
                 Bugzilla.reportBug("Issue with editing module by a admin");
             }
          return editModule;
-    }
-
-    @Override
-    public boolean remove(Group group) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 
