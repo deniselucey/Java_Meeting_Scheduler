@@ -167,10 +167,10 @@ table{
     font-style:normal;
 }
 
+
 th,td
     {
-        color: white;
-        height: 15px;
+        color: white;      
         margin: 0;
         text-align: center;
         outline: 1px solid #e3e3e3;
@@ -191,8 +191,6 @@ th,td
     th:first-of-type{
         background-color:#666;
     }
-
-    
 
     th
     {
@@ -221,14 +219,28 @@ th,td
     .collision{
         background-color:buttonface;
     }
+    .scheduledBegin
+    {
+        background-color:yellow;
+    }
+    .scheduledMid
+    {
+        background-color:lightyellow;
+    }
     .canSchedule
     {
-        color:black;
+        background-color:white;
     }
-    
-    .cantSchedule
+    .notFree
     {
         background-color:black;
+    }
+    .cantSchedule
+    {
+        background-color:graytext;
+    }
+    td:active{
+        background-color:yellow;
     }
     
 /* Two-column layout */
