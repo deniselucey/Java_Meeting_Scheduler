@@ -36,7 +36,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../LogIn/Login.jsp");
+                    response.sendRedirect("../Login/Login.jsp");
             %>
             <%
                 } else {

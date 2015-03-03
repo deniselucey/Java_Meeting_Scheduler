@@ -77,14 +77,17 @@
                                 boolean emailResult;
                                 boolean setConfirmed;
                                 String emailSent="";
+                                String activationCode ="";
+                                String emailLink = "";
                                 
                                 if(register.registerDetailsWithDb() && emailClass.updateDb(register.getEmail())) {
                                     String email = request.getParameter("email");
                                     session.setAttribute("email", email );
                                     registeredResult= "You have registered. ";
                                   
-                                   
-                                   emailResult = emailClass.sendEmail("UCC TimeTable Registration","Thank you for signing up for UCC TimeTable",email);
+                                   out.println(activationCode = emailClass.getRandomNumber());
+                                   emailLink="http://localhost:8080/TeamProject/Register/AccountActivation.jsp?&code="+activationCode;
+                                   emailResult = emailClass.sendEmail("UCC TimeTable Registration",emailLink,email);
                                    if(emailResult){
                                       emailSent = "A confirmation email has been sent to you. ";
                                    }else{

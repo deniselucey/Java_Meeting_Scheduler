@@ -8,6 +8,7 @@ package teamproject.system;
 import static java.lang.Math.random;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -93,14 +94,14 @@ public class Email {
     public boolean updateDb(String email1){
         
          email = email1;
-        int registered;
+        
         /**
          * Sets is isRegistered to false.
          */
         boolean isRegistered = false;
         try{
             SecureRandom random = new SecureRandom();
-            System.out.println(randomNumber = new BigInteger(48, random).toString(16));
+            randomNumber = new BigInteger(48, random).toString(16);
             SystemSetting.initSystemSetting();
             /**
              *  Stores the statement as a string.
@@ -109,7 +110,7 @@ public class Email {
                             "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),"
                            + "0, NOW(),'"+randomNumber +"')" ;
             
-            System.out.println(query1);
+            
             /**
              * Creates a new sqlHandler.
              */
@@ -119,9 +120,9 @@ public class Email {
              * Stores if the statement was successful or not in variable as
              * a 1 or 0.
              */
-            registered = sqlHandler.runStatement(query1);
-            isRegistered =true;
-            
+            if(sqlHandler.runStatement(query1) == 1){
+                isRegistered =true;
+            }
            
         }catch(SQLException ex) {
             Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,6 +132,61 @@ public class Email {
          * Returns false if the user's details haven't been registered.
          */
         return isRegistered;
+    }
+    
+    public boolean confirmAccount(String pin1){
+        boolean accountConfirmed = false;
+        int confirmationResult;
+        String pin = pin1;
+        String query;
+        String query2;
+        
+        try{
+            SystemSetting.initSystemSetting();
+            /**
+             *  Stores the statement as a string.
+             */
+            System.out.println(query ="SELECT pin FROM Register WHERE pin ='"+pin+"';" );
+            /**
+             * Creates a new sqlHandler.
+             */
+            sqlHandler = new SqlHandler();
+            /**
+             * Runs the SQL statement's using the sqlHandler
+             * Stores if the statement was successful or not in variable as
+             * a 1 or 0.
+             */
+            ResultSet queryResult = sqlHandler.runQuery(query);
+            if(queryResult.isBeforeFirst())
+            {
+                if(queryResult.isBeforeFirst()){
+                    queryResult.next();
+                    String pinResult = queryResult.getString("pin");
+                 
+                    if(pinResult.equals(pin)){
+                        
+                                query2 ="UPDATE Register "
+                                + "SET confirmation = 1 "
+                                + "WHERE pin ='"+pin+"';";
+                        confirmationResult = sqlHandler.runStatement(query2);
+                        
+                        if(confirmationResult == 1){
+                            accountConfirmed = true;
+                            return accountConfirmed;
+                        }
+                    }
+                }
+            }
+             
+        }catch(SQLException ex){
+            Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return accountConfirmed;
+    }
+    
+    public String getRandomNumber(){
+        return randomNumber;
     }
    
 }

@@ -14,5 +14,6 @@
 
 <%Boolean emailResult = emailClass.sendEmail("UCC TimeTable Registration","Thank you for signing up for UCC TimeTable","zolamcdonald@gmail.com,112428688@umail.ucc.ie,112428768@umail.ucc.ie");
         out.println(emailResult);
+      out.println("You have confirmed your account " +emailClass.confirmAccount("770eaa0ee57a")); 
 
 %>
