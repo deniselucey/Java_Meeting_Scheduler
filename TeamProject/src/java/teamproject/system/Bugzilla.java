@@ -3,14 +3,21 @@ import com.j2bugzilla.base.*;
 import com.j2bugzilla.rpc.*;
 
 /**
- * Sends bug reports to Bugzilla
- * @author deniselucey
+ * Sends bug reports to Bugzilla by connecting to Bugzilla on web server at ip 
+ * address http://52.16.9.114/. From here bugs are reported using their descriptions.
+ * @author Denise Lucey
  */
 public class Bugzilla {
     
     private String bugerror = "";
     private static boolean reported = false;
     
+   /**
+   * Method to report errors in code to Bugzilla.
+   * @param bugerror - describes the cause of the error.
+   * 
+   * @author Denise Lucey
+   */
     public static boolean reportBug(String bugerror) {
         
         try {
@@ -47,4 +54,3 @@ public class Bugzilla {
         return reported;
     }
 }
-

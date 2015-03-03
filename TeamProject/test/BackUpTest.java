@@ -24,6 +24,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Ignore;
 import teamproject.sql.SqlHandler;
+import teamproject.system.BackUp;
 
 
 /**
@@ -112,16 +113,32 @@ public class BackUpTest {
     
    @Test
    public void testBackUp(){
+       String DBName;
+       String Username;
+       String Password;
+       String mysqldump;
+       String mysql;
+       String source;
+        
+       SystemSetting.initSystemSetting();
+       DBName = SystemSetting.getProperty(Property.DatabaseName, "");
+       Username = SystemSetting.getProperty(Property.DatabaseUser, "");
+       Password = SystemSetting.getProperty(Property.DatabasePassword, "");
+       source = "C:/Users/backup.sql";
+       mysqldump = "C:/xampp/mysql/bin/mysqldump.exe";
+       mysql = "C:/xampp/mysql/bin/mysql.exe";
+       
+       
        SqlHandler sql = new SqlHandler();
         try {
-             sql.runStatement("DELETE FROM schedulerdatabase.course WHERE course_title = 'test';");
+         sql.runStatement("DELETE FROM schedulerdatabase.course WHERE course_title = 'test';");
 
          sql.runStatement("INSERT INTO schedulerdatabase.course VALUES(null,'test','test',1);");
        
          ResultSet rs =  sql.runQuery("SELECT * FROM schedulerdatabase.course WHERE course_title = 'test';");
-           System.out.println(rs.next());
-           assertThat(rs.getString("course_title"), is(equalTo("test")));
-        this.testingBackUpSQL();
+         System.out.println(rs.next());
+         assertThat(rs.getString("course_title"), is(equalTo("test")));
+        BackUp.createBackup(mysqldump,Username, Password, DBName, source);
         
            try {
                Thread.sleep(1000);
@@ -131,7 +148,7 @@ public class BackUpTest {
         sql.runStatement("DELETE FROM schedulerdatabase.course WHERE course_title = 'test';");
         
          
-        this.testingRestoreSQL();
+        BackUp.restore(mysql, Username, Password, source);
         
           try {
                Thread.sleep(1000);
