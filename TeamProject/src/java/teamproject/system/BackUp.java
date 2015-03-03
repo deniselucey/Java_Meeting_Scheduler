@@ -1,13 +1,18 @@
 package teamproject.system;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.*;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.InvalidPreferencesFormatException;
+import java.util.prefs.Preferences;
+
 
 public class BackUp {
 
 	private File BackupFile;
-	private ArrayList<File> logs;
         private ArrayList<File> backupFiles;
        
 
@@ -68,7 +73,7 @@ public class BackUp {
                     sentence = "Could not create the database backup";
                 }
             } catch (IOException | InterruptedException ex){
-                
+                Bugzilla.reportBug("Issue with creating backup");
             }
              return sentence;
         }
@@ -94,7 +99,26 @@ public class BackUp {
                 } else {    
                 }
             } catch (IOException | InterruptedException ex) {
+                Bugzilla.reportBug("Issue with restoring");
             }
+       
             return isRestored;
 	}
+        
+       
+    public void backUpPreferences(String path) throws IOException, BackingStoreException {
+        Preferences root = Preferences.userRoot();
+        FileOutputStream preference = new FileOutputStream(path + "backup.xml"); //1337 Hax
+        root.exportSubtree(preference);
+        preference.close();
+    }
+    
+    
+    public void restorePreferences(String path) throws IOException, InvalidPreferencesFormatException {
+         Preferences root = Preferences.userRoot();
+         FileInputStream preference = new FileInputStream(path + "backup.xml"); //1337 Hax
+         Preferences.importPreferences(preference);
+         preference.close();
+    
+    }
 }

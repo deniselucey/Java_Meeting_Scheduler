@@ -25,7 +25,7 @@
             if ((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         You are not logged in<br/>
-        <a href="..\Login\Login.jsp">Please Login</a>
+        <a href="..\LogIn\Login.jsp">Please Login</a>
         <%
             } else {
         %>
@@ -52,13 +52,19 @@
 
                 <jsp:useBean id="unenroll" class="teamproject.user.people.Student" scope="session">
                 </jsp:useBean>
+                <jsp:useBean id="unenrollEmail" class="teamproject.system.Email" scope="session">
+                </jsp:useBean>
 
 
                 <% 
                     String email = (String) session.getAttribute("email");
                     
+                    String emailSubject = "UCC TimeTable Module Unenrolled";
+                    String emailText = "You have unenrolled from "+ request.getParameter("Modules");
+                    
                     if (unenroll.unEnrollToModule(request.getParameter("Modules"), email)) {
                         out.print("You have been successfully unenrolled from " + request.getParameter("Modules"));
+                        unenrollEmail.sendEmail(emailSubject, emailText, email);
                     } else {
                         out.print("Sorry, you have failed to unenroll from " + request.getParameter("Modules"));
                     }

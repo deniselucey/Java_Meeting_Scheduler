@@ -24,14 +24,9 @@ public abstract class Privilege {
 	 * @param value
          * @return True if success false if failed. 
 	 */
-	public abstract void setAdmin(Person person, boolean value);
+	public abstract boolean setAdmin(String email);
 
-	/**
-	 * 
-	 * @param Meeting
-         * @return True if success false if failed. 
-	 */
-	public abstract boolean remove(int Meeting);
+	
 
 	/**
 	 * 
@@ -45,14 +40,8 @@ public abstract class Privilege {
 	 * @param person
          * @return True if success false if failed. 
 	 */
-	public abstract boolean add(Person person);
+	public abstract boolean add(String email);
 
-	/**
-	 * 
-	 * @param person
-         * @return True if success false if failed. 
-	 */
-	public abstract boolean remove(Person person);
 	/**
 	 * 
 	 * @param meeting
