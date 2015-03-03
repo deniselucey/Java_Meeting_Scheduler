@@ -134,59 +134,56 @@ public class Email {
         return isRegistered;
     }
     
-    public boolean confirmAccount(String pin1){
-        boolean accountConfirmed = false;
+ 
+    
+    
+    public boolean confirmAccount(String pin1, int userId1){
         int confirmationResult;
+        boolean accountConfirmed = false;
         String pin = pin1;
-        String query;
+        String query1;
         String query2;
-        
+        int userId = userId1;
+        query1 ="SELECT pin, user_id FROM Register WHERE pin ='"+pin+"'AND user_id ='"+userId+"';";
         try{
-            SystemSetting.initSystemSetting();
-            /**
-             *  Stores the statement as a string.
-             */
-            System.out.println(query ="SELECT pin FROM Register WHERE pin ='"+pin+"';" );
-            /**
-             * Creates a new sqlHandler.
-             */
+           SystemSetting.initSystemSetting();
             sqlHandler = new SqlHandler();
             /**
              * Runs the SQL statement's using the sqlHandler
              * Stores if the statement was successful or not in variable as
              * a 1 or 0.
              */
-            ResultSet queryResult = sqlHandler.runQuery(query);
-            if(queryResult.isBeforeFirst())
-            {
-                if(queryResult.isBeforeFirst()){
-                    queryResult.next();
+            ResultSet queryResult = sqlHandler.runQuery(query1);
+            
+                if(queryResult.next()){
+                    
                     String pinResult = queryResult.getString("pin");
-                 
-                    if(pinResult.equals(pin)){
-                        
-                                query2 ="UPDATE Register "
-                                + "SET confirmation = 1 "
-                                + "WHERE pin ='"+pin+"';";
+                    int userIdResult = queryResult.getInt("user_id");
+                        query2 ="DELETE FROM Register "
+                                + "WHERE pin ='"+pinResult+"' AND user_id ="+userIdResult+";";
                         confirmationResult = sqlHandler.runStatement(query2);
                         
                         if(confirmationResult == 1){
                             accountConfirmed = true;
                             return accountConfirmed;
                         }
-                    }
+                    
+                    
                 }
-            }
-             
-        }catch(SQLException ex){
+         }catch(SQLException ex){
             Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return accountConfirmed;
     }
     
+    
+    
+
+
     public String getRandomNumber(){
-        return randomNumber;
+            return randomNumber;
     }
-   
 }
+
+

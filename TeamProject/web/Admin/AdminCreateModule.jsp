@@ -35,7 +35,7 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                    response.sendRedirect("../Login/Login.jsp");
+                    response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
                 } else {
@@ -56,7 +56,7 @@
                 <%@page import="teamproject.user.people.Lecturer"%>
 
 
-                <jsp:useBean id="createModule" class="teamproject.user.people.Lecturer" scope="session">
+                <jsp:useBean id="createModule" class="teamproject.user.privilege.AdminPrivlege" scope="session">
                 </jsp:useBean>
 
 
