@@ -10,6 +10,12 @@ import teamproject.sql.SqlHandler;
 import teamproject.system.Bugzilla;
 import teamproject.system.SystemSetting;
 
+/**
+ * A student class which provides methods for a student to enroll to modules to
+ * receive their timetable slots, also possible for student to un-enroll from any
+ * module which they are already enrolled to.
+ * @author Denise Lucey - 112700291
+ */
 public class Student extends Person {
 
 	private ArrayList<Module> modules;
@@ -20,8 +26,13 @@ public class Student extends Person {
         private boolean unenrolled = false;
 
 	/**
-	 * 
-	 * @param module
+	 * Enrolls a Student user with a valid email address to a module. 
+         * It achieves this by adding the user_id of the student and the 
+         * module_id of the module into the User_has_Module table.
+	 * @param module - code of the module to be enrolled
+         * @param email - email address of student making enrollment
+         * @return true if student successfully enrolls to module or false
+         *         otherwise.
 	 */
 	public boolean enrollToModule(String module, String email)
 	{
@@ -55,8 +66,14 @@ public class Student extends Person {
 	}
 
 	/**
-	 * 
-	 * @param module
+	 * Un-enrolls a Student user with a valid email address from a module
+         * which they are enrolled to already. 
+         * It achieves this by deleting the user_id of the student and the 
+         * module_id of the module into the User_has_Module table.
+	 * @param module - code of the module to be un-enrolled from
+         * @param email - email address of student making enrollment
+         * @return true if student successfully un-enrolls from module or false
+         *         otherwise.
 	 */
 	public boolean unEnrollToModule(String module, String email)
 	{
@@ -91,11 +108,19 @@ public class Student extends Person {
             return unenrolled;
 	}
         
-        public String getStudentNo() {
+    /**
+     * Returns the Student user id as a String.
+     * @return studentNo - number id of student.
+     */
+    public String getStudentNo() {
             return studentNo;
         }
         
-        public void setStudentNo(String studentNo) {
+    /**
+     * Allows the Student user id to be set.
+     * @param studentNo - number id of student
+     */
+    public void setStudentNo(String studentNo) {
             this.studentNo = studentNo;
         }
 }
