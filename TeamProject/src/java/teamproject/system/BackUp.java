@@ -7,12 +7,20 @@ import java.util.logging.*;
 public class BackUp {
 
 	private File BackupFile;
+        
 	private ArrayList<File> logs;
         private ArrayList<File> backupFiles;
-
-	public boolean createBackUp(String fileName){
+       
+        
+        
+        /**
+         * Creates a backup File in one does not already exist.
+         * @param nameOfFile
+         * @return isBackupCreated
+         */
+	public boolean createBackUp(String nameOfFile){
             Boolean isBackupCreated = false;
-            BackupFile = new File(fileName + ".backup");
+            BackupFile = new File(nameOfFile + ".backup");
             if(!BackupFile.exists()){
                 try {
                     BackupFile.createNewFile();
@@ -23,18 +31,31 @@ public class BackUp {
             }
             return isBackupCreated; 
 	}
-
+        
+        /**
+         * Takes the backup file and stores it in the arraylist.
+         * @return 
+         */
 	public boolean storeBackUp(){
             Boolean backupStored = false;
             backupFiles = new ArrayList<>();
+            //Checks to see if a file exists and then places it in the arraylist.
             if(BackupFile.exists()){
                 backupFiles.add(BackupFile);
                 backupStored = true;
             }
             return backupStored;
 	}
-
-	public String createDateBaseBackup(String dbName,String dbUserName, String dbPassword, String path){
+        
+        /**
+         * 
+         * @param dbUserName
+         * @param dbPassword 
+         * @param dbName
+         * @param path
+         * @return String that either confirms or denies the creation of the database backup.
+         */
+	public String createDateBaseBackup(String dbUserName, String dbPassword,String dbName,String path){
             String command = "mysqldump -u "+ dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path ;
             Process processRuntime;
             String sentence = " ";
@@ -52,35 +73,46 @@ public class BackUp {
             }
              return sentence;
         }
-            	
+        
+        
+        /**
+         * 
+         * @return 
+         */
 	public boolean storeLogfiles(){
             Boolean logFilesStored = false;
             logs = new ArrayList<>();
-            Logger logger = Logger.getLogger(BackUp.class.getName());
-            
-            try{
-                if(){
-                    
-                }
-                logFilesStored = true;
+            /*try{
+               if(logFile.exists()){
+                    logs.add(logFile);
+                    logFilesStored = true;
+               }
+                
             }catch(Exception ex){
                 logFilesStored = false;
-            }
+            }**/
             return logFilesStored;
 	}
         
 	/**
 	 * 
 	 * @param url
+         * @return 
 	 */
 	public boolean loadBackup(String url){
+            Boolean backupLoaded = false;
             
-            // TODO - implement System.loadBackup
-	    throw new UnsupportedOperationException();
-            
+            return backupLoaded;   
 	}
-
-	public boolean restore(String dbName,String dbUserName, String dbPassword, String path, String source){
+        /**
+         * 
+         * @param dbUserName
+         * @param dbPassword
+         * @param path
+         * @param source
+         * @return 
+         */
+	public boolean restore(String dbUserName, String dbPassword, String path, String source){
             String[] restoreCommand = new String[]{"mysql ", "--user=" + dbUserName, "--password=" + dbPassword, "-e", "source " + source};
             Boolean isRestored = false;
             Process processRuntime;
