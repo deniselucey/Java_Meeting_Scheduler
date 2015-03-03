@@ -10,9 +10,6 @@ import teamproject.system.Bugzilla;
 import teamproject.system.SystemSetting;
 
 public class Lecturer extends Staff {
-        private static boolean createdModule = false;
-        private static boolean deleteModule = false;
-        private static boolean editModule = false;
 
 	/**
 	 * 
