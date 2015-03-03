@@ -25,7 +25,7 @@
             if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         You are not logged in<br/>
-        <a href="..\Login\Login.jsp">Please Login</a>
+        <a href="..\LogIn\Login.jsp">Please Login</a>
         <%
             } else {
         %>
@@ -47,18 +47,27 @@
 
                 <%@page import="teamproject.college.Module"%>
                 <%@page import="teamproject.user.people.Student"%>
+                <%@page import ="teamproject.system.Email" %>
                 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
                 <jsp:useBean id="enroll" class="teamproject.user.people.Student" scope="session">
                 </jsp:useBean>
+                
+                <jsp:useBean id="enrollEmail" class="teamproject.system.Email" scope="session">
+                </jsp:useBean>
 
 
                 <% 
                     String email = (String) session.getAttribute("email");
+                    String emailSubject = "UCC TimeTable Module Enrolled";
+                    String emailText = "You have enrolled in "+ request.getParameter("Modules");
                     
                     if (enroll.enrollToModule(request.getParameter("Modules"), email)) {
+                        
                         out.print("You have been successfully enrolled to " + request.getParameter("Modules"));
+                        enrollEmail.sendEmail(emailSubject, emailText, email);
+                        
                     } else {
                         out.print("Sorry module " + request.getParameter("Modules") + " is unavailable.");
                     }
