@@ -26,6 +26,7 @@ public class AdminPrivlege extends Privilege {
         private static boolean createdModule = false;
         private static boolean deleteModule = false;
         private static boolean editModule = false;
+        private static boolean addAdmin = false;
 
     /**
      *
@@ -45,7 +46,21 @@ public class AdminPrivlege extends Privilege {
     @Override
     public boolean add(String email)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            try{
+                SystemSetting.initSystemSetting();                             
+                SqlHandler sqlHandler = new SqlHandler();
+                
+                String query = "UPDATE User SET admin = 1 "
+                             + "WHERE email = '" + email + "';";
+                sqlHandler.runStatement(query);
+            
+                addAdmin = true;
+                
+            }catch(SQLException ex) {
+                Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+                Bugzilla.reportBug("Issue with adding new administrator by an admin");
+            }
+         return addAdmin;
     }
     
     @Override
