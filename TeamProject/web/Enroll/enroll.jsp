@@ -28,7 +28,7 @@
             if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         You are not logged in<br/>
-        <a href="..\Login\Login.jsp">Please Login</a>
+        <a href="..\LogIn\Login.jsp">Please Login</a>
         <%
             } else {
         %>   
@@ -98,7 +98,7 @@
                            SqlHandler handler2 = new SqlHandler();
                            String sql2 = "SELECT DISTINCT M.code "
                                    + "FROM Module AS M JOIN User AS U JOIN User_has_Module AS H "
-                                   + "WHERE U.email = \" "
+                                   + "WHERE U.email =\""
                                    + email
                                    + "\" AND M.module_id = H.module_id;";
                            ResultSet queryResult2 = handler2.runQuery(sql2);
