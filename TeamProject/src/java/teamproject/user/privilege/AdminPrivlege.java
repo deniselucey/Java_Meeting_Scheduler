@@ -125,7 +125,7 @@ public class AdminPrivlege extends Privilege {
                 
             }catch(SQLException ex) {
                 Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-                Bugzilla.reportBug("Issue with creating module by the lecturer.");
+                Bugzilla.reportBug("Issue with creating module by the admin.");
             }
          return createdModule;
     }
@@ -144,7 +144,7 @@ public class AdminPrivlege extends Privilege {
                 
             }catch(SQLException ex) {
                 Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-                Bugzilla.reportBug("Issue with deleting module by a lecturer");
+                Bugzilla.reportBug("Issue with deleting module by a admin");
             }
          return deleteModule;
     }
@@ -156,15 +156,6 @@ public class AdminPrivlege extends Privilege {
                 SystemSetting.initSystemSetting();                             
                 SqlHandler sqlHandler = new SqlHandler();
                 
-                /*
-                UPDATE Module 
-                               SET credit = 5 
-                               , title = 'test'
-                               , description = 'test'
-                               , year = 4
-                                WHERE code = 'CS0000';
-                
-                */
                 String query = "UPDATE Module SET credit = " + credit
                         + ", title = '" + title + "'"
                         + ", description = '" + description + "'"
@@ -176,7 +167,7 @@ public class AdminPrivlege extends Privilege {
                 
             }catch(SQLException ex) {
                 Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-                Bugzilla.reportBug("Issue with editing module by a lecturer");
+                Bugzilla.reportBug("Issue with editing module by a admin");
             }
          return editModule;
     }
