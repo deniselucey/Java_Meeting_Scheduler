@@ -45,7 +45,7 @@
 	
                     <div id = "main">
 	            	<section class = "content">
-                       <h1>Enroll</h1>
+                       <h1>Add new administrator</h1>
 
                 <%@page import="teamproject.user.privilege.AdminPrivlege"%>
 
