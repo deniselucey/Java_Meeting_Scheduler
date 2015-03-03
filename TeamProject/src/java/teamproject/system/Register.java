@@ -407,4 +407,29 @@ public class Register implements java.io.Serializable{
         String errorMessage =(String)errors.get(message.trim());
         return (errorMessage == null) ? "":errorMessage;
     }
+    
+    public int getUserId(){
+        int userIdResult= 0;
+        String query ="SELECT user_id "
+                + "FROM User "
+                + "WHERE email ='"+email+"';";
+        try{
+            SystemSetting.initSystemSetting();
+            sqlHandler = new SqlHandler();
+            /**
+             * Runs the SQL statement's using the sqlHandler
+             * Stores if the statement was successful or not in variable as
+             * a 1 or 0.
+             */
+            ResultSet queryResult = sqlHandler.runQuery(query);
+            
+            if(queryResult.next()){
+                userIdResult = queryResult.getInt("user_id");
+                return userIdResult;
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userIdResult;
+    }
  }

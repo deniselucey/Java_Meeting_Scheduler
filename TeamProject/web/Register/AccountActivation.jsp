@@ -13,6 +13,7 @@
 <jsp:useBean id = "emailClass" class="teamproject.system.Email" scope="request"/>
 
 
+
 <!DOCTYPE html>
 <html lang = "en">
 	<head>
@@ -51,7 +52,9 @@
                        <div>
                             
                             <% 
-                                boolean activationResult = emailClass.confirmAccount("");
+                                String pin = request.getParameter("code");
+                                int userId = (Integer.parseInt(request.getParameter("u")));
+                                boolean activationResult = emailClass.confirmAccount(pin,userId);
                                 
                                 if(activationResult){
                             %>
@@ -60,7 +63,7 @@
                             <%
                                 }else{
                             %>
-                                    <p> A error has occurred </p>;
+                                    <p> A error has occurred </p>
                             <%
                                 }
                             %>

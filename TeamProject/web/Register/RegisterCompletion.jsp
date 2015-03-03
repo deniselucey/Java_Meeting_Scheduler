@@ -46,7 +46,7 @@
         <div id = "main">
 	    <section class = "content">
                <h1>You have Registered</h1>
-               <form name = "input" action="RegisterAccountAuthentication.jsp" method="POST">
+               <form name = "input" method="POST">
                    <fieldset>
                        
                         <div>
@@ -82,11 +82,12 @@
                                 
                                 if(register.registerDetailsWithDb() && emailClass.updateDb(register.getEmail())) {
                                     String email = request.getParameter("email");
+                                    int userId = register.getUserId();
                                     session.setAttribute("email", email );
                                     registeredResult= "You have registered. ";
                                   
-                                   out.println(activationCode = emailClass.getRandomNumber());
-                                   emailLink="http://localhost:8080/TeamProject/Register/AccountActivation.jsp?&code="+activationCode;
+                                   activationCode = emailClass.getRandomNumber();
+                                   emailLink="http://localhost:8080/TeamProject/Register/AccountActivation.jsp?u="+userId+"&code="+activationCode;
                                    emailResult = emailClass.sendEmail("UCC TimeTable Registration",emailLink,email);
                                    if(emailResult){
                                       emailSent = "A confirmation email has been sent to you. ";
