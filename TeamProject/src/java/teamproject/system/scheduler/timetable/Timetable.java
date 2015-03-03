@@ -67,7 +67,7 @@ public class Timetable {
         
         for(int i =0; i < timeSlots.length; i++){
             for(int j=0; j < timeSlots[i].length; j++){
-                timeSlots[i][j] = new TimeSlot(timeSlotStartTime.plusMinutes((int)TimeSlot.getDuration().toMinutes()* j));
+                timeSlots[i][j] = new TimeSlot(timeSlotStartTime.plusMinutes((int)TimeSlot.getDuration().toMinutes()* j), i,j );
             }
             timeSlotStartTime = timeSlotStartTime.plusDays(1);
         }
@@ -176,7 +176,8 @@ public class Timetable {
     private static ArrayList<Meeting> loadAllMeeting(int userId) throws SQLException
     {
         SqlHandler sh = new SqlHandler();
-        ResultSet rs = sh.runQuery("SELECT * FROM meeting WHERE meeting_id in (SELECT meeting_id FROM is_attending WHERE user_id = '" + userId + "');");
+//        ResultSet rs = sh.runQuery("SELECT * FROM meeting WHERE meeting_id in (SELECT meeting_id FROM is_attending WHERE user_id = '" + userId + "');");
+        ResultSet rs = sh.runQuery("SELECT * FROM meeting");
         ArrayList<Meeting> meetings = new ArrayList<>();
         while(rs.next())
         {

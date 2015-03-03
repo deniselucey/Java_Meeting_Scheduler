@@ -2,10 +2,21 @@ var maxMeetingsAtOnce = 4;
 var tdSelected = new Array(maxMeetingsAtOnce + 1);
 var counter = 0;
 
-function TDClicked(date)
+function TDClicked(date, id)
 {
+    
     document.getElementById("TEST").innerHTML =" Hello" + " World";
-    document.getElementById("TEST").innerHTML = tdSelected;    
+    document.getElementById("TEST").innerHTML = id;    
+    var tdClass = document.getElementById(id).getAttribute("class");
+    
+    if(tdClass ===  'scheduledBegin')
+    {
+        document.getElementById(id).setAttribute("class",'canSchedule');
+    }
+    else if(tdClass ===  'canSchedule')
+    {
+        document.getElementById(id).setAttribute("class",'scheduledBegin');    
+    }
     var allReadySelected = false;
     for(i = 0; i < tdSelected.length; i++)
     {
@@ -29,12 +40,17 @@ function TDClicked(date)
         }
         else
         {
-            window.alert("Max Number Of Meeting Set")
+            window.alert("Max Number Of Meeting Set");
         }
     }
     document.getElementById("TEST").innerHTML = tdSelected;
 }
-
+function setNumberOfMeetings(number)
+{
+    maxMeetingsAtOnce = number;
+    tdSelected = new Array(maxMeetingsAtOnce + 1);
+    counter = 0;
+}
 function Commit()
 {
     var form = document.createElement("form");

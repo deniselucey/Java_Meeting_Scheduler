@@ -44,7 +44,7 @@
                     <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
         
                     <%
-                        teamproject.system.scheduler.timetable.Timetable timeTable = new teamproject.system.scheduler.timetable.Timetable(12,(Integer)session.getAttribute("userId"));
+                        teamproject.system.scheduler.timetable.Timetable timeTable = new teamproject.system.scheduler.timetable.Timetable(30,(Integer)session.getAttribute("userId"));
                     %>
                 
                 

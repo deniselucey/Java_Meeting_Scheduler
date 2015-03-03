@@ -16,10 +16,13 @@ public class TimeSlot {
     private boolean free = true;
     private boolean schedulable = true;
     private boolean overidable = false;
-    
-    public TimeSlot(LocalDateTime startTime){
+    private int rowIndex;
+    private int colIndex;
+    public TimeSlot(LocalDateTime startTime, int col, int row){
         this.startTime = startTime;
         meetings = new HashSet<>();
+        colIndex = col;
+        rowIndex = row;
     }
 
     /**
@@ -36,7 +39,7 @@ public class TimeSlot {
      */
     public String toHTML(int row){
 
-        String html = "<td rowspan=\" " +  row +"\" class =";
+        String html = "<td id=\"" + colIndex + "\" rowspan=\" " +  row +"\" class =";
 
         switch(meetings.size()) {
             case 0:
@@ -50,9 +53,9 @@ public class TimeSlot {
                 break;
         }
         html += ">";
-        html += this.startTime.toString() ;
+       // html += this.startTime.toString() ;
         for (Meeting m1 : meetings) {
-            html += m1.getTitle() + " " + m1.getLength() + " ";
+            html += m1.getTitle();
         }
 
         html+="</td>";
@@ -75,17 +78,18 @@ public class TimeSlot {
         }
         else
         {
-            html += "\"canSchedule\" onclick=\"TDClicked('" + startTime.toString() + "')\"";
+            int id = ((this.colIndex * 47) + this.rowIndex *7);
+            html += "\"canSchedule\" onclick=\"TDClicked('" + startTime.toString()+"',"+ id+ ")\" id=\"" + id + "\"";
         }
         
         
         html += ">";
-        if((free && schedulable))
-        {
-            html += "Max Priority:" + this.maxPriority;
-            html += " Total:" + this.totalPriority;
-        }
-
+//        if((free && schedulable))
+//        {
+//            html += "Max Priority:" + this.maxPriority;
+//            html += " Total:" + this.totalPriority;
+//        }
+        html += startTime.toString(); 
         html+="</td>";
         return html;
     }

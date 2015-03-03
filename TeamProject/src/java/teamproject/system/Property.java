@@ -9,6 +9,9 @@ import java.time.LocalDate;
      */
     public enum Property
     {
+        DummyAdmin("admin"),
+        DummyPassword("password"),
+        
         DatabaseUrl("localhost"),
         DatabasePort("3306"),
         DatabaseUser("admin"),
@@ -24,8 +27,8 @@ import java.time.LocalDate;
         BackUpEvery("D1"),
         BackUpUrl("/backup"),
         
-        MinimumManualDaysInactive("45"),
-        AutoRemoveAfterDaysInactive("60"),
+        MinimumManualDaysInactive("100"),
+        AutoRemoveAfterDaysInactive("365"),
         SystemStartDate
         {
             //return current date 

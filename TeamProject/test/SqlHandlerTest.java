@@ -97,11 +97,9 @@ public class SqlHandlerTest
     }
    @Test
     public void TestEmptyString() throws SQLException
-    {
-        
+    {       
         String sqlInsert = "";
  
-        
         //insert a row into courses
         assertThat(sqlHandler.runStatement(sqlInsert), is(equalTo(0)));
         //retreves rows from courses

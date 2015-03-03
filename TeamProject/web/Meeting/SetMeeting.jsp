@@ -69,29 +69,29 @@
                                 
                                 <div>
                                     <label>Meeting Title:</label>
-                                    <input type="text" name="title" value=""/><br>
+                                    <input type="text" name="title" value="" required/><br>
                                 </div>
                                 
                                 <div>
                                     <label>Meeting description:</label>
-                                    <input type="text" name="description" value="" size="34" />
+                                    <input type="text" name="description" value="" size="34" required/>
                                 </div>
                                 
                                 <div>
                                     <label>Start Date:</label>
-                                    <input type="date" name ="startDate" /> 
+                                    <input type="date" name ="startDate" required/> 
                                     
                                 </div>
                                 
                                 <div>
                                     <label>End Date:</label>
-                                    <input type="date" name="endDate"/> 
+                                    <input type="date" name="endDate" required/> 
                                     
                                 </div>
                         
                                 <div>
                                     <label>Duration in Minutes:</label>
-                                    <input type="number" name="duration" value="" />
+                                    <input type="number" name="duration" value="" required/>
                                     
                                 </div>
                                 
@@ -111,7 +111,7 @@
                                 
                                 <div>
                                     <label>Add Members: </label>
-                                    <input type="text" name="addMembersToMeeting" value="" /><br>
+                                    <input type="text" name="addMembersToMeeting" value="" required/><br>
                                     <input type="submit" value="Add Another Member" /><br>
                                 </div>
 
