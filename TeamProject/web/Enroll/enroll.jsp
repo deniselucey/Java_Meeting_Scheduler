@@ -28,7 +28,7 @@
             if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
         %>
         You are not logged in<br/>
-        <a href="..\Login\Login.jsp">Please Login</a>
+        <a href="..\LogIn\Login.jsp">Please Login</a>
         <%
             } else {
         %>   

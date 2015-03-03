@@ -53,7 +53,7 @@ public class Login {
             SystemSetting.initSystemSetting();
             String query = "SELECT email,password,user_id,admin "+
                            "FROM User "+
-                           "WHERE email ='"+email+"';";
+                           "WHERE email ='"+email+"' AND user_id NOT IN (SELECT user_id FROM Register);";
             
             ResultSet queryResult;
             sqlHandler = new SqlHandler();

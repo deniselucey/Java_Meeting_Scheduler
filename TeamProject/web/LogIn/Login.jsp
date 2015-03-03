@@ -20,7 +20,9 @@
     
     <body>
         <%
+            
             if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                 
         %>
         
         <a id="skiplink" href="#main">Skip to main content</a>
