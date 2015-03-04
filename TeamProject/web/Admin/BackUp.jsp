@@ -55,9 +55,124 @@
                     </nav>
 	
                     <div id = "main">
-                        <h1>System Back Up</h1>
-                
-                
+                        
+                <section>
+                        <h1>Create System Back Up</h1>
+                        <form name="input" action="" method="POST">            
+                        <fieldset>
+                                
+                            
+                                <div>
+                                   <label>Database UserName</label>
+                                   <input type="text" name="dbUserName">
+                               </div>
+                            
+                            <div>
+                                   <label>Database Password</label>
+                                   <input type="password" name="dbPassword">
+                               </div>
+                            
+                            
+                            <div>
+                                   <label>Database Name</label>
+                                   <input type="text" name="dbName">
+                               </div>
+                            <div>
+                                   <label>mySQL Dump</label>
+                                   <input type="text" name="mySQLDump">
+                               </div>
+                            
+                            
+                            <div>
+                                   <label>Back Up Path</label>
+                                   <input type="text" name="path">
+                               </div>
+                               
+                                <div>
+                                   
+                                   <input type="submit" name="Create BackUp">
+                               </div>
+                        </fieldset>
+                        </form>
+                           
+                       
+                </section>
+                        
+                    <section>
+                        <h1>Restore System From Back Up</h1>
+                        <form name="input" action="" method="POST">            
+                        <fieldset>
+                                
+                            
+                                <div>
+                                   <label>Database UserName</label>
+                                   <input type="text" name="dbUserName">
+                               </div>
+                            
+                            <div>
+                                   <label>Database Password</label>
+                                   <input type="password" name="dbPassword">
+                               </div>
+                            
+                            
+                            <div>
+                                   <label>mySql</label>
+                                   <input type="text" name="mysql">
+                               </div>
+                            
+                            
+                            <div>
+                                   <label>Source</label>
+                                   <input type="text" name="source">
+                               </div>
+                               
+                                <div>
+                                   
+                                   <input type="submit" name="Restore Backup">
+                               </div>
+                    </fieldset>
+                        </form>
+                        
+                      </section>
+                          
+                        
+                        
+                        <section>
+                            <h1>Create System Preferences Back up</h1>
+                            <form name="input" action="" method="POST">            
+                        <fieldset>
+                             <div>
+                                   <label>Destination Path</label>
+                                   <input type="text" name="path">
+                               </div>
+                               
+                                <div>
+                                   
+                                   <input type="submit" name="Create BackUp">
+                               </div>
+                        </fieldset>
+                        </form>
+                           
+                            
+                        </section>
+                        
+                        <section>
+                        <h1>Restore System Preferences From Back Up</h1>
+                        
+                         <form name="input" action="" method="POST">            
+                        <fieldset>
+                             <div>
+                                   <label>Destination Path</label>
+                                   <input type="text" name="path">
+                               </div>
+                               
+                                <div>
+                                   
+                                   <input type="submit" name="Restore BackUp">
+                               </div>
+                        </fieldset>
+                        </form>
+                        </section>
                     
                 
                    
