@@ -18,6 +18,7 @@ public class TimeSlot {
     private boolean overidable = false;
     private int rowIndex;
     private int colIndex;
+    private int maxTitleLength = 20;
     public TimeSlot(LocalDateTime startTime, int col, int row){
         this.startTime = startTime;
         meetings = new HashSet<>();
@@ -55,7 +56,7 @@ public class TimeSlot {
         html += ">";
        // html += this.startTime.toString() ;
         for (Meeting m1 : meetings) {
-            html += m1.getTitle();
+            html += m1.getTitle().substring(0, Math.min(m1.getTitle().length(), maxTitleLength));
         }
 
         html+="</td>";
@@ -102,7 +103,7 @@ public class TimeSlot {
      */
     public void add(Meeting meeting){
         free = false;
-        int piority = meeting.getPiority();
+        int piority = meeting.getPiority().getValue();
         this.totalPriority += piority;
         this.maxPriority = piority < maxPriority?maxPriority:piority;
         meetings.add(meeting);

@@ -52,7 +52,7 @@ public class Scheduler {
     public Scheduler(Meeting meetingToSchedule, String startOfRange, String endOfRange) throws RunUntilAfterEndRangeException, SQLException
     {
         this(meetingToSchedule, LocalDate.parse(startOfRange), LocalDate.parse(endOfRange));
-        System.out.println( "\n\n\n" + startOfRange +"range "+ endOfRange);
+//        System.out.println( "\n\n\n" + startOfRange +"range "+ endOfRange);
     }
     
     /**
@@ -157,7 +157,7 @@ public class Scheduler {
             sql += "OR meeting_id IN \n("+ groupAttending + ")";
         }
         sql += ")";
-        System.out.println("\n\n"+ sql +"\n\n");
+//        System.out.println("\n\n"+ sql +"\n\n");
         
         ResultSet sqlResults = sqlHandler.runQuery(sql);
         while(sqlResults.next())

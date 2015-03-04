@@ -58,22 +58,29 @@
 
 
                     <%  
-                        String peopleAttending=  request.getParameter("addMembersToMeeting");
-                        if(peopleAttending.equals(""))
+                        String peopleAttending =  request.getParameter("addMembersToMeeting");
+                        if(request.getParameter("UserAttending").equals("1"))
                         {
+                                if(!peopleAttending.equals(""))
+                                {
+                                    peopleAttending += ",";
+                                }
                                 peopleAttending += session.getAttribute("userId");
                         }
+                        System.out.println(" People attending " + peopleAttending);
+                        int duration = Integer.parseInt(request.getParameter("duration")) ;
+                        duration += duration%15==0?0:15-(duration%15);
                         teamproject.meeting.Meeting meeting = new teamproject.meeting.Meeting(
                         request.getParameter("title"),
                         request.getParameter("description"),
                         (Integer)session.getAttribute("userId"),
-                        request.getParameter("addMembersToMeeting"),
+                        peopleAttending,
                         request.getParameter("groupId_attendees"),      
-                        Integer.parseInt(request.getParameter("duration")),      
+                        duration,      
                         request.getParameter("endDate"),      
                         request.getParameter("location"),
                         Integer.parseInt(request.getParameter("Recurrence")),
-                        1,     
+                        Integer.parseInt(request.getParameter("Piority")),     
                         1);
                         //TODO add privates and piority
                         session.setAttribute("meeting", meeting);

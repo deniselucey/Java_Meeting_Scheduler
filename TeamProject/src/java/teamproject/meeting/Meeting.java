@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import teamproject.sql.SqlHandler;
 import teamproject.system.scheduler.Scheduler;
-import teamproject.system.scheduler.timetable.TimeSlot;
 import teamproject.user.Group;
 import teamproject.user.people.Person;
 
@@ -34,7 +33,7 @@ public class Meeting {
     private String location;
     private boolean recurring;
     private Recurrence repeatEvery;
-    private byte piority;
+    private Priority priority;
     private MeetingPrivacy privacy;
     private HashSet<Integer> peopleId_attendees;
     private HashSet<Integer> groupId_attendees;
@@ -65,19 +64,26 @@ public class Meeting {
             runs_until  = LocalDate.parse(rs.getString("runs_until"));
             location = rs.getString("location");
             repeatEvery = Recurrence.findByPeriod( Period.parse(rs.getString("repeteEvery")));
-            piority =  (byte)rs.getInt("priority");
+            priority =  Priority.getPriorityByValue(rs.getInt("priority"));
             privacy  =  MeetingPrivacy.getMeetingPrivacyByID(rs.getInt("privacy_id"));
             length = Duration.between(startDateTime, endDateTime);
+            peopleId_attendees = new HashSet<>();
+            ResultSet peopleRs = sqlHandler.runQuery("SELECT user_id FROM is_attending WHERE meeting_id =" + this.id+";");
+            while(peopleRs.next() )
+            {
+                System.out.println("SELECT PEOPELSRS " + peopleRs.getInt("user_id"));
+                peopleId_attendees.add(peopleRs.getInt("user_id"));
+            }
         }  
     }
 
-    public Meeting(String title, String description, String location, Recurrence repeat, MeetingType piority, MeetingPrivacy privacy)
+    public Meeting(String title, String description, String location, Recurrence repeat, Priority piority, MeetingPrivacy privacy)
     {
         this.title = title;
         this.description = description;
         this.location = location;
         this.repeatEvery = repeat;
-        this.piority = piority.getPriority();
+        this.priority = piority;
         this.privacy = privacy;
         people_attendees = new HashSet<>();
         group_attendees = new HashSet<>();
@@ -95,7 +101,7 @@ public class Meeting {
         location = rs.getString("location");
         repeatEvery = Recurrence.findByPeriod(Period.parse(rs.getString("repeteEvery")));
         recurring = repeatEvery != Recurrence.NEVER;
-        piority = rs.getByte("priority"); 
+        priority = Priority.getPriorityByValue(rs.getByte("priority")); 
         privacy = MeetingPrivacy.getMeetingPrivacyByID(rs.getInt("privacy_id"));
         length = Duration.between(startDateTime, endDateTime);
         people_attendees = new HashSet<>();
@@ -118,7 +124,7 @@ public class Meeting {
         this.location = other.location;
         this.recurring = other.recurring;
         this.repeatEvery = other.repeatEvery;
-        this.piority = other.piority;
+        this.priority = other.priority;
         this.privacy = other.privacy;
     }
     
@@ -128,7 +134,7 @@ public class Meeting {
             int host_id, LocalDateTime start_time, LocalDateTime end_time,
             LocalDate runs_until, String location, 
             boolean recurring, Recurrence repeat, MeetingPrivacy privacy, 
-            MeetingType piority, int hostId)
+           Priority piority, int hostId)
     {
         this.title = title;
         this.description = description;
@@ -140,7 +146,7 @@ public class Meeting {
         
         this.repeatEvery = repeat;
         this.recurring = repeat != Recurrence.NEVER;
-        this.piority = piority.getPriority();
+        this.priority = piority;
         this.privacy = privacy;
         this.hostUserID = hostId;
         people_attendees = new HashSet<>();
@@ -172,7 +178,7 @@ public class Meeting {
         this.runs_until = LocalDate.parse(runs_until);
         this.location = location;
         this.repeatEvery = Recurrence.values()[repeatEvery];
-        this.piority = (byte)piority;
+        this.priority = Priority.getPriorityByValue(piority);
         this.privacy = MeetingPrivacy.getMeetingPrivacyByID(privacyId);
         this.recurring = this.repeatEvery != Recurrence.NEVER;
         this.peopleId_attendees = new HashSet<>();
@@ -185,10 +191,8 @@ public class Meeting {
         {
             
             String[] peopleId = peopleId_attendees.split(",");
-            Arrays.stream(peopleId).forEach(i -> this.peopleId_attendees.add(Integer.parseInt(i)));
+            Arrays.stream(peopleId).filter(i -> i !=null && !i.equals("")).forEach(i -> this.peopleId_attendees.add(Integer.parseInt(i)));
         }
-        System.out.println("\n\n NOT NULL \n" + peopleId_attendees);
-        System.out.print("\n\n\n HERE IT IS  " + this.toString() + "\n\n\n");
     }
 
     
@@ -241,7 +245,7 @@ public class Meeting {
                 endDateTime.toString() +"','"+
                 runs_until.toString()  +"','"+
                 title  +"','"+ description  +"',"+
-                piority  +",'"+ location  +"',"+
+                priority  +",'"+ location  +"',"+
                 privacy.getId()  +",'"+
                 this.repeatEvery.getPeriod().toString() +
                 "');";
@@ -277,7 +281,7 @@ public class Meeting {
             "AND description = '" + this.description + "' " +
             "AND location = '" + this.location + "' " +
             "AND repeteEvery = '" + this.repeatEvery.getPeriod().toString()+"' " +
-            "AND priority = " + this.piority + 
+            "AND priority = " + this.priority + 
             " AND start_time = '"+ this.startDateTime.toString()+"'" + 
             " AND end_time = '"+ this.endDateTime.toString()+"'" +
             " AND runs_until = '"+ this.runs_until.toString()+"';";
@@ -297,7 +301,10 @@ public class Meeting {
         return Recurrence.toHTMLDropDown();
         
     }
+    public String PriorityHTMLDropDown(boolean admin, boolean lecturer){
+        return Priority.toHTML(admin, lecturer);
         
+    }     
     public String getTitle() {
         return title;
     }
@@ -338,8 +345,8 @@ public class Meeting {
         return repeatEvery;
     }
 
-    public byte getPiority() {
-        return piority;
+    public Priority getPiority() {
+        return priority;
     }
 
     public MeetingPrivacy getPrivacy() {
@@ -364,7 +371,7 @@ public class Meeting {
 
     @Override
     public String toString() {
-        return "Meeting{" + "title=" + title + ", description=" + description + ", id=" + id + ", hostUserID=" + hostUserID + ", people_attendees=" + people_attendees + ", group_attendees=" + group_attendees + ", length=" + length + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", runs_until=" + runs_until + ", location=" + location + ", recurring=" + recurring + ", repeatEvery=" + repeatEvery + ", piority=" + piority + ", privacy=" + privacy + ", peopleId_attendees=" + peopleId_attendees + ", groupId_attendees=" + groupId_attendees + '}';
+        return "Meeting{" + "title=" + title + ", description=" + description + ", id=" + id + ", hostUserID=" + hostUserID + ", people_attendees=" + people_attendees + ", group_attendees=" + group_attendees + ", length=" + length + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", runs_until=" + runs_until + ", location=" + location + ", recurring=" + recurring + ", repeatEvery=" + repeatEvery + ", piority=" + priority + ", privacy=" + privacy + ", peopleId_attendees=" + peopleId_attendees + ", groupId_attendees=" + groupId_attendees + '}';
     }
 
     @Override
@@ -384,7 +391,7 @@ public class Meeting {
         hash = 47 * hash + Objects.hashCode(this.location);
         hash = 47 * hash + (this.recurring ? 1 : 0);
         hash = 47 * hash + Objects.hashCode(this.repeatEvery);
-        hash = 47 * hash + this.piority;
+        hash = 47 * hash + this.priority.getValue();
         hash = 47 * hash + Objects.hashCode(this.privacy);
         return hash;
     }
@@ -439,7 +446,7 @@ public class Meeting {
         if (this.repeatEvery != other.repeatEvery) {
             return false;
         }
-        if (this.piority != other.piority) {
+        if (this.priority != other.priority) {
             return false;
         }
         if (this.privacy != other.privacy) {
@@ -540,7 +547,7 @@ public class Meeting {
                 insertMeeting.setString(4, meeting.getRuns_until().toString());
                 insertMeeting.setString(5,meeting.getTitle());
                 insertMeeting.setString(6,meeting.getDescription());
-                insertMeeting.setInt(7, meeting.getPiority());
+                insertMeeting.setInt(7, meeting.getPiority().getValue());
                 insertMeeting.setString(8, meeting.getLocation());
                 insertMeeting.setInt(9, meeting.getPrivacy().getId());
                 insertMeeting.setString(10, meeting.getRepeatEvery().getPeriod().toString());
@@ -615,4 +622,50 @@ public class Meeting {
         sqlChars[10] = 'T';
         return LocalDateTime.parse(String.valueOf(sqlChars));
     }    
+    
+    public String toHTML()
+    {
+        String html ="<section><h1>" + this.getTitle();
+        html +="</h1><p>Description: " + description;        
+        html +="</p><p> HostUserID: " + hostUserID;
+        html +="</p><p> People Attendees:</p><ul>";
+        SqlHandler sql = new SqlHandler();
+        String getNames = "SELECT firstname, secondname FROM user WHERE user_id IN (";
+        boolean first = true;
+        String names = "";
+        for(int p : peopleId_attendees)
+        {
+            if(!first)
+            {
+                getNames += ",";
+                
+            }
+            getNames += p;
+            first = false;
+        }
+        getNames += ") ORDER BY secondname;";
+       // try {
+        System.out.println(" hehehehehh Sql Querry" + getNames);
+        
+        try {
+            ResultSet rs = sql.runQuery(getNames);
+            while(rs.next())
+            {
+                names += "<li>" + rs.getString("firstname")+ " " + rs.getString("secondname") + "</li>";
+                System.out.println(names);
+            }
+        
+        } catch (SQLException ex) {
+            names = "<li>failed to load attendies</li>";
+        }   
+        System.out.print("NAMES" + names);
+        html += names;
+        html +="</ul><p> Start Date:" + startDateTime.toLocalDate();
+        html +="</p><p> Start Time:" + startDateTime.toLocalTime();
+        html +="</p><p> Length:" + length;
+        html +="</p><p> Location:" + location ;       
+        html +="</p><p> Repeates " + this.repeatEvery;
+        html +="</p><p> piority=" + priority + "</p>";
+        return html;
+    }
 }

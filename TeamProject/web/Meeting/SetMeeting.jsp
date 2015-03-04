@@ -103,6 +103,12 @@
                                         out.print(setMeeting.RecurrenceHTMLDropDown());
                                     %>
                                 </div>
+                                <div>
+                                    <label>Meeting Priority:</label>
+                                    <%
+                                        out.print(setMeeting.PriorityHTMLDropDown((Boolean)session.getAttribute("admin"), false));//(Boolean)session.getAttribute("lecturer"));
+                                    %>
+                                </div>
                                 
                                 <div>
                                     <label>Location:</label>
@@ -111,10 +117,14 @@
                                 
                                 <div>
                                     <label>Add Members: </label>
-                                    <input type="text" name="addMembersToMeeting" value="" required/><br>
-                                    <input type="submit" value="Add Another Member" /><br>
+                                    <input type="text" name="addMembersToMeeting" value=""/><br>
+                                   
                                 </div>
-
+                                <div>
+                                    <label>Are you attending </label>
+                                    <input type="checkbox" name="UserAttending" value="1">
+                                   
+                                </div>
                                 <div>
                                     <input type="submit" value="Search Meeting Times" /><br>
                                 </div>

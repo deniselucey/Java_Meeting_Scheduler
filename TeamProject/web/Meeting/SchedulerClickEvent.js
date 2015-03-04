@@ -13,7 +13,7 @@ function TDClicked(date, id)
     {
         document.getElementById(id).setAttribute("class",'canSchedule');
     }
-    else if(tdClass ===  'canSchedule')
+    else if(tdClass ===  'canSchedule'  && counter < maxMeetingsAtOnce)
     {
         document.getElementById(id).setAttribute("class",'scheduledBegin');    
     }

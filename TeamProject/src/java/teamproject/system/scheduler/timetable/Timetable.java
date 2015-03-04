@@ -78,7 +78,7 @@ public class Timetable {
                 int daysIndex = (int) duration.toDays();
                 int minutes = (int) (duration.toMinutes() - (daysIndex*24*60) - DAY_START_TIME.toMinutes());
                 int slotIndex = minutes / MINUTES_IN_A_TIMESLOT;
-                System.out.println(meeting);
+//                System.out.println(meeting);
                 float length = ((float)meeting.getLength().toMinutes())/MINUTES_IN_A_TIMESLOT;
                 //int slotOffset;
                 for(int i = 0,slot = slotIndex ; i < length; i++){
@@ -89,8 +89,8 @@ public class Timetable {
                     slot++;
                     if(slot == NUMBER_OF_TIMESLOTS)
                     {
-                        System.out.println("in loop");
-                        System.out.println(DAY_LEFT.toHours() * 60/TimeSlot.getDuration().toMinutes() );
+//                        System.out.println("in loop");
+//                        System.out.println(DAY_LEFT.toHours() * 60/TimeSlot.getDuration().toMinutes() );
                         i += DAY_LEFT.toHours() * 60/TimeSlot.getDuration().toMinutes() ;//
                         slot = 0 ;
                         daysIndex++;
@@ -138,7 +138,7 @@ public class Timetable {
                 for(int i =0; i < daysInAWeek; i++)
                 {
                     int dayIndex = counter*daysInAWeek + i;
-                    System.out.println("counter :"+counter+ " days:" +daysInAWeek +" i: "+ i);
+//                    System.out.println("counter :"+counter+ " days:" +daysInAWeek +" i: "+ i);
                     if(timeSlotsFilled[dayIndex] <= j )
                     {
                     
@@ -176,8 +176,8 @@ public class Timetable {
     private static ArrayList<Meeting> loadAllMeeting(int userId) throws SQLException
     {
         SqlHandler sh = new SqlHandler();
-//        ResultSet rs = sh.runQuery("SELECT * FROM meeting WHERE meeting_id in (SELECT meeting_id FROM is_attending WHERE user_id = '" + userId + "');");
-        ResultSet rs = sh.runQuery("SELECT * FROM meeting");
+        ResultSet rs = sh.runQuery("SELECT * FROM meeting WHERE meeting_id in (SELECT meeting_id FROM is_attending WHERE user_id = '" + userId + "');");
+//       ResultSet rs = sh.runQuery("SELECT * FROM meeting");
         ArrayList<Meeting> meetings = new ArrayList<>();
         while(rs.next())
         {
@@ -203,7 +203,7 @@ public class Timetable {
             for(int i =0; i < timeSlots.length; i++)
             {
                 newTimeTableDaysIndex = i % days;
-                System.out.println("DAys" + newTimeTableDaysIndex);
+//                System.out.println("DAys" + newTimeTableDaysIndex);
                 for(int j=0; j < timeSlots[i].length; j++)
                 {
                     if(newTimetable[newTimeTableDaysIndex][j] == null)
@@ -217,9 +217,6 @@ public class Timetable {
                 }
             }
             this.timeSlots = newTimetable;
-            
-            
-            
         }
         for(int i =0; i < timeSlots.length; i++)
         {
@@ -227,18 +224,13 @@ public class Timetable {
             {
                 if(!timeSlots[i][j].isFree())
                 {
-                    if(timeSlots[i][j].getMaxPriority() < meeting.getPiority())
+                    if(timeSlots[i][j].getMaxPriority() < meeting.getPiority().getValue())
                     {
                         timeSlots[i][j].setOveridable(true);
                     }
-                    for(int k = 1; k < meeting.getLength().toMinutes() / TimeSlot.getDuration().toMinutes(); k++)
-                    {
-                        System.out.println("k :" + k);
-                        if(j - k >= 0)
-                        {
-                            timeSlots[i][j - k].setCantScheduleTo();
-                        }
-                        
+                    for(int k = 1; k < meeting.getLength().toMinutes() / TimeSlot.getDuration().toMinutes() && j - k >= 0; k++)
+                    { 
+                        timeSlots[i][j - k].setCantScheduleTo();
                     }
                 }
             }

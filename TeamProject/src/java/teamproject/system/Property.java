@@ -9,8 +9,8 @@ import java.time.LocalDate;
      */
     public enum Property
     {
-        DummyAdmin("admin"),
-        DummyPassword("password"),
+        DummyAdminUserName("admin"),
+        DummyAdminPassword("password"),
         
         DatabaseUrl("localhost"),
         DatabasePort("3306"),
@@ -22,19 +22,22 @@ import java.time.LocalDate;
         AllowedEmailServices,
 
         BackUpName("TimeTable_Backup"),
-        NumberOfBackUp("3"),
-        NextBackUpNumber("1"),
-        BackUpEvery("D1"),
+        //NumberOfBackUp("3"),
+        //NextBackUpNumber("1"),
+        //BackUpEvery("D1"),
         BackUpUrl("/backup"),
         
         MinimumManualDaysInactive("100"),
         AutoRemoveAfterDaysInactive("365"),
-        SystemStartDate
+        SystemStartDate(LocalDate.now().toString())
         {
-            //return current date 
-            @Override
-            public String getDefaultValue() { return  LocalDate.now().toString(); }
+          
+            private String toHTMlinput()
+            {
+                return "";
+            }
         };
+        
 
         private final String defaultValue;
         
@@ -42,4 +45,26 @@ import java.time.LocalDate;
         private Property() { this.defaultValue = ""; }  
         
         public String getDefaultValue() { return defaultValue; }
+        
+        private String toHTMlinput()
+        {
+            String html = "<div><label>";
+            html += this.name();
+            html += "</label>";
+            html += "<input type=\"text\" name=\"" + this.name() + "\" value=\"\"/><br>";
+            html += "</div>";
+            return html;
+        }
+        
+        public static String toHTMLForm()
+        {
+            String html = "<form>";
+            
+            for(Property p : Property.values())
+            {
+                p.toHTMlinput();
+            }
+            html += "</form>";
+            return html;
+        }
     }
