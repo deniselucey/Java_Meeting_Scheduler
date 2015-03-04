@@ -20,6 +20,7 @@ import java.util.prefs.*;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.xml.registry.infomodel.User;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Ignore;
@@ -104,13 +105,12 @@ public class BackUpTest {
             } else {
                 System.out.println("Could not restore the backup!");
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException | InterruptedException ex) {
         }
 
         
     }
-    
+   @Ignore
    @Test
    public void testBackUp(){
        String DBName;
@@ -165,6 +165,60 @@ public class BackUpTest {
         
    }
     
+   @Test
+   public void testingPreference() {
+       String testProperty;
+       String testValue;
+       String emptyString;
+       String path;
+       
+       testProperty = "BlockedEmailServices";
+       testValue = "cmail";
+       path = "C:/Users/";
+       emptyString = "";
+       
+       SystemSetting.initSystemSetting();
+       SystemSetting.setProperty(Property.BlockedEmailServices, testValue, (teamproject.user.User) (User) null);
+        try {
+            SystemSetting.saveSettings(null);
+            BackUp.backUpPreferences(path);
+            
+            assertThat(SystemSetting.getProperty(Property.BlockedEmailServices, ""), is(equalTo(testValue)));
+            
+            try {
+               Thread.sleep(1000);
+           } catch (InterruptedException ex) {
+               Logger.getLogger(BackUpTest.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
+            SystemSetting.initSystemSetting();
+            SystemSetting.setProperty(Property.BlockedEmailServices, emptyString, (teamproject.user.User) (User) null);
+            
+           try {
+               BackUp.restorePreferences(path);
+            } catch (InvalidPreferencesFormatException ex) {
+               Logger.getLogger(BackUpTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+           
+            try {
+               Thread.sleep(1000);
+           } catch (InterruptedException ex) {
+               Logger.getLogger(BackUpTest.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
+            assertThat(SystemSetting.getProperty(Property.BlockedEmailServices, ""), is(equalTo(testValue)));
+                       
+
+        } catch (IOException | BackingStoreException ex) {
+            Logger.getLogger(BackUpTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       
+       
+       
+   }
+   
     @Ignore
     @Test
     public void testPreferences() throws IOException, BackingStoreException {

@@ -109,7 +109,7 @@ public class BackUp {
         * @throws IOException
         * @throws BackingStoreException 
         */
-        public void backUpPreferences(String path) throws IOException, BackingStoreException {
+        public static void backUpPreferences(String path) throws IOException, BackingStoreException {
             Preferences root = Preferences.userRoot();
             FileOutputStream preference = new FileOutputStream(path + "backup.xml"); //1337 Hax
             root.exportSubtree(preference);
@@ -122,7 +122,7 @@ public class BackUp {
          * @throws IOException
          * @throws InvalidPreferencesFormatException 
          */
-        public void restorePreferences(String path) throws IOException, InvalidPreferencesFormatException {
+        public static void restorePreferences(String path) throws IOException, InvalidPreferencesFormatException {
             Preferences root = Preferences.userRoot();
             FileInputStream preference = new FileInputStream(path + "backup.xml"); //1337 Hax
             Preferences.importPreferences(preference);
