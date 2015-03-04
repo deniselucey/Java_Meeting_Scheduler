@@ -47,7 +47,7 @@
                     <ul>
                         <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
                         <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
-                        <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
+                        <li><a href="..\Admin\AdminSettings.jsp">Add Members</a></li>
                         <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
                         <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                     </ul>
