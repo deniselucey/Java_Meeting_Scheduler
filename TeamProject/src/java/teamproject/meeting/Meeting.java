@@ -700,7 +700,7 @@ public class Meeting {
         String emails = "";
             
         try {
-            rs = sql.runQuery(peps);
+            rs = sql.runQuery(getEmails);
 
             boolean first = true;
             while(rs.next())
@@ -712,6 +712,7 @@ public class Meeting {
                 emails += rs.getString("email");
                 first = false;
             }
+            System.out.println(emails);
         } catch (SQLException ex) {
             Logger.getLogger(Meeting.class.getName()).log(Level.SEVERE, null, ex);
         }
