@@ -13,42 +13,7 @@ public class BackUp {
 
 	private File BackupFile;
         private ArrayList<File> backupFiles;
-       
 
-        /**
-         * Creates a backup File in one does not already exist.
-         * @param nameOfFile
-         * @return isBackupCreated
-         */
-	/**public boolean createBackUp(String nameOfFile){
-            Boolean isBackupCreated = false;
-            BackupFile = new File(nameOfFile + ".backup");
-            if(!BackupFile.exists()){
-                try {
-                    BackupFile.createNewFile();
-                    isBackupCreated = true;
-                } catch (IOException ex) {
-                    Logger.getLogger(BackUp.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            return isBackupCreated; 
-	}
-        */
-        /**
-         * Takes the backup file and stores it in the arraylist.
-         * @return 
-         */
-	/**public boolean storeBackUp(){
-            Boolean backupStored = false;
-            backupFiles = new ArrayList<>();
-            //Checks to see if a file exists and then places it in the arraylist.
-            if(BackupFile.exists()){
-                backupFiles.add(BackupFile);
-                backupStored = true;
-            }
-            return backupStored;
-	}*/
-        
         /**
          * 
          * @param mySQLDump
