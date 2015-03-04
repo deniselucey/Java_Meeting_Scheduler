@@ -1,12 +1,22 @@
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import teamproject.system.Register;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Ignore;
+import teamproject.sql.SqlHandler;
+import static teamproject.system.PasswordHash.createHash;
+import teamproject.system.SystemSetting;
 
 
 /**
@@ -36,49 +46,127 @@ public class RegisterTest {
 
     /**
      * Test of registerDetailsWithDb method, of class Register.
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
      */
+    @Ignore
     @Test
-    public void testRegisterDetailsWithDb() throws Exception {
-        System.out.println("registerDetailsWithDb");
-        Register instance = new Register();
-        boolean expResult = false;
-        boolean result = instance.registerDetailsWithDb();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testRegisterDetailsWithDb() throws NoSuchAlgorithmException, InvalidKeySpecException{
+        
+        int registered1;
+        int registered2;
+        /**
+         * Encrypts the password.
+         */
+        String password = encrypt();
+        
+        /**
+         * Sets is isRegistered to false.
+         */
+        boolean isRegistered = false;
+        try{
+            
+            SystemSetting.initSystemSetting();
+            String firstName = "Michelle";
+            String lastName = "McCarthy";
+            String email = "113428768@umail.ucc.ie";
+            String studentNumber = "113428768";
+            /**
+             *  Stores the first statement as a string.
+             */
+            String query1 = "INSERT INTO User(firstname, secondname, "
+                           + "email, password)"  
+                    + "VALUES('" + firstName+ "','" + lastName +"','" +
+                     email +"','" + password +"');"; 
+            
+           
+            /**
+             * Stores the second statement as a string.
+             */
+            String query2 = "INSERT INTO student(student_id,student_number)" +
+                             "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),  "
+                    + "'"+studentNumber+"');";
+
+            /**
+             * Creates a new sqlHandler.
+             */
+            SqlHandler sqlHandler = new SqlHandler();
+            /**
+             * Runs the SQL statement's using the sqlHandler
+             * Stores if the statement was successful or not in variable as
+             * a 1 or 0.
+             */
+            registered1 = sqlHandler.runStatement(query1);
+            registered2 = sqlHandler.runStatement(query2);
+            /**
+             * If both statements have being successfully run,
+             * It sets isRegistered to true.
+             */
+            if(registered1 == 1 && registered2 == 1){
+                System.out.println("Registration has been completed. ");
+            }
+        }catch(SQLException ex) {
+            System.out.println("You are not registered");
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
     }
 
     /**
      * Test of isUniqueEmailAddress method, of class Register.
      */
+    @Ignore
     @Test
     public void testIsUniqueEmailAddress() {
-        System.out.println("isUniqueEmailAddress");
-        Register instance = new Register();
-        boolean expResult = false;
-        boolean result = instance.isUniqueEmailAddress();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try{
+            
+            SqlHandler sqlHandler = new SqlHandler();
+            String email = "112428768@umail.ucc.ie";
+            
+            String query = "SELECT email "
+                    + "FROM User "
+                    + "WHERE email ='"+email+"';";
+          
+            ResultSet queryResult;
+            queryResult = sqlHandler.runQuery(query);
+         
+            //returns false if there are no rows in the ResultSet.
+            if (!queryResult.isBeforeFirst() && !queryResult.next() ) 
+            {
+                //sets isUnquie to true because the email address is not in DB
+                System.out.println("email is not in database");
+            }
+            else{
+                System.out.println("email is already in database");
+            }
+        }catch(SQLException ex) {
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     /**
      * Test of sendValidationEmail method, of class Register.
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
      */
+    @Ignore
     @Test
-    public void testSendValidationEmail() throws Exception {
+    public void testSendValidationEmail() throws NoSuchAlgorithmException, InvalidKeySpecException {
         System.out.println("sendValidationEmail");
         Register instance = new Register();
         boolean expResult = false;
         boolean result = instance.sendValidationEmail();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
      * Test of isAllowedEmailAddress method, of class Register.
      */
+    @Ignore
     @Test
     public void testIsAllowedEmailAddress() {
         System.out.println("isAllowedEmailAddress");
@@ -86,27 +174,32 @@ public class RegisterTest {
         boolean expResult = false;
         boolean result = instance.isAllowedEmailAddress();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
      * Test of isValidEmailAddress method, of class Register.
      */
+    
     @Test
     public void testIsValidEmailAddress() {
-        System.out.println("isValidEmailAddress");
-        Register instance = new Register();
-        boolean expResult = false;
-        boolean result = instance.isValidEmailAddress();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean isEmailVaild;
+        try{
+            String email;
+            email = "112428768@umail.ucc.ie ";
+            InternetAddress internetAddress = new InternetAddress(email);
+            internetAddress.validate();
+            isEmailVaild = true;
+        }catch(AddressException e ){
+            System.out.println("Error" );
+        }
+        
     }
 
     /**
      * Test of validateForm method, of class Register.
      */
+    @Ignore
     @Test
     public void testValidateForm() {
         System.out.println("validateForm");
@@ -115,203 +208,13 @@ public class RegisterTest {
         boolean result = instance.validateForm();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setFirstName method, of class Register.
-     */
-    @Test
-    public void testSetFirstName() {
-        System.out.println("setFirstName");
-        String firstNameSupplied = "";
-        Register instance = new Register();
-        instance.setFirstName(firstNameSupplied);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setLastName method, of class Register.
-     */
-    @Test
-    public void testSetLastName() {
-        System.out.println("setLastName");
-        String lastNameSupplied = "";
-        Register instance = new Register();
-        instance.setLastName(lastNameSupplied);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setEmail method, of class Register.
-     */
-    @Test
-    public void testSetEmail() {
-        System.out.println("setEmail");
-        String emailSupplied = "";
-        Register instance = new Register();
-        instance.setEmail(emailSupplied);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setStudentNumber method, of class Register.
-     */
-    @Test
-    public void testSetStudentNumber() {
-        System.out.println("setStudentNumber");
-        int studentNumberSupplied = 0;
-        Register instance = new Register();
-        instance.setStudentNumber(studentNumberSupplied);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setPassword1 method, of class Register.
-     */
-    @Test
-    public void testSetPassword1() {
-        System.out.println("setPassword1");
-        String passwordOneSupplied = "";
-        Register instance = new Register();
-        instance.setPassword1(passwordOneSupplied);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setPassword2 method, of class Register.
-     */
-    @Test
-    public void testSetPassword2() {
-        System.out.println("setPassword2");
-        String passwordTwoSupplied = "";
-        Register instance = new Register();
-        instance.setPassword2(passwordTwoSupplied);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setErrors method, of class Register.
-     */
-    @Test
-    public void testSetErrors() {
-        System.out.println("setErrors");
-        String key = "";
-        String msg = "";
-        Register instance = new Register();
-        instance.setErrors(key, msg);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getFirstName method, of class Register.
-     */
-    @Test
-    public void testGetFirstName() {
-        System.out.println("getFirstName");
-        Register instance = new Register();
-        String expResult = "";
-        String result = instance.getFirstName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getLastName method, of class Register.
-     */
-    @Test
-    public void testGetLastName() {
-        System.out.println("getLastName");
-        Register instance = new Register();
-        String expResult = "";
-        String result = instance.getLastName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getEmail method, of class Register.
-     */
-    @Test
-    public void testGetEmail() {
-        System.out.println("getEmail");
-        Register instance = new Register();
-        String expResult = "";
-        String result = instance.getEmail();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getPassword1 method, of class Register.
-     */
-    @Test
-    public void testGetPassword1() {
-        System.out.println("getPassword1");
-        Register instance = new Register();
-        String expResult = "";
-        String result = instance.getPassword1();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getPassword2 method, of class Register.
-     */
-    @Test
-    public void testGetPassword2() {
-        System.out.println("getPassword2");
-        Register instance = new Register();
-        String expResult = "";
-        String result = instance.getPassword2();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getStudentNumber method, of class Register.
-     */
-    @Test
-    public void testGetStudentNumber() {
-        System.out.println("getStudentNumber");
-        Register instance = new Register();
-        int expResult = 0;
-        int result = instance.getStudentNumber();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getErrorMessage method, of class Register.
-     */
-    @Test
-    public void testGetErrorMessage() {
-        System.out.println("getErrorMessage");
-        String message = "";
-        Register instance = new Register();
-        String expResult = "";
-        String result = instance.getErrorMessage(message);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
      * Test of getUserId method, of class Register.
      */
+    @Ignore
     @Test
     public void testGetUserId() {
         System.out.println("getUserId");
@@ -320,10 +223,14 @@ public class RegisterTest {
         int result = instance.getUserId();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
-    
-    
-    
-    
+
+    private String encrypt() throws NoSuchAlgorithmException, InvalidKeySpecException{
+       String password1 = "12345";
+       String encryptedPassword;
+       encryptedPassword = createHash(password1);
+       return encryptedPassword;
+    }
+
 }
