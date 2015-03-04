@@ -190,15 +190,16 @@ public class AdminPrivlege extends Privilege {
      * It achieves this by altering its entry in the Module table with the 
      * updated details of the module.
      * 
-     * @param module_id - id of the module
+     *
      * @param credit - amount of credits the module is worth
      * @param title - title of the module
      * @param code - module code of the module, i.e. CS3505
      * @param description - short description of the teachings of the module.
+     * @param lecturerEmail
      * @param year - the year to which the module is taught.
      * @return true if module is successfully edited or false otherwise.
      */
-    public boolean EditModule(String code, int credit, String title, String description, int year )
+    public boolean EditModule(String code, int credit, String title, String description, int year,String lecturerEmail )
     {
             try{
                 SystemSetting.initSystemSetting();                             
@@ -209,7 +210,12 @@ public class AdminPrivlege extends Privilege {
                         + ", description = '" + description + "'"
                         + ", year = " + year 
                         + "  WHERE code = '" + code + "';";
+                
+                String query2 ="UPDATE Lecturer_has_Module " +
+                "SET user_id = (SELECT user_id FROM User WHERE email = '"+ lecturerEmail+"') " +
+                "WHERE module_Id = (SELECT module_id FROM Module WHERE code ='"+code+"');";
                 sqlHandler.runStatement(query);
+                sqlHandler.runStatement(query2);
             
                 editModule = true;
                 
