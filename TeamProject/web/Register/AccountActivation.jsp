@@ -57,7 +57,9 @@
                                 boolean activationResult = emailClass.confirmAccount(pin,userId);
                                 
                                 if(activationResult){
+                                     
                             %>
+                            
                                     <p>You have activated your account.</p>
                                     <p><a href="../LogIn/Login.jsp">Login Now</a></p>
                             <%
