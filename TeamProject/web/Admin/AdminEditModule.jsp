@@ -67,6 +67,7 @@
                    String code = request.getParameter("code");
                    String description = request.getParameter("description");
                    int year = Integer.parseInt(request.getParameter("year"));
+                   String lecturerEmail = request.getParameter("lecturerEmail");
 
                     if (editModule.EditModule(code, credit, title, description, year)) {
                         out.print("You have been successfully edited module " + request.getParameter("code"));

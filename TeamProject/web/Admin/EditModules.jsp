@@ -60,24 +60,20 @@
                <form name="input" action="AdminCreateModule.jsp" method="GET">            
                    <fieldset>
                        <div>
-                           <label>Module ID</label>
-                           <input type="number" name="module_id">
+                           <label>Module Code</label>
+                           <input type="text" name="code">
                        </div>
-                       
+                       <div>
+                           <label>Title</label>
+                           <input type="text" name="title">
+                       </div>
                        <div>
                            <label>Credits</label>
                            <input type="number" name="credit">
                        </div>
                        
-                       <div>
-                           <label>Title</label>
-                           <input type="text" name="title">
-                       </div>
                        
-                       <div>
-                           <label>Module Code</label>
-                           <input type="text" name="code">
-                       </div>
+                       
                        
                        <div>
                            <label>Description</label>
@@ -91,7 +87,7 @@
                        
                        <div>
                            <label>Lecturer's Email</label>
-                           <input type="text" name="lecturer">
+                           <input type="text" name="lecturerEmail">
                        </div>
                        
                        <div>
@@ -133,15 +129,15 @@
                            </select>
                        </div>
                        
+                        <div>
+                           <label>Title</label>
+                           <input type="text" name="title">
+                       </div>
                        <div>
                            <label>Credits</label>
                            <input type="number" name="credit">
                        </div>
                        
-                       <div>
-                           <label>Title</label>
-                           <input type="text" name="title">
-                       </div>
                        
                        <div>
                            <label>Description</label>
@@ -155,7 +151,7 @@
                            
                        <div>
                            <label>Lecturer's Email</label>
-                           <input type="text" name="lecturer">
+                           <input type="text" name="lecturerEmail">
                        </div>
                            
                        <div>

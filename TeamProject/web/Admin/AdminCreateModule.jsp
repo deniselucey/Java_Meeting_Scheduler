@@ -61,14 +61,15 @@
 
 
                 <% 
-                   int module_id = Integer.parseInt(request.getParameter("module_id"));
+                   
                    int credit = Integer.parseInt(request.getParameter("credit"));
                    String title = request.getParameter("title");
                    String code = request.getParameter("code");
                    String description = request.getParameter("description");
                    int year = Integer.parseInt(request.getParameter("year"));
+                   String lecturerEmail = request.getParameter("lecturerEmail");
 
-                    if (createModule.CreateModule(module_id, credit, title, code, description, year)) {
+                    if (createModule.CreateModule(credit, title, code, description, year,lecturerEmail)) {
                         out.print("You have been successfully created module " + request.getParameter("code"));
                     } else {
                         out.print("Sorry you failed to create module " + request.getParameter("code"));
