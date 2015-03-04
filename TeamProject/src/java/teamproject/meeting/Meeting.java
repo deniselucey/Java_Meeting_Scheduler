@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import teamproject.sql.SqlHandler;
+import teamproject.system.Email;
 import teamproject.system.scheduler.Scheduler;
 import teamproject.user.Group;
 import teamproject.user.people.Person;
@@ -281,11 +282,12 @@ public class Meeting {
             "AND description = '" + this.description + "' " +
             "AND location = '" + this.location + "' " +
             "AND repeteEvery = '" + this.repeatEvery.getPeriod().toString()+"' " +
-            "AND priority = " + this.priority + 
+            "AND priority = " + this.priority.getValue() + 
             " AND start_time = '"+ this.startDateTime.toString()+"'" + 
             " AND end_time = '"+ this.endDateTime.toString()+"'" +
             " AND runs_until = '"+ this.runs_until.toString()+"';";
  
+        System.out.println("Meeting ID" + getMeetingId);
         SqlHandler sqlh = new SqlHandler();
         ResultSet resultSet = sqlh.runQuery(getMeetingId);
         if(resultSet.next())
@@ -717,6 +719,12 @@ public class Meeting {
             Logger.getLogger(Meeting.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        String emailSubject = "You were invited to a Meeting:" +this.getTitle();
+        String emailText  = this.getTitle() ;
+        
+
+        Email email = new Email();
+        email.sendEmail(emailSubject, emailText, emails);
         return emails;
     }
 }
