@@ -84,9 +84,9 @@
                        </div>
 		   </fieldset>			
                 </form>  
-                        </section>
+            </section>
           
-                    </div>
+            </div>
                 <%
                    }
                 %>  
