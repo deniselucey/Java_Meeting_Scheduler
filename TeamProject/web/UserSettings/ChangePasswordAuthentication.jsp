@@ -8,7 +8,9 @@
 <%@page import="teamproject.system.Register"%>
 <%@page import="teamproject.system.Email" %>
 
-<jsp:useBean id = "updateSettings" class="teamproject.system.UpdateSettings" scope="request"/>
+<jsp:useBean id = "updateSettings" class="teamproject.system.UpdateSettings" scope="request">
+<jsp:setProperty name="updateSettings" property="*"/>
+</jsp:useBean>
 <jsp:useBean id = "emailClass" class="teamproject.system.Email" scope="request"/>
 
 
@@ -24,7 +26,7 @@
             <link rel="stylesheet" href="../styles/example.css">
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Register Account</title>
+            <title>Change Settings</title>
     </head>
     
     <body>
@@ -53,7 +55,7 @@
                             <% 
                                 String registeredResult="";
                                 boolean emailResult;
-                                boolean setConfirmed;
+                                
                                 
                                
                                 if(updateSettings.changePassword()){

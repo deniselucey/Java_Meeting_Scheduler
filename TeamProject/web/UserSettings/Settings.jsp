@@ -62,7 +62,7 @@
 	    
                         <section>
                             <h1>Change Email Address</h1>
-                   <form name="input" action="" method="POST">            
+                   <form name="input" action="ChangeEmailAuthentication.jsp" method="POST">            
                    <fieldset>
                        <div>
                            <label> New Email Address</label>
@@ -80,7 +80,7 @@
                         <section>
                             
                         <h1>Change Password</h1>
-                   <form name="input" action="" method="POST">            
+                   <form name="input" action="ChangePasswordAuthentication.jsp" method="POST">            
                    <fieldset>
                        <div>
                            <label>New Password</label>
@@ -89,7 +89,7 @@
                        
                        <div>
                            <label>Confirm New Password</label>
-                           <input type="password" name="password">
+                           <input type="password" name="passwordConfirm">
                        </div>
                        
                        <div>
