@@ -23,7 +23,7 @@ public class BackUp {
          * @param path
          * @return String that either confirms or denies the creation of the database backup.
          */
-	public static String createBackup(String mySQLDump,String dbUserName, String dbPassword,String dbName,String path){
+	public static String createBackup(String mySQLDump,String dbUserName, String dbPassword,String dbName, String path){
             String command =  mySQLDump + " -u "+ dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path + " " ;
             Process processRuntime;
             String sentence = " ";

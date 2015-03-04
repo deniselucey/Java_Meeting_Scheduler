@@ -45,7 +45,8 @@
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
                             <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
-                            <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
+                            <li><a href="..\Admin\AdminSettings.jsp">Add Members</a></li>
+                             <li><a href="..\Admin\BackUp.jsp"> System BackUp</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
@@ -67,8 +68,9 @@
                    String code = request.getParameter("code");
                    String description = request.getParameter("description");
                    int year = Integer.parseInt(request.getParameter("year"));
+                   String lecturerEmail = request.getParameter("lecturerEmail");
 
-                    if (editModule.EditModule(code, credit, title, description, year)) {
+                    if (editModule.EditModule(code, credit, title, description, year,lecturerEmail )) {
                         out.print("You have been successfully edited module " + request.getParameter("code"));
                     } else {
                         out.print("Sorry you failed to edit module " + request.getParameter("code"));

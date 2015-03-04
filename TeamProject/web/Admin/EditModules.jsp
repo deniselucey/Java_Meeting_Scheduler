@@ -47,7 +47,7 @@
                     <ul>
                         <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
                         <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
-                        <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
+                        <li><a href="..\Admin\AdminSettings.jsp">Add Members</a></li>
                         <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
                         <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                     </ul>
@@ -60,24 +60,20 @@
                <form name="input" action="AdminCreateModule.jsp" method="GET">            
                    <fieldset>
                        <div>
-                           <label>Module ID</label>
-                           <input type="number" name="module_id">
+                           <label>Module Code</label>
+                           <input type="text" name="code">
                        </div>
-                       
+                       <div>
+                           <label>Title</label>
+                           <input type="text" name="title">
+                       </div>
                        <div>
                            <label>Credits</label>
                            <input type="number" name="credit">
                        </div>
                        
-                       <div>
-                           <label>Title</label>
-                           <input type="text" name="title">
-                       </div>
                        
-                       <div>
-                           <label>Module Code</label>
-                           <input type="text" name="code">
-                       </div>
+                       
                        
                        <div>
                            <label>Description</label>
@@ -91,7 +87,7 @@
                        
                        <div>
                            <label>Lecturer's Email</label>
-                           <input type="text" name="lecturer">
+                           <input type="text" name="lecturerEmail">
                        </div>
                        
                        <div>
@@ -133,15 +129,15 @@
                            </select>
                        </div>
                        
+                        <div>
+                           <label>Title</label>
+                           <input type="text" name="title">
+                       </div>
                        <div>
                            <label>Credits</label>
                            <input type="number" name="credit">
                        </div>
                        
-                       <div>
-                           <label>Title</label>
-                           <input type="text" name="title">
-                       </div>
                        
                        <div>
                            <label>Description</label>
@@ -155,7 +151,7 @@
                            
                        <div>
                            <label>Lecturer's Email</label>
-                           <input type="text" name="lecturer">
+                           <input type="text" name="lecturerEmail">
                        </div>
                            
                        <div>
