@@ -40,7 +40,7 @@ public class TimeSlot {
      */
     public String toHTML(int row){
 
-        String html = "<td id=\"" + colIndex + "\" rowspan=\" " +  row +"\" class =";
+        String html ="<td id=\"" + colIndex + "\" rowspan=\" " +  row +"\" class =";
 
         switch(meetings.size()) {
             case 0:
@@ -54,12 +54,29 @@ public class TimeSlot {
                 break;
         }
         html += ">";
+        
+        
+        html += "<a href=\"../Meeting/Meeting.jsp?meeting=";
+        boolean first= true;
+        for(Meeting m :this.meetings)
+        {
+            if(!first)
+            {
+                html+=",";
+            }
+            html+= m.getId();
+            first = false;
+        }
+        html += "\" >";
+        
+        
+        
        // html += this.startTime.toString() ;
         for (Meeting m1 : meetings) {
             html += m1.getTitle().substring(0, Math.min(m1.getTitle().length(), maxTitleLength));
         }
 
-        html+="</td>";
+        html+="</a></td>";
         return html;
     }
 
