@@ -39,7 +39,7 @@
             %>
             <%
                 } else {
-                   out.println(session.getAttribute("lectureId"));
+                   
                    
             %>
                     
