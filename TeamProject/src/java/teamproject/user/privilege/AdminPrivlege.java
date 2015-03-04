@@ -214,5 +214,21 @@ public class AdminPrivlege extends Privilege {
             }
          return editModule;
     }
-}
 
+
+
+    public boolean addLecturer(String lecturer){
+        boolean lecturerResult = false;
+        String Statement = "INSERT INTO ";
+        
+
+        return lecturerResult;
+    }
+
+    public boolean editLecturer(String lecturerEmail){
+        boolean lecturerResult = false;
+
+        return lecturerResult;
+    }
+
+}

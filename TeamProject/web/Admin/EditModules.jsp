@@ -88,7 +88,12 @@
                            <label>Year</label>
                            <input type="number" name="year">
                        </div>
-			             
+                       
+                       <div>
+                           <label>Lecturer's Email</label>
+                           <input type="text" name="lecturer">
+                       </div>
+                       
                        <div>
                            <input type="submit" value="Create">
                        </div>
@@ -146,6 +151,11 @@
                        <div>
                            <label>Year</label>
                            <input type="number" name="year">
+                       </div>
+                           
+                       <div>
+                           <label>Lecturer's Email</label>
+                           <input type="text" name="lecturer">
                        </div>
                            
                        <div>
