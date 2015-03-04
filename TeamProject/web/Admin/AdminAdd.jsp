@@ -1,9 +1,3 @@
-<%-- 
-    Document   : AdminCreateModule
-    Created on : Feb 28, 2015, 5:25:03 PM
-    Author     : zolamcdonald
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
 
@@ -44,7 +38,6 @@
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
-                            <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
                             <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
@@ -52,31 +45,27 @@
 	
                     <div id = "main">
 	            	<section class = "content">
-                       <h1>Enroll</h1>
+                       <h1>Add new administrator</h1>
 
-                <%@page import="teamproject.user.people.Lecturer"%>
+                <%@page import="teamproject.user.privilege.AdminPrivlege"%>
 
 
-                <jsp:useBean id="editModule" class="teamproject.user.privilege.AdminPrivlege" scope="session">
+                <jsp:useBean id="addAdmin" class="teamproject.user.privilege.AdminPrivlege" scope="session">
                 </jsp:useBean>
 
 
                 <% 
-                   int credit = Integer.parseInt(request.getParameter("credit"));
-                   String title = request.getParameter("title");
-                   String code = request.getParameter("code");
-                   String description = request.getParameter("description");
-                   int year = Integer.parseInt(request.getParameter("year"));
+                   String email = request.getParameter("email");
 
-                    if (editModule.EditModule(code, credit, title, description, year)) {
-                        out.print("You have been successfully edited module " + request.getParameter("code"));
+                    if (addAdmin.add(email)) {
+                        out.print("You have been successfully created a new administrator: " + email);
                     } else {
-                        out.print("Sorry you failed to edit module " + request.getParameter("code"));
+                        out.print("Sorry you failed to add new administrator: " + email);
                     }
                            
                 %>
                 <p>
-                    <a href="..\Admin\EditModules.jsp">Go back.</a>
+                    <a href="..\Admin\AdminSettings.jsp">Go back.</a>
                 </p>
             </section>
                 
@@ -86,9 +75,6 @@
                    }
                 %>  
         
-         
-            
-       
         <p class = "status"></p>
     </div>
     <footer>

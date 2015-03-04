@@ -46,14 +46,45 @@
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
                             <li><a href="..\Admin\EditModules.jsp">Edit Modules</a></li>
+                            <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
                              <li><a href="..\Admin\BackUp.jsp"> System BackUp</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
 	
                     <div id = "main">
-                        <h1>System Settings</h1>
- 
+                        <section>
+                            <h1>Add new administrator</h1>
+                   <form name="input" action="AdminAdd.jsp" method="GET">            
+                   <fieldset>
+                       <div>
+                           <label>Email</label>
+                           <input type="text" name="email">
+                       </div>
+                       
+                       <div>
+                           <input type="submit" value="Add">
+                       </div>
+		   </fieldset>			
+                </form>     
+                        </section>
+                        
+                        <section>
+                            
+                        <h1>Add new Lecturer</h1>
+                   <form name="input" action="LecturerAdd.jsp" method="GET">            
+                   <fieldset>
+                       <div>
+                           <label>Email</label>
+                           <input type="text" name="email">
+                       </div>
+                       
+                       <div>
+                           <input type="submit" value="Add">
+                       </div>
+		   </fieldset>			
+                </form>  
+                        </section>
           
                     </div>
                 <%

@@ -46,6 +46,7 @@
             <nav>
                     <ul>
                         <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
+                        <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
                         <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
                         <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
                         <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
@@ -87,7 +88,12 @@
                            <label>Year</label>
                            <input type="number" name="year">
                        </div>
-			             
+                       
+                       <div>
+                           <label>Lecturer's Email</label>
+                           <input type="text" name="lecturer">
+                       </div>
+                       
                        <div>
                            <input type="submit" value="Create">
                        </div>
@@ -145,6 +151,11 @@
                        <div>
                            <label>Year</label>
                            <input type="number" name="year">
+                       </div>
+                           
+                       <div>
+                           <label>Lecturer's Email</label>
+                           <input type="text" name="lecturer">
                        </div>
                            
                        <div>

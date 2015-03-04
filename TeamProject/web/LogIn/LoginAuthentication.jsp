@@ -17,6 +17,10 @@
                    int userId = login.getUserId();
                    String email = request.getParameter("email");
                    boolean admin = login.getIsAdmin();
+                   int lectureId = login.getIsLecturer();
+                   session.setAttribute("lectureId", lectureId);
+                  
+                   session.setAttribute("lecturer", lectureId != 0 );
                    session.setAttribute("admin", admin);
                    session.setAttribute("userId", userId);
                    session.setAttribute("email", email );

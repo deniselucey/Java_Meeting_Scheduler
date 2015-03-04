@@ -1,11 +1,10 @@
 <%-- 
-    Document   : AdminCreateModule
-    Created on : Feb 28, 2015, 5:25:03 PM
+    Document   : lecturerSemesterView
+    Created on : Mar 3, 2015, 9:22:15 PM
     Author     : zolamcdonald
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import ="java.sql.*" %>
+<%@ page import ="java.sql.*" %>
 
 
 <!DOCTYPE html>
@@ -40,45 +39,35 @@
             <%
                 } else {
             %>
+           
+                    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+                    <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
+        
+                    <%
+                        teamproject.system.scheduler.timetable.Timetable timeTable = new teamproject.system.scheduler.timetable.Timetable(12,(Integer)session.getAttribute("userId"));
+                    %>
+                
                 
                     <nav>
                         <ul>
-                            <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
-                            <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
-                            <li><a href="..\Admin\AdminSettings.jsp">Settings</a></li>
+                            <li><a href="..\lecturer\lecturerTimeTable.jsp">Home</a></li>
+                            <li><a href="..\lecturer\lecturerSetMeeting.jsp">Set Meeting</a></li>
+                            <li><a href="..\lecturer\lecturerEnrollunenroll.jsp">Enroll/Un-enroll in Module</a></li>
+                            <li><a href="..\lecturer\lecturerSettings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+                            
                         </ul>
                     </nav>
 	
                     <div id = "main">
-	            	<section class = "content">
-                       <h1>Enroll</h1>
-
-                <%@page import="teamproject.user.people.Lecturer"%>
-
-
-                <jsp:useBean id="editModule" class="teamproject.user.privilege.AdminPrivlege" scope="session">
-                </jsp:useBean>
-
-
-                <% 
-                   int credit = Integer.parseInt(request.getParameter("credit"));
-                   String title = request.getParameter("title");
-                   String code = request.getParameter("code");
-                   String description = request.getParameter("description");
-                   int year = Integer.parseInt(request.getParameter("year"));
-
-                    if (editModule.EditModule(code, credit, title, description, year)) {
-                        out.print("You have been successfully edited module " + request.getParameter("code"));
-                    } else {
-                        out.print("Sorry you failed to edit module " + request.getParameter("code"));
-                    }
-                           
-                %>
-                <p>
-                    <a href="..\Admin\EditModules.jsp">Go back.</a>
-                </p>
-            </section>
+	    
+                
+                
+                    
+                
+                    <% 
+                        out.println(timeTable.toHTML(false));
+                     %>
                 
           
                     </div>
@@ -99,4 +88,3 @@
         
     </body>
 </html>
-

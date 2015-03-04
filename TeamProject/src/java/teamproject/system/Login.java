@@ -19,7 +19,9 @@ public class Login {
      private String email = "";
      private String password = "";
      private int userId;
+     private int lectureId ;
      private boolean admin;
+   
      private SqlHandler sqlHandler;
      private final HashMap errors = new HashMap();
     /**
@@ -51,13 +53,15 @@ public class Login {
         
         try{
             SystemSetting.initSystemSetting();
-            String query = "SELECT email,password,user_id,admin "+
-                           "FROM User "+
+            String query1 = "SELECT email,password,user_id,admin,lecture_id "+
+                           "FROM User LEFT JOIN lecturer " +
+                           "ON User.user_id = lecturer.lecture_id "+
                            "WHERE email ='"+email+"' AND user_id NOT IN (SELECT user_id FROM Register);";
             
+           
             ResultSet queryResult;
             sqlHandler = new SqlHandler();
-            queryResult = sqlHandler.runQuery(query);
+            queryResult = sqlHandler.runQuery(query1);
             
             if(queryResult.isBeforeFirst())
             {
@@ -72,6 +76,8 @@ public class Login {
                     inDb = true;
                     userId = queryResult.getInt("user_id");
                     admin = queryResult.getBoolean("admin");
+                    lectureId = queryResult.getInt("lecture_id");
+                    
                 }
             }else{
                 return inDb;
@@ -154,6 +160,10 @@ public class Login {
    
    public boolean getIsAdmin(){
        return admin;
+   }
+   
+   public int getIsLecturer(){
+       return lectureId;
    }
     
    

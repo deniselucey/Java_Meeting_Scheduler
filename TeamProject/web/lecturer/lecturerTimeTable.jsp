@@ -1,6 +1,6 @@
 <%-- 
-    Document   : TimeTable
-    
+    Document   : lecturerTimeTable
+    Created on : Mar 3, 2015, 9:12:44 PM
     Author     : zolamcdonald
 --%>
 
@@ -39,8 +39,6 @@
             %>
             <%
                 } else {
-                   
-                   
             %>
                     
                     <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -54,13 +52,11 @@
                 
                     <nav>
                         <ul>
-                            <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                            <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
-                            <li><a href="..\Enroll\enroll.jsp">Enroll/Un-enroll in Module</a></li>
-                            
-                          
-                            <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
-                            <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
+                            <li><a href="..\lecturer\lecturerTimeTable.jsp">Home</a></li>
+                            <li><a href="..\lecturer\lecturerSetMeeting.jsp">Set Meeting</a></li>
+                            <li><a href="..\lecturer\lecturerEnrollunenroll.jsp">Enroll/Un-enroll in Module</a></li>
+                            <li><a href="..\lecturer\lecturerSemesterView.jsp">Semester View</a></li>
+                            <li><a href="..\lecturer\lecturerSettings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
