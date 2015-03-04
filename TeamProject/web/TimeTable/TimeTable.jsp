@@ -39,6 +39,8 @@
             %>
             <%
                 } else {
+                   out.println(session.getAttribute("lectureId"));
+                   
             %>
                     
                     <%@page contentType="text/html" pageEncoding="UTF-8"%>

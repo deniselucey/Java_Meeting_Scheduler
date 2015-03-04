@@ -42,10 +42,10 @@
                 
                 
                <% 
+                   
                   
                 if((Boolean)session.getAttribute("admin")){
                        response.sendRedirect("../Admin/AdminHomePage.jsp");
-                       
                 }else{
                        response.sendRedirect("../TimeTable/TimeTable.jsp");
                 }
