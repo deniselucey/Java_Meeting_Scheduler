@@ -23,6 +23,7 @@
         
         <div id="wrapper">
 	<header>
+             <img src="../Resources/logo.gif" alt="UCC Logo">
 	</header>
         <%
             if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
