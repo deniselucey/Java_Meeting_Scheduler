@@ -129,5 +129,10 @@ public class SystemSetting
         changes.clear();
     }
     
+    public String toHtmlForm()
+    {
+       return Property.toHTMLForm();
+    }
+    
     public static boolean isInitialized() { return initialized; } 
 }
