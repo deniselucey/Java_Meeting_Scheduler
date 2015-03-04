@@ -52,8 +52,7 @@
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
                             <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
-                            <li><a href="..\Enroll\EnrollModule.jsp">Enroll in Module</a></li>
-                            <li><a href="..\Enroll\Unenroll.jsp">Unenroll in Module</a></li>
+                             <li><a href="..\Enroll\enroll.jsp">Enroll/Un-enroll in Module</a></li>
                             <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
@@ -61,7 +60,44 @@
 	
                     <div id = "main">
 	    
-                
+                        <section>
+                            <h1>Change Email Address</h1>
+                   <form name="input" action="" method="POST">            
+                   <fieldset>
+                       <div>
+                           <label> New Email Address</label>
+                           <input type="text" name="email">
+                       </div>
+         
+                       
+                       <div>
+                           <input type="submit" value="Submit">
+                       </div>
+		   </fieldset>			
+                </form>     
+                        </section>
+                        
+                        <section>
+                            
+                        <h1>Change Password</h1>
+                   <form name="input" action="" method="POST">            
+                   <fieldset>
+                       <div>
+                           <label>New Password</label>
+                           <input type="text" name="password">
+                       </div>
+                       
+                       <div>
+                           <label>Confirm New Password</label>
+                           <input type="password" name="password">
+                       </div>
+                       
+                       <div>
+                           <input type="submit" value="Submit">
+                       </div>
+		   </fieldset>			
+                </form>  
+                        </section>
                 
                     
                 
