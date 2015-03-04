@@ -66,6 +66,7 @@ public class Scheduler {
     public Scheduler(Meeting meetingToSchedule, LocalDate startOfRange, LocalDate endOfRange) throws RunUntilAfterEndRangeException, SQLException
     {
         this.endOfRange = endOfRange;
+        
         if(meetingToSchedule.getRuns_until().isAfter(endOfRange))
         {
             throw new RunUntilAfterEndRangeException();
@@ -118,8 +119,10 @@ public class Scheduler {
 
     public ArrayList<Meeting> loadMeeting() throws SQLException
     {
+        LocalDate meetingendRange = this.endOfRange;
+        meetingendRange = meetingendRange.plusDays(7-((Duration.between(startOfRange.atStartOfDay(), endOfRange.atStartOfDay()).toDays())%7));//meetingendRange.plusDays(7-startOfRange.getDayOfWeek().getValue());
         String sql = "SELECT * FROM meeting WHERE " +
-                " meeting.start_time <= \"" + this.endOfRange + 
+                " meeting.start_time <= \"" + meetingendRange + 
                 "\" AND meeting.runs_until >= \"" + this.startOfRange +
                 "\" ";
                 

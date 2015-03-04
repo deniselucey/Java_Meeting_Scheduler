@@ -20,12 +20,13 @@ import java.util.prefs.*;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.xml.registry.infomodel.User;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.Ignore;
 import teamproject.sql.SqlHandler;
 import teamproject.system.BackUp;
+import teamproject.user.User;
 
 
 /**
