@@ -365,6 +365,23 @@ public class Meeting {
         return peopleId_attendees;
     }
 
+    public String getPeopleString() {
+        boolean first = true;
+        String peps = "";
+        for(Integer i:peopleId_attendees)
+        {
+            if(!first)
+            {
+                peps +=",";
+            }
+            peps += i;
+            first = false;
+        }
+        return peps;
+    }
+
+    
+    
     public HashSet<Integer> getGroupId_attendees(Scheduler s) {
         return groupId_attendees;
     }
@@ -660,12 +677,45 @@ public class Meeting {
         }   
         System.out.print("NAMES" + names);
         html += names;
-        html +="</ul><p> Start Date:" + startDateTime.toLocalDate();
-        html +="</p><p> Start Time:" + startDateTime.toLocalTime();
+        if(startDateTime !=null)
+        {
+            html +="</ul><p> Start Date:" + startDateTime.toLocalDate();
+            html +="</p><p> Start Time:" + startDateTime.toLocalTime();
+        }
         html +="</p><p> Length:" + length;
         html +="</p><p> Location:" + location ;       
         html +="</p><p> Repeates " + this.repeatEvery;
-        html +="</p><p> piority=" + priority + "</p>";
+        html +="</p><p> Priority=" + priority + "</p>";
         return html;
+    }
+    
+    public String sendEmails()
+    {
+        String peps = this.getPeopleString();
+        
+        SqlHandler sql = new SqlHandler();
+        String getEmails = "SELECT email FROM user WHERE user_id IN (";
+        getEmails += peps +");";
+        ResultSet rs;
+        String emails = "";
+            
+        try {
+            rs = sql.runQuery(peps);
+
+            boolean first = true;
+            while(rs.next())
+            {
+                if(!first)
+                {
+                    emails += ",";    
+                }
+                emails += rs.getString("email");
+                first = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Meeting.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return emails;
     }
 }
