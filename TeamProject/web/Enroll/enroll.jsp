@@ -71,8 +71,7 @@ String sql1 =" SELECT code FROM Module WHERE module_id NOT IN( SELECT module_id 
 
                                    ResultSet queryResult1 = handler1.runQuery(sql1);
 
-                                   queryResult1.first();
-
+                                   
                                    while (queryResult1.next() ) {
                                        
                                        moduleCode = queryResult1.getString("code");
@@ -110,7 +109,7 @@ String sql1 =" SELECT code FROM Module WHERE module_id NOT IN( SELECT module_id 
                                    email = (String) session.getAttribute("email");
                                    SystemSetting.initSystemSetting();
                                    SqlHandler handler2 = new SqlHandler();
-                                   String sql2 = "SELECT DISTINCT M.code "
+                                   String sql2 = "SELECT M.code "
                                            + "FROM Module AS M JOIN User AS U JOIN User_has_Module AS H "
                                            + "WHERE U.email =\""
                                            + email
@@ -119,8 +118,7 @@ String sql1 =" SELECT code FROM Module WHERE module_id NOT IN( SELECT module_id 
 
                                    ResultSet queryResult2 = handler2.runQuery(sql2);
 
-                                   queryResult2.first();
-
+                                   
                                    while (queryResult2.next() ) {
                                        moduleCode = queryResult2.getString("code");
                                        out.print("<option value=\"");
