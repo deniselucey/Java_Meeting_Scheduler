@@ -66,7 +66,7 @@
                    <fieldset>
                        <div>
                            <label> New Email Address</label>
-                           <input type="text" name="email">
+                           <input type="text" name="newEmail">
                        </div>
          
                        
@@ -77,14 +77,17 @@
                 </form>     
                         </section>
                         
+                       
+                        
+                        
                         <section>
-                            
-                        <h1>Change Password</h1>
+                       
+                    <h1>Change Password</h1>
                    <form name="input" action="ChangePasswordAuthentication.jsp" method="POST">            
                    <fieldset>
                        <div>
                            <label>New Password</label>
-                           <input type="text" name="password">
+                           <input type="password" name="password">
                        </div>
                        
                        <div>

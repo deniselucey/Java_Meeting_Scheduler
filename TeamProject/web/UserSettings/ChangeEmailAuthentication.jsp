@@ -3,7 +3,6 @@
     Created on : Mar 4, 2015, 8:15:57 PM
     Author     : zolamcdonald
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="teamproject.system.Register"%>
 <%@page import="teamproject.system.Email" %>
@@ -26,7 +25,7 @@
             <link rel="stylesheet" href="../styles/example.css">
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Register Account</title>
+            <title>Change Settings</title>
     </head>
     
     <body>
@@ -53,18 +52,18 @@
                        
                         <div>
                             <% 
-                                String registeredResult="";
-                                boolean emailResult;
-                               
                                 
-                               
-                                if(updateSettings.changeEmail()){
+                                boolean emailResult;
+                                
+                                if(updateSettings.emailCheck()){
+                                    int userid = (Integer)session.getAttribute("userId");
+                                    if(updateSettings.changeEmail(userid) == 1){
                                     String email = request.getParameter("email");
-                                    String emailText= " Your password has been changed"; 
-                                    emailResult = emailClass.sendEmail("UCC TimeTable Password Change",emailText,email);
-                                   
-                                       
-                            %>   
+                                    String emailText= " Your email address has been changed"; 
+                                    emailResult = emailClass.sendEmail("UCC TimeTable Email Change",emailText,email);
+                                       out.println("You have changed your email address"); 
+                                    }
+                             %>          
                             <%
                                 }else {
                             %>
@@ -72,6 +71,8 @@
                             <% 
                                 }
                             %>
+                            
+                            
                            
                            
                         </div>

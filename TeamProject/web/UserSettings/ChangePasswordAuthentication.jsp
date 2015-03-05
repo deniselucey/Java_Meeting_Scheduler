@@ -53,18 +53,21 @@
                        
                         <div>
                             <% 
-                                String registeredResult="";
+                                
                                 boolean emailResult;
                                 
                                 
                                
-                                if(updateSettings.changePassword()){
-                                    String email = request.getParameter("email");
+                                if(updateSettings.passwordCheck()){
+                                    String email = (String)session.getAttribute("email");
+                                    String newEmail = request.getParameter("email");
+                                    if(updateSettings.changePassword(email) == 1){
+                                    
                                     String emailText= " Your password has been changed"; 
-                                    emailResult = emailClass.sendEmail("UCC TimeTable Password Change",emailText,email);
-                                   
-                                       
-                            %>   
+                                    emailResult = emailClass.sendEmail("UCC TimeTable Password Change",emailText, newEmail);
+                                       out.println("You have changed your password"); 
+                                    }
+                             %>          
                             <%
                                 }else {
                             %>
@@ -72,6 +75,8 @@
                             <% 
                                 }
                             %>
+                            
+                            
                            
                            
                         </div>
