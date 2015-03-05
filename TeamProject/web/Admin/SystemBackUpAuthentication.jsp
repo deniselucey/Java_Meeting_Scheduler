@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
+<%@page import="teamproject.system.BackUp"%>
 
 
 <!DOCTYPE html>
@@ -40,7 +41,9 @@
             <%
                 } else {
             %>
-           
+                    <jsp:useBean id="backUp" class="teamproject.system.BackUp" scope="request">
+                    <jsp:setProperty name="backUp" property="*"/>
+                    </jsp:useBean>
                  
                     <nav>
                         <ul>
@@ -57,21 +60,48 @@
                         
                 <section>
                         <h1>System Back Up</h1>
-                        <form name="input" action="SystemBackUpAuthentication.jsp" method="POST">            
+                                  
                         <fieldset>
                                 
                             
                             <div>
+                                <% 
+                                    String mySQLDump= (String)request.getAttribute("mySQLDump");
+                                    String dbUserName =(String)request.getAttribute("dbUserName");
+                                    String dbPassword = (String)request.getAttribute("dbPassword");
+                                    String dbName = (String)request.getAttribute("dbName");
+                                    String path =(String)request.getAttribute("path");
+                                    String backupResult = (String)request.getAttribute("");
+                                    
+                                    backupResult = backUp.createBackup(mySQLDump,dbUserName,dbPassword,dbName,path);
+                                    if(!backupResult.equals("")){
+                                       out.println("Your System has been Backed Up"); 
+                                    }else{
+                                        out.println("There was Error backing up the System");
+                                    }
+                                 %>
                                     <p>Your System has been Backed Up</p>
                             </div>
                             
                             <div>
-                                    <p>Your System Preferences have been Backed Up</p>
+                                <% 
+                                    String perferenceBackUpResult ="";
+                                    String perferencePath = (String)request.getAttribute("path");
+                                    
+                                     backUp.backUpPreferences(perferencePath);
+                                    if(!perferenceBackUpResult.equals("")){
+                                       out.println("Your System Preferences have been Backed Up"); 
+                                    }else{
+                                        out.println("There was Error backing up the System Preferences");
+                                    }
+                                
+                                %>
+                                    
                             </div>   
                             
                             
                         </fieldset>
-                        </form>
+                        
                            
                        
                 </section>

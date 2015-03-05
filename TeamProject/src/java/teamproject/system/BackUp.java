@@ -75,10 +75,12 @@ public class BackUp {
         * @throws BackingStoreException 
         */
         public static void backUpPreferences(String path) throws IOException, BackingStoreException {
+          
             Preferences root = Preferences.userRoot();
             FileOutputStream preference = new FileOutputStream(path + "backup.xml"); //1337 Hax
             root.exportSubtree(preference);
             preference.close();
+            
         }
     
         /**

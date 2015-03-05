@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
+<%@page import="teamproject.system.BackUp"%>
 
 
 <!DOCTYPE html>
@@ -40,7 +41,10 @@
             <%
                 } else {
             %>
-           
+                <jsp:useBean id="restore" class="teamproject.system.BackUp" scope="request">
+                <jsp:setProperty name="restore" property="*"/>
+                </jsp:useBean>
+
                  
                     <nav>
                         <ul>
@@ -61,11 +65,35 @@
                         <fieldset>
                                 
                             <div>
-                                    <p>Your System has been Restored</p>
+                                <%
+                                    String dbPassword = (String)request.getAttribute("dbPassword");
+                                    String dbUserName = (String)request.getAttribute("dbName");
+                                    String mysql = (String)request.getAttribute("mysql");
+                                    String source = (String)request.getAttribute("source");
+                                    
+                                    
+                                    
+                                    if(restore.restore(mysql,dbUserName, dbPassword, source)){
+                                       out.println("Your System has been Restored"); 
+                                    }else{
+                                        out.println("There was Error Restoring the System");
+                                    }
+                                  %>
+                               
                             </div>
                             
                             <div>
-                                    <p>Your System Preferences have been Restored</p>
+                                
+                                <%
+                                    String path = (String)request.getAttribute("path");
+                                    restore.restorePreferences(path);
+                                    if(true){
+                                       out.println("Your System Preferences has been Restored"); 
+                                    }else{
+                                        out.println("There was Error Restoring the System Preferences");
+                                    }
+                                %>
+                                    
                             </div>    
                             
                        </fieldset>
