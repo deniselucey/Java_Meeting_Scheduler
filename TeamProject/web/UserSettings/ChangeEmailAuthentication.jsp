@@ -45,7 +45,7 @@
 	
         <div id = "main">
 	    <section class = "content">
-               <h1>You have changed your Password</h1>
+               <h1>You have changed your Email</h1>
                <form name = "input" method="POST">
                    <fieldset>
                        
@@ -54,18 +54,19 @@
                             <% 
                                 
                                 boolean emailResult;
-                                
-                                if(updateSettings.emailCheck()){
+                                String email = request.getParameter("email");
+                                if(updateSettings.emailCheck(email)){
                                     int userid = (Integer)session.getAttribute("userId");
                                     if(updateSettings.changeEmail(userid) == 1){
-                                    String email = request.getParameter("email");
-                                    String emailText= " Your email address has been changed"; 
-                                    emailResult = emailClass.sendEmail("UCC TimeTable Email Change",emailText,email);
-                                       out.println("You have changed your email address"); 
+                                        
+                                        String emailText= " Your email address has been changed"; 
+                                        emailResult = emailClass.sendEmail("UCC TimeTable Email Change",emailText,email);
+                                           out.println("You have changed your email address"); 
                                     }
-                             %>          
+                                } else {
+                             %>           
                             <%
-                                }else {
+                               
                             %>
                                   <p> A error has occurred </p>
                             <% 

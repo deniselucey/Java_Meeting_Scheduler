@@ -66,7 +66,7 @@
                    <fieldset>
                        <div>
                            <label> New Email Address</label>
-                           <input type="text" name="newEmail">
+                           <input type="text" name="email">
                        </div>
          
                        

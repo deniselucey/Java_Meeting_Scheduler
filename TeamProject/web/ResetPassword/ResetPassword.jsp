@@ -4,6 +4,8 @@
     Author     : zolamcdonald
 --%>
 
+<jsp:useBean id = "emailClass" class="teamproject.system.Email" scope="request"/>
+
 <!DOCTYPE html>
 <html lang = "en">
 	<head>
@@ -22,6 +24,7 @@
     <body>
         <%
             if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                
         %>
         <a id="skiplink" href="#main">Skip to main content</a>
 	<a id="user" href="#"></a>
@@ -40,7 +43,30 @@
 	
         <div id = "main">
 	    <section class = "content">
-                <p>A email has been sent to your inbox to reset your password.</p>
+                
+                <%  
+                    String registeredResult="";
+                    boolean emailResult;
+                    boolean setConfirmed;
+                    String emailSent="";
+                    String activationCode ="";
+                    String emailLink = "";
+                
+                
+                    String email = request.getParameter("email");
+                    activationCode = emailClass.getRandomNumber();
+                           emailLink="http://localhost:8080/TeamProject/ResetPassword/NewPassword.jsp?code="+activationCode;
+                                   emailResult = emailClass.sendEmail("UCC TimeTable Reset Password",emailLink,email);
+                                   if(emailResult){
+                                      emailSent = "A email has been sent to your inbox to reset your password. ";
+                                   }else{
+                                      emailSent ="The the reset password wasn't sent due to an error. ";
+                                   }
+                out.println(emailSent);
+                %>
+                                   
+                              
+               
             </section>
         </div>
             

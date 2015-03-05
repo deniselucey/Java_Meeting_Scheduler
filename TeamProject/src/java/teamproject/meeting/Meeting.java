@@ -644,10 +644,10 @@ public class Meeting {
     
     public String toHTML()
     {
-        String html ="<section><h1>" + this.getTitle();
-        html +="</h1><p>Description: " + description;        
-        html +="</p><p> HostUserID: " + hostUserID;
-        html +="</p><p> People Attendees:</p><ul>";
+        String html ="<section><fieldset><h1>" + this.getTitle();
+        html +="</h1><div><p>Description: " + description;        
+        
+        html +="</p></div><div><p> People Attendees: </p><ul>";
         SqlHandler sql = new SqlHandler();
         String getNames = "SELECT firstname, secondname FROM user WHERE user_id IN (";
         boolean first = true;
@@ -672,7 +672,7 @@ public class Meeting {
             while(rs.next())
             {
                 names += "<li>" + rs.getString("firstname")+ " " + rs.getString("secondname") + "</li>";
-                System.out.println(names);
+                
             }
         
         } catch (SQLException ex) {
@@ -682,13 +682,13 @@ public class Meeting {
         html += names;
         if(startDateTime !=null)
         {
-            html +="</ul><p> Start Date:" + startDateTime.toLocalDate();
-            html +="</p><p> Start Time:" + startDateTime.toLocalTime();
+            html +="</ul></div><div><p> Start Date: " + startDateTime.toLocalDate();
+            html +="</p></div><div><p> Start Time: " + startDateTime.toLocalTime();
         }
-        html +="</p><p> Length:" + length;
-        html +="</p><p> Location:" + location ;       
-        html +="</p><p> Repeates " + this.repeatEvery;
-        html +="</p><p> Priority=" + priority + "</p>";
+        html +="</p></div><div><p> Length:  " + length;
+        html +="</p></div><div><p> Location:  " + location ;       
+        html +="</p></div><div><p> Repeates:  " + this.repeatEvery;
+        html +="</p></div><div><p> Priority:  " + priority + "</p></div></fieldset></section>";
         return html;
     }
     

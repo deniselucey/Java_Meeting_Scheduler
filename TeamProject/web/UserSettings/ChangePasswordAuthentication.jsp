@@ -9,7 +9,8 @@
 <%@page import="teamproject.system.Email" %>
 
 <jsp:useBean id = "updateSettings" class="teamproject.system.UpdateSettings" scope="request">
-<jsp:setProperty name="updateSettings" property="*"/>
+<jsp:setProperty name="updateSettings" property="password"/>
+<jsp:setProperty name="updateSettings" property="passwordConfirm"/>
 </jsp:useBean>
 <jsp:useBean id = "emailClass" class="teamproject.system.Email" scope="request"/>
 
@@ -60,11 +61,11 @@
                                
                                 if(updateSettings.passwordCheck()){
                                     String email = (String)session.getAttribute("email");
-                                    String newEmail = request.getParameter("email");
+                                   
                                     if(updateSettings.changePassword(email) == 1){
                                     
                                     String emailText= " Your password has been changed"; 
-                                    emailResult = emailClass.sendEmail("UCC TimeTable Password Change",emailText, newEmail);
+                                    emailResult = emailClass.sendEmail("UCC TimeTable Password Change",emailText, email);
                                        out.println("You have changed your password"); 
                                     }
                              %>          

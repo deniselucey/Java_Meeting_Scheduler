@@ -22,7 +22,7 @@
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <script src="SaveSettings.js"></script>
-            <title>TimeTable</title>
+            <title>Admin Home</title>
     </head>
     
     <body>
@@ -33,7 +33,7 @@
 	<header>
             <img src="../Resources/logo.gif" alt="UCC Logo">
 	</header>
-            <p id="test"> here</p>
+            
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
                   
@@ -55,9 +55,12 @@
                     </nav>
 	
                     <div id = "main">
-                        <h1>Admin Home Page</h1>
+                       <section class = "content">
+                        <h1>System Settings</h1>
+                       <fieldset>
+                        <div>
                 <%
-                 
+                    
                     String key = (String)request.getParameter("key");
                     String value = (String)request.getParameter("value");
                     
@@ -71,8 +74,8 @@
                     }
                 
                 %>
-          
-                    </div><div>
+                        </div>
+                   <div>
                 <%
                     
                     
@@ -81,6 +84,9 @@
                     out.print(SystemSetting.toHtmlFormStatic());
 
                  %>
+                    </div>
+                       </fieldset>
+               </section>
                     </div>
                 
         <p class = "status"></p>
