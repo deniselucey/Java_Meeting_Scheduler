@@ -14,7 +14,8 @@ public class Student extends Person {
 
 	private ArrayList<Module> modules;
 	private int user_id;
-        private int moduleNo;
+        private int moduleId;
+        private String moduleCode ="";
         private SqlHandler sqlHandler;
         private boolean enrolled = false;
         private boolean unenrolled = false;
@@ -22,12 +23,14 @@ public class Student extends Person {
 	/**
 	 * 
 	 * @param module
+     * @param email
+     * @return 
 	 */
-	public boolean enrollToModule(String module, String email)
+	public boolean enrollToModule(String moduleCode, String email)
 	{
             try{
                 SystemSetting.initSystemSetting();
-                String query1 = "SELECT module_id FROM Module WHERE code = '" + module + "';";                              
+                String query1 = "SELECT module_id FROM Module WHERE code = '" + moduleCode + "';";                              
                 sqlHandler = new SqlHandler();
                 ResultSet queryResult1 = sqlHandler.runQuery(query1);
                 
@@ -38,13 +41,14 @@ public class Student extends Person {
                 queryResult1.last();
                 queryResult2.last();
                 
-                moduleNo = queryResult1.getInt("module_id");
+                moduleId = queryResult1.getInt("module_id");
                 user_id = queryResult2.getInt("user_id");
+                //moduleCode = queryResult2.getString("code");
                 
                 String query3 = "INSERT INTO User_has_Module(user_id, module_id)"  
-                              + "VALUES('" + user_id + "','" + moduleNo +"');";
+                              + "VALUES('" + user_id + "','" + moduleId +"');";
                 sqlHandler.runStatement(query3);
-                boolean enrollInLecturesResult = enrollInLectures(moduleNo,user_id);
+                boolean enrollInLecturesResult = enrollInLectures(moduleId, user_id);
                 if(enrollInLecturesResult){
                     enrolled = true;
                 }
@@ -55,6 +59,34 @@ public class Student extends Person {
         }
          return enrolled;
 	}
+        
+        
+        
+         public boolean enrollInLectures(int moduleId, int userId){
+            boolean enrolledInLectures = false;
+            try{
+                SystemSetting.initSystemSetting();
+                String statement1 = "INSERT INTO Is_Attending " +
+                "SELECT meeting_id, user_id " +
+                "FROM Module_has_Lecture JOIN User_has_Module " +
+                "ON Module_has_Lecture.module_id = User_has_Module.module_id " +
+                "WHERE User_has_Module.module_id ="+moduleId+" AND user_id ="+ userId+";";     
+                
+                int queryResult = sqlHandler.runStatement(statement1);
+                System.out.println(queryResult);
+                if(queryResult == 1){
+                    enrolledInLectures = true;
+                }
+            
+           }catch(SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            Bugzilla.reportBug("Issue with unenrolling student to lectures");
+            
+            }
+            
+            return enrolledInLectures;
+        }
+        
 
 	/**
 	 * 
@@ -77,15 +109,15 @@ public class Student extends Person {
                 queryResult1.last();
                 queryResult2.last();
                 
-                moduleNo = queryResult1.getInt("module_id");
+                moduleId = queryResult1.getInt("module_id");
                 user_id = queryResult2.getInt("user_id");
                 
                 
                 String query3 = "DELETE FROM User_has_Module WHERE user_id = '" + user_id + "' AND module_id = '"
-                               + moduleNo + "';";
-                //unenrolled = true;
+                               + moduleId + "';";
+                
                 sqlHandler.runStatement(query3);
-                boolean unenrollInLecturesResult = unenrollInLectures(moduleNo,user_id);
+                boolean unenrollInLecturesResult = unenrollInLectures(moduleId,user_id);
                 if(unenrollInLecturesResult){
                     unenrolled = true;
                 }
@@ -99,30 +131,7 @@ public class Student extends Person {
 	}
         
         
-        public boolean enrollInLectures(int moduleId, int userId){
-            boolean enrolledInLectures = false;
-            try{
-                SystemSetting.initSystemSetting();
-                String statement1 = "INSERT INTO Is_Attending " +
-                "SELECT meeting_id, user_id " +
-                "FROM Module_has_Lecture JOIN User_has_Module " +
-                "ON Module_has_Lecture.module_id = User_has_Module.module_id " +
-                "WHERE User_has_Module.module_id ="+moduleId+" AND user_id ="+ userId+";";     
-                sqlHandler = new SqlHandler();
-                int queryResult = sqlHandler.runStatement(statement1);
-            
-           }catch(SQLException ex) {
-            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-            Bugzilla.reportBug("Issue with unenrolling student to lectures");
-            
-            }
-            
-            
-            
-            
-            return enrolledInLectures;
-        }
-        
+       
         
         public boolean unenrollInLectures(int module_Id, int userId){
             
@@ -132,11 +141,15 @@ public class Student extends Person {
                 SystemSetting.initSystemSetting();
                 String query1 = "DELETE FROM Is_Attending "
                         + "WHERE meeting_id IN (SELECT meeting_id FROM Module_has_Lecture WHERE module_id ="
-                        +module_Id+")AND user_id =" + userId+";";     
+                        +module_Id+")AND user_id =" + userId+";";  
                 
-                sqlHandler = new SqlHandler();
+                System.out.println(query1);
+                
                 int queryResult1 = sqlHandler.runStatement(query1);
-            
+                System.out.println(queryResult1);
+                if(queryResult1 == 1){
+                    unenrolledInLectures = true;
+                }
             
             
             }catch(SQLException ex) {

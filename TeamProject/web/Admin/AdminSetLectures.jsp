@@ -59,7 +59,7 @@
                         
                         <section>
                             <h1>Set Lectures</h1>
-               <form name="input" action="AdminCreateModule.jsp" method="GET">            
+               <form name="input" action="AdminSetMeetingAuthentication.jsp" method="GET">            
                    <fieldset>
                        <div>
                            <label>Module</label>
