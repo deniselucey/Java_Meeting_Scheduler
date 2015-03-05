@@ -119,6 +119,7 @@ public class SqlHandler {
      */
     public int runStatement(String sql) throws SQLException
     {
+        System.out.print(sql);
         if(!sql.equals(""))
         {
             Statement statement = connection.createStatement();
