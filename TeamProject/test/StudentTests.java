@@ -71,7 +71,7 @@ public class StudentTests {
         System.out.println("getStudentNo");
         Student instance = new Student();
         String expResult = "";
-        String result = instance.getStudentNo();
+        int result = instance.getStudentNo();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -83,7 +83,7 @@ public class StudentTests {
     @Test
     public void testSetStudentNo() {
         System.out.println("setStudentNo");
-        String studentNo = "";
+        int studentNo = 0;
         Student instance = new Student();
         instance.setStudentNo(studentNo);
         // TODO review the generated test code and remove the default call to fail.

@@ -49,9 +49,9 @@ public class Student extends Person {
                               + "VALUES('" + user_id + "','" + moduleId +"');";
                 sqlHandler.runStatement(query3);
                 boolean enrollInLecturesResult = enrollInLectures(moduleId, user_id);
-                if(enrollInLecturesResult){
+                //if(enrollInLecturesResult){
                     enrolled = true;
-                }
+                //}
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,9 +118,9 @@ public class Student extends Person {
                 
                 sqlHandler.runStatement(query3);
                 boolean unenrollInLecturesResult = unenrollInLectures(moduleId,user_id);
-                if(unenrollInLecturesResult){
+                //if(unenrollInLecturesResult){
                     unenrolled = true;
-                }
+                //}
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);

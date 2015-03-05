@@ -22,7 +22,7 @@
         <%
             
     //        if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-            if((session.getAttribute("email") == null) || ((String)session.getAttribute("email") == "") || (session.getAttribute("user_id") == null)|| ((int)session.getAttribute("user_id") == 0)  ) {
+            if((session.getAttribute("email") == null) || ((String)session.getAttribute("email") == "") || (session.getAttribute("user_id") == null)|| ((Integer)session.getAttribute("user_id") == 0)  ) {
     
         %>
         
