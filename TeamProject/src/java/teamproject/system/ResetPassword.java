@@ -11,5 +11,15 @@ package teamproject.system;
  * @author zolamcdonald
  */
 public class ResetPassword {
+    String email ="";
+    
+    
+    public void setEmail(String passedEmail){
+        email = passedEmail;
+    }
+    
+    public String getEmail(){
+        return email;
+    }
     
 }

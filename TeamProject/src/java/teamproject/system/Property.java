@@ -62,13 +62,15 @@ import java.time.LocalDate;
         
         public static String toHTMLForm()
         {
-            String html ="";// = "<form >";
+            String html ="";// = "<div>";
             
             for(Property p : Property.values())
-            {
+            {  
+               html += "<div>";
                html += p.toHTMlinput();
+               html += "</div>";
             }
-            //html += "</form>";
+            
             return html;
         }
     }

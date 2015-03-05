@@ -9,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import teamproject.sql.SqlHandler;
@@ -21,15 +20,18 @@ import static teamproject.system.PasswordHash.createHash;
  */
 public class UpdateSettings {
     private String password ="";
-    private String passwordConfirm;
-    private String newEmail="";
+    private String passwordConfirm ="";
+    private String email="";
     private SqlHandler sqlHandler;
     private String encryptedPassword ="";
     private String password1 ="";
     
     public int changePassword(String email)throws NoSuchAlgorithmException, InvalidKeySpecException {
+        System.out.println("new password "+ password);
+        
         int changePasswordResult = 0;
         password1 = encrypt();
+        System.out.println("Encrypted new password: "+ password1);
         
         try{
             
@@ -39,7 +41,7 @@ public class UpdateSettings {
             String query ="UPDATE User "
                     + "SET password ='"+password1+"' "
                     + "WHERE email ='"+email+"';";
-            System.out.println("Query; "+ query);
+           
             /**
              * Creates a new sqlHandler.
              */
@@ -51,7 +53,7 @@ public class UpdateSettings {
              */
             changePasswordResult = sqlHandler.runStatement(query);
             
-          System.out.println("Result: " +changePasswordResult);
+    
             
         }catch(SQLException ex) {
             Logger.getLogger(UpdateSettings.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,17 +62,18 @@ public class UpdateSettings {
         return changePasswordResult;
     }
     
+    
+    
+    
     public int changeEmail(int userId){
         int  changeEmailResult = 0;
         try{
-            
-            
             SystemSetting.initSystemSetting();
             
             String query ="UPDATE User "
-                    + "SET email ='"+newEmail+"' "
+                    + "SET email ='"+email+"' "
                     + "WHERE user_id ='"+ userId +"';";
-            System.out.println("Query; "+ query);
+            
             /**
              * Creates a new sqlHandler.
              */
@@ -99,25 +102,27 @@ public class UpdateSettings {
      * @throws InvalidKeySpecException 
      */
     private String encrypt() throws NoSuchAlgorithmException, InvalidKeySpecException{
-       encryptedPassword = createHash(password1);
+       encryptedPassword = createHash(password);
        return encryptedPassword;
     }
     
     public boolean passwordCheck(){
         boolean passwordCheck = true;
-        if(!password1.equals("") && (passwordConfirm.equals("") || !password1.equals(passwordConfirm))) 
+        if(!password.equals("") && (passwordConfirm.equals("") || !password.equals(passwordConfirm))) 
             {
-               
-                
-               passwordCheck = false;
+              passwordCheck = false;
             }
         return passwordCheck;
     }
     
-    
-    public boolean emailCheck(){
+    /**
+     *
+     * @param email
+     * @return
+     */
+    public boolean emailCheck(String email){
         boolean emailCheck = true;
-        if(newEmail.equals("") || newEmail.indexOf("@") == -1) 
+        if(email.equals("") || email.indexOf("@") == -1) 
         {
            emailCheck = false;
         }
@@ -131,16 +136,16 @@ public class UpdateSettings {
      */
     public void setEmail(String emailSupplied)
     {
-        newEmail = emailSupplied;
+        email = emailSupplied;
     }
     
     /**
      * 
      * @param passwordOneSupplied 
      */
-    public void setPassword1(String passwordOneSupplied)
+    public void setPassword(String passwordOneSupplied)
     {
-        password1 = passwordOneSupplied;
+        password = passwordOneSupplied;
             
     }
     
@@ -148,7 +153,7 @@ public class UpdateSettings {
      * 
      * @param passwordTwoSupplied 
      */    
-    public void setPassword2(String passwordTwoSupplied)
+    public void setPasswordConfirm(String passwordTwoSupplied)
     {
         passwordConfirm = passwordTwoSupplied;
     } 

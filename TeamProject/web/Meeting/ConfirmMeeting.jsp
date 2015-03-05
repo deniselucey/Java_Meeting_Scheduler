@@ -58,7 +58,7 @@
 	
         <div id = "main">
 	    <section class = "content">
-               
+                <h1>Meeting Confirmed</h1>
                
                         <div>
                            
@@ -68,10 +68,10 @@
                                 teamproject.meeting.Meeting meeting = (teamproject.meeting.Meeting)session.getAttribute("meeting");
                                 //out.print("<p>" + meeting + "</p>");
                                 boolean success = teamproject.meeting.Meeting.insertMeeting(meeting,dateString);
-                                out.print("<p>" + success + "</p>");
+                                
                                 
                                 out.println(meeting.toHTML());
-                                out.println(meeting.sendEmails());
+                                meeting.sendEmails();
                                  //out.println(registeredResult+ emailSent);
                             %>  
                             
@@ -82,9 +82,6 @@
         <p class = "status"></p>
         
         <footer>
-            <p>
-            
-            </p>
         </footer>
     </div>    
     </body>

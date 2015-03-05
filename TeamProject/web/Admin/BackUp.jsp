@@ -58,7 +58,7 @@
                         
                 <section>
                         <h1>Create System Back Up</h1>
-                        <form name="input" action="" method="POST">            
+                        <form name="input" action="SystemBackUpAuthentication.jsp" method="POST">            
                         <fieldset>
                                 
                             
@@ -100,7 +100,7 @@
                         
                     <section>
                         <h1>Restore System From Back Up</h1>
-                        <form name="input" action="" method="POST">            
+                        <form name="input" action="SystemRestoreAuthentication.jsp" method="POST">            
                         <fieldset>
                                 
                             
@@ -139,7 +139,7 @@
                         
                         <section>
                             <h1>Create System Preferences Back up</h1>
-                            <form name="input" action="" method="POST">            
+                            <form name="input" action="SystemBackUpAuthentication.jsp" method="POST">            
                         <fieldset>
                              <div>
                                    <label>Destination Path</label>
@@ -159,7 +159,7 @@
                         <section>
                         <h1>Restore System Preferences From Back Up</h1>
                         
-                         <form name="input" action="" method="POST">            
+                         <form name="input" action="SystemRestoreAuthentication.jsp" method="POST">            
                         <fieldset>
                              <div>
                                    <label>Destination Path</label>

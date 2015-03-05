@@ -56,6 +56,11 @@
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
+                   
+                   
+             <div id = "main">
+	    <section class = "content">
+                   <h1>Meeting Details</h1>
 	
                 <%
                     String meetingString = (String)request.getParameter("meeting");
@@ -82,7 +87,8 @@
                 }
                 %>  
         
-         
+          </section>
+        </div>
             
        
         <p class = "status"></p>

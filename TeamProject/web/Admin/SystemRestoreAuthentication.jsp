@@ -1,13 +1,12 @@
 <%-- 
-    Document   : AdminHomePage
-    Created on : Feb 28, 2015, 5:24:21 PM
+    Document   : SystemRestoreAuthentication
+    Created on : Mar 5, 2015, 3:17:12 PM
     Author     : zolamcdonald
 --%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
-<%@page import ="teamproject.system.SystemSetting" %>
+
 
 <!DOCTYPE html>
 <html lang = "en">
@@ -21,8 +20,8 @@
             <link rel="stylesheet" href="../styles/example.css">
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <script src="SaveSettings.js"></script>
-            <title>Admin Home</title>
+            
+            <title>TimeTable</title>
     </head>
     
     <body>
@@ -36,63 +35,58 @@
             
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
-                  
                     response.sendRedirect("../LogIn/Login.jsp");
-                    
             %>
             <%
                 } else {
-            %>      
+            %>
+           
+                 
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
                             <li><a href="..\Admin\EditModules.jsp">Edit Modules</a></li>
                             <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
                             <li><a href="..\Admin\AdminSettings.jsp">Add Members</a></li>
-                            <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
+                           
                         </ul>
                     </nav>
 	
                     <div id = "main">
-                       <section class = "content">
-                        <h1>System Settings</h1>
-                       <fieldset>
-                        <div>
-                <%
-                    
-                    String key = (String)request.getParameter("key");
-                    String value = (String)request.getParameter("value");
-                    
-                    if(key != null && !key.equals("") && value != null && !value.equals(""))
-                    {
-                        SystemSetting.initSystemSetting();
-                        SystemSetting.setProperty(key, value);
-                        SystemSetting.saveSettings();
                         
-                        out.print(SystemSetting.getProperty(key, "Didntwork"));
-                    }
-                
-                %>
-                        </div>
-                   <div>
-                <%
-                    
-                    
-                   }
-
-                    out.print(SystemSetting.toHtmlFormStatic());
-
-                 %>
-                    </div>
+                <section>
+                        <h1>System Restore</h1>
+                        <form name="input" action="SystemBackUpAuthentication.jsp" method="POST">            
+                        <fieldset>
+                                
+                            <div>
+                                    <p>Your System has been Restored</p>
+                            </div>
+                            
+                            <div>
+                                    <p>Your System Preferences have been Restored</p>
+                            </div>    
+                            
                        </fieldset>
-               </section>
-                    </div>
+                        </form>
+                           
+                       
+                </section>
+                        
+                 
                 
-        <p class = "status"></p>
-    </div>
-    <div>
+                   
+          
+                    </div>
+                <%
+                   }
+                %>  
         
+         
+            
+       
+        <p class = "status"></p>
     </div>
     <footer>
         <p>
