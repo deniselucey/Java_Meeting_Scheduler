@@ -66,18 +66,22 @@
                                    String moduleCode = "";
                                    SystemSetting.initSystemSetting();
                                    SqlHandler handler1 = new SqlHandler();
-                                   String sql1 = "SELECT code FROM Module WHERE module_id NOT IN( SELECT module_id from User_has_module where user_id = "+session.getAttribute("usedId")+")";
+                                   //String sql1 = "SELECT code FROM Module WHERE module_id NOT IN( SELECT module_id from User_has_module where user_id = "+session.getAttribute("usedId")+")";
+String sql1 =" SELECT code FROM Module WHERE module_id NOT IN( SELECT module_id from User_has_module where user_id =" + session.getAttribute("userId")+");";
 
                                    ResultSet queryResult1 = handler1.runQuery(sql1);
 
                                    queryResult1.first();
 
                                    while (queryResult1.next() ) {
+                                       
                                        moduleCode = queryResult1.getString("code");
                                        out.print("<option value=\"");
                                        out.print(moduleCode);
+                                      
                                        out.print("\">");
-                                       out.print(moduleCode);
+                                       out.print(moduleCode);  
+                                      
                                    }
                                 } catch (Exception e) {
                                     e.printStackTrace();
