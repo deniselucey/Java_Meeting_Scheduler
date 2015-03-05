@@ -1,3 +1,5 @@
+
+<%@page import="teamproject.system.SystemSetting"%>
 <%-- 
     Document   : AdminCreateModule
     Created on : Feb 28, 2015, 5:25:03 PM
@@ -40,54 +42,58 @@
             <%
                 } else {
             %>
-                
+                      
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
-                            <li><a href="..\Admin\AdminSettings.jsp">Add Members</a></li>
-                             <li><a href="..\Admin\BackUp.jsp">System BackUp</a></li>
+                            <li><a href="..\Admin\EditModules.jsp">Edit Modules</a></li>
+                            <li><a href="..\Admin\AdminSetLectures.jsp">Set Lectures</a>
+                             <li><a href="..\Admin\BackUp.jsp"> System BackUp</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
                         </ul>
                     </nav>
 	
                     <div id = "main">
-	            	<section class = "content">
-                       <h1>Enroll</h1>
-
-                <%@page import="teamproject.user.people.Lecturer"%>
-
-
-                <jsp:useBean id="createModule" class="teamproject.user.privilege.AdminPrivlege" scope="session">
-                </jsp:useBean>
-
-
-                <% 
-                   
-                   int credit = Integer.parseInt(request.getParameter("credit"));
-                   String title = request.getParameter("title");
-                   String code = request.getParameter("code");
-                   String description = request.getParameter("description");
-                   int year = 1;
-                   String lecturerEmail = request.getParameter("lecturerEmail");
-
-                    if (createModule.CreateModule(credit, title, code, description, year,lecturerEmail)) {
-                        out.print("You have been successfully created module " + request.getParameter("code"));
-                    } else {
-                        out.print("Sorry you failed to create module " + request.getParameter("code"));
-                    }
-                           
-                %>
-                <p>
-                    <a href="..\Admin\EditModules.jsp">Go back.</a>
-                </p>
+                        <section>
+                            <h1>Add new administrator</h1>
+                   <form name="input" action="AdminAdd.jsp" method="GET">            
+                   <fieldset>
+                       <div>
+                           <label>Email</label>
+                           <input type="text" name="email">
+                       </div>
+                       
+                       <div>
+                           <input type="submit" value="Add">
+                       </div>
+		   </fieldset>			
+                </form>     
+                        </section>
+                        
+                        <section>
+                            
+                        <h1>Add new Lecturer</h1>
+                   <form name="input" action="LecturerAdd.jsp" method="GET">            
+                   <fieldset>
+                       <div>
+                           <label>Email</label>
+                           <input type="text" name="email">
+                       </div>
+                       
+                       <div>
+                           <input type="submit" value="Add">
+                       </div>
+		   </fieldset>			
+                </form>  
             </section>
-                
           
-                    </div>
+            </div>
                 <%
                    }
+               
                 %>  
-        
+           
+       
         <p class = "status"></p>
     </div>
     <footer>

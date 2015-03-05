@@ -34,7 +34,8 @@
 	</header>
             
             <%
-                if((session.getAttribute("email") == null) || ((String)session.getAttribute("email") == "")) {
+                if((session.getAttribute("email") == null) || ((String)session.getAttribute("email") == "") || (Integer)session.getAttribute("userId") == null) {
+
                     response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
