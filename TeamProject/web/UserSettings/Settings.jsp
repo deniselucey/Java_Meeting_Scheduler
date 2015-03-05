@@ -62,11 +62,11 @@
 	    
                         <section>
                             <h1>Change Email Address</h1>
-                   <form name="input" action="" method="POST">            
+                   <form name="input" action="ChangeEmailAuthentication.jsp" method="POST">            
                    <fieldset>
                        <div>
                            <label> New Email Address</label>
-                           <input type="text" name="email">
+                           <input type="text" name="newEmail">
                        </div>
          
                        
@@ -77,19 +77,22 @@
                 </form>     
                         </section>
                         
+                       
+                        
+                        
                         <section>
-                            
-                        <h1>Change Password</h1>
-                   <form name="input" action="" method="POST">            
+                       
+                    <h1>Change Password</h1>
+                   <form name="input" action="ChangePasswordAuthentication.jsp" method="POST">            
                    <fieldset>
                        <div>
                            <label>New Password</label>
-                           <input type="text" name="password">
+                           <input type="password" name="password">
                        </div>
                        
                        <div>
                            <label>Confirm New Password</label>
-                           <input type="password" name="password">
+                           <input type="password" name="passwordConfirm">
                        </div>
                        
                        <div>

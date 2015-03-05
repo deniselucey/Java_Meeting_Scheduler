@@ -1,10 +1,12 @@
 <%-- 
-    Document   : SemesterView
-    Created on : Feb 26, 2015, 7:20:03 PM
+    Document   : AdminMeeting
+    Created on : Mar 5, 2015, 12:29:51 AM
     Author     : zolamcdonald
 --%>
 
 <%@ page import ="java.sql.*" %>
+<%@page import="teamproject.meeting.Meeting"%>
+<%@page import="java.util.ArrayList"%>
 
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             
-            <title>TimeTable</title>
+            <title>Set Meeting</title>
     </head>
     
     <body>
@@ -39,40 +41,45 @@
             <%
                 } else {
             %>
-           
-                    <%@page contentType="text/html" pageEncoding="UTF-8"%>
-                    <%@page import="teamproject.system.scheduler.timetable.Timetable"%>
-        
-                    <%
-                        teamproject.system.scheduler.timetable.Timetable timeTable = new teamproject.system.scheduler.timetable.Timetable(30,(Integer)session.getAttribute("userId"));
-                    %>
+                
+                   <jsp:useBean id="setMeeting" class="teamproject.meeting.Meeting" scope="session"></jsp:useBean>
+                 
+                
                 
                 
                     <nav>
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
-                            <li><a href="..\Meeting\SetMeeting.jsp">Set Meeting</a></li>
                             <li><a href="..\Enroll\enroll.jsp">Enroll/Un-enroll in Module</a></li>
+                            <li><a href="..\TimeTable\SemesterView.jsp">Semester View</a></li>
                             <li><a href="..\UserSettings\Settings.jsp">Settings</a></li>
                             <li><a href="..\LogOut\LogOutAccount.jsp">Sign Out</a></li>
-                            
                         </ul>
                     </nav>
 	
-                    <div id = "main">
-	    
-                
-                
-                    
-                
-                    <% 
-                        out.println(timeTable.toHTML(false));
-                     %>
-                
-          
-                    </div>
                 <%
-                   }
+                    String meetingString = (String)request.getParameter("meeting");
+                   
+                    if( meetingString != null)
+                    {
+                        String[] meetingids = meetingString.split(",");
+                        for(String m : meetingids)
+                        {
+//                            try
+//                            {
+                                int id = Integer.parseInt(m);
+                                Meeting meeting1 = new Meeting(id);
+                                out.println(meeting1.toHTML());
+//                            }
+//                            catch(Exception e)
+//                            {
+//
+//                            }
+                        }
+                    
+                    }
+                    
+                }
                 %>  
         
          
@@ -88,4 +95,5 @@
         
     </body>
 </html>
+
 
