@@ -49,7 +49,11 @@ public class Timetable {
      */
     public Timetable(LocalDate startDate, int weeks, ArrayList<Meeting> meetingWithRepeating,int rowspan, int block){
         this.startDate = startDate;
+        System.out.println((this.startDate == null )+ " TimeTable range");
+        
         this.endDate = startDate.plusWeeks(weeks);
+        
+        
         int days = (int) ChronoUnit.DAYS.between(startDate, endDate);
         lengthInDays = days;
         timeSlots = new TimeSlot[days][NUMBER_OF_TIMESLOTS];
@@ -57,9 +61,11 @@ public class Timetable {
         hourRowSpan = rowspan;
         
         ArrayList<Meeting> meetings = new ArrayList<>();
-        
-        for(Meeting m: meetingWithRepeating){
-            meetings.addAll(Meeting.expandMeeting(m, startDate, endDate));
+        if(meetingWithRepeating != null)
+        {
+            for(Meeting m: meetingWithRepeating){
+                meetings.addAll(Meeting.expandMeeting(m, startDate, endDate));
+            }
         }
         
         LocalDateTime timeSlotStartTime = startDate.atStartOfDay(); 
