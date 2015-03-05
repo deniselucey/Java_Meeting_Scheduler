@@ -48,23 +48,27 @@ import java.time.LocalDate;
         
         private String toHTMlinput()
         {
-            String html = "<div><label>";
+            String html = "<div><label class='noFloat'>";
             html += this.name();
             html += "</label>";
-            html += "<input type=\"text\" name=\"" + this.name() + "\" value=\"\"/><br>";
+            html += "<input id=\""+this.name()+"\"type=\"text\" name=\"" + this.name() + "\" value=\"\"/>";
+            html += "<input type=\"submit\" value=\"Update\"  onclick=\"save('" +this.name() + "')\" />";
+            
+//            html += "<input type=\"submit\" value=\"Update\" onclick=\"save(\""+this.name()+"\")\"/>";
+                
             html += "</div>";
             return html;
         }
         
         public static String toHTMLForm()
         {
-            String html = "<form>";
+            String html ="";// = "<form >";
             
             for(Property p : Property.values())
             {
-                p.toHTMlinput();
+               html += p.toHTMlinput();
             }
-            html += "</form>";
+            //html += "</form>";
             return html;
         }
     }

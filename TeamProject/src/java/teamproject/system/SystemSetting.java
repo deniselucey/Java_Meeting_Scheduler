@@ -16,7 +16,10 @@ public class SystemSetting
     private static boolean initialized = false;
     private static final String empty = "Empty";
     private static final String isEmpty = "false";
-    
+    public SystemSetting()
+    {
+        initSystemSetting();
+    }
     public static void main(String[] args)
     {
         initSystemSetting();   
@@ -35,7 +38,10 @@ public class SystemSetting
         }
         initialized = true;
     }
-    
+    public static String getProperty(String key, String defaultValue)
+    {
+        return prefs.get(key,defaultValue);
+    }
     public static String getProperty(Property key, String defaultValue)
     {
         return prefs.get(key.name(),defaultValue);
@@ -53,6 +59,12 @@ public class SystemSetting
         {
             changes.put(key.name(), value);
         }
+    }
+    public static void setProperty(String key, String value)
+    {
+   
+            changes.put(key, value);
+        
     }
      
      
@@ -73,7 +85,7 @@ public class SystemSetting
         return access;
     }
     
-    private static void saveSettings()
+    public static void saveSettings()
     {
         for(Object pair:changes.entrySet())
         {
@@ -131,8 +143,13 @@ public class SystemSetting
     
     public String toHtmlForm()
     {
+        System.out.println(Property.toHTMLForm());
        return Property.toHTMLForm();
     }
-    
+    public static String toHtmlFormStatic()
+    {
+        System.out.println(Property.toHTMLForm());
+       return Property.toHTMLForm();
+    }
     public static boolean isInitialized() { return initialized; } 
 }

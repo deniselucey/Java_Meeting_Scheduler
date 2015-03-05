@@ -7,7 +7,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="java.sql.*" %>
-
+<%@page import ="teamproject.system.SystemSetting" %>
 
 <!DOCTYPE html>
 <html lang = "en">
@@ -21,7 +21,7 @@
             <link rel="stylesheet" href="../styles/example.css">
             <link rel="stylesheet" href="../styles/font-awesome.min.css">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            
+            <script src="SaveSettings.js"></script>
             <title>TimeTable</title>
     </head>
     
@@ -33,14 +33,16 @@
 	<header>
             <img src="../Resources/logo.gif" alt="UCC Logo">
 	</header>
-            
+            <p id="test"> here</p>
             <%
                 if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                  
                     response.sendRedirect("../LogIn/Login.jsp");
+                    
             %>
             <%
                 } else {
-            %>
+            %>      
                     <nav>
                         <ul>
                             <li><a href="..\Admin\AdminHomePage.jsp">Home</a></li>
@@ -54,17 +56,37 @@
 	
                     <div id = "main">
                         <h1>Admin Home Page</h1>
-                
-          
-                    </div>
                 <%
+                 
+                    String key = (String)request.getParameter("key");
+                    String value = (String)request.getParameter("value");
+                    
+                    if(key != null && !key.equals("") && value != null && !value.equals(""))
+                    {
+                        SystemSetting.initSystemSetting();
+                        SystemSetting.setProperty(key, value);
+                        SystemSetting.saveSettings();
+                        
+                        out.print(SystemSetting.getProperty(key, "Didntwork"));
+                    }
+                
+                %>
+          
+                    </div><div>
+                <%
+                    
+                    
                    }
-                %>  
+
+                    out.print(SystemSetting.toHtmlFormStatic());
+
+                 %>
+                    </div>
+                
         <p class = "status"></p>
     </div>
     <div>
-        <>
-        <>
+        
     </div>
     <footer>
         <p>

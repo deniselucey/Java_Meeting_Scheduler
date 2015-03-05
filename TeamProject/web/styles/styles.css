@@ -325,6 +325,11 @@ th,td
     {
         padding-top: 3%;
     }
+    .noFloat
+    {
+        float:none;
+        
+    }
     
 
 }

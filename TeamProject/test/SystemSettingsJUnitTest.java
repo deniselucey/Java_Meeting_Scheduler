@@ -134,6 +134,11 @@ public class SystemSettingsJUnitTest
         }
     } 
     
+    @Test
+    public void testForm()
+    {
+        SystemSetting s = new SystemSetting();
+        System.out.println(s.toHtmlForm());
+    }
 
-    
 }

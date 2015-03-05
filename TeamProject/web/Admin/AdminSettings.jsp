@@ -1,4 +1,5 @@
 
+<%@page import="teamproject.system.SystemSetting"%>
 <%-- 
     Document   : AdminCreateModule
     Created on : Feb 28, 2015, 5:25:03 PM
@@ -89,10 +90,9 @@
             </div>
                 <%
                    }
+               
                 %>  
-        
-         
-            
+           
        
         <p class = "status"></p>
     </div>
