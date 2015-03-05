@@ -42,6 +42,9 @@
                 <%@page import="java.time.LocalDate"%>
                 <%@page import="teamproject.meeting.Meeting"%>
                 <%@page import="teamproject.system.scheduler.Scheduler"%>
+                <%@page import="teamproject.user.privilege.AdminPrivlege" %>
+                <jsp:useBean id="adminPrivlege" class="teamproject.user.privilege.AdminPrivlege" scope="session">
+                </jsp:useBean>
                  <nav>
                         <ul>
                             <li><a href="..\TimeTable\TimeTable.jsp">Home</a></li>
@@ -68,6 +71,8 @@
                                 peopleAttending += session.getAttribute("userId");
                         }
                         System.out.println(" People attending " + peopleAttending);
+                        String moduleCode = request.getParameter("code");
+                        adminPrivlege.addLecturesToModules(moduleCode);
                         int duration = Integer.parseInt(request.getParameter("duration")) ;
                         duration += duration%15==0?0:15-(duration%15);
                         teamproject.meeting.Meeting meeting = new teamproject.meeting.Meeting(

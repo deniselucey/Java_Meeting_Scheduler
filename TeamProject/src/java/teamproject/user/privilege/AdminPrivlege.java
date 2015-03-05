@@ -226,6 +226,24 @@ public class AdminPrivlege extends Privilege {
          return editModule;
     }
 
+    public boolean addLecturesToModules(String moduleCode){
+        boolean result = false;
+          try{
+                SystemSetting.initSystemSetting();                             
+                SqlHandler sqlHandler = new SqlHandler();
+                String query = "";
+                
+                if(sqlHandler.runStatement(query)==1){
+                    result = true;
+                }
+                
+          }catch(SQLException ex) {
+                Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+                Bugzilla.reportBug("Issue with editing module by a admin");
+            }
+        
+        return result;
+    }
 
 
     public boolean addLecturer(String lecturer){
@@ -241,5 +259,6 @@ public class AdminPrivlege extends Privilege {
 
         return lecturerResult;
     }
+    
 
 }
