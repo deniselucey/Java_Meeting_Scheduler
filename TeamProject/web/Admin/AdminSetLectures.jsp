@@ -128,6 +128,13 @@
                                 </div>
                                 
                                 <div>
+                                    <label>Meeting Priority:</label>
+                                    <%
+                                        out.print(setMeeting.PriorityHTMLDropDown((Boolean)session.getAttribute("admin"), false));//(Boolean)session.getAttribute("lecturer"));
+                                    %>
+                                </div>
+                                
+                                <div>
                                     <label>Location:</label>
                                     <input type="text" name="location" value=""/><br>
                                 </div>
