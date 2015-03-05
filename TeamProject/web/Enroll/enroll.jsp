@@ -66,7 +66,8 @@
                                    String moduleCode = "";
                                    SystemSetting.initSystemSetting();
                                    SqlHandler handler1 = new SqlHandler();
-                                   String sql1 = "SELECT code FROM Module";
+                                   String sql1 = "SELECT code FROM Module WHERE module_id NOT IN( SELECT module_id from User_has_module where user_id = "+session.getAttribute("usedId")+")";
+
                                    ResultSet queryResult1 = handler1.runQuery(sql1);
 
                                    queryResult1.first();
@@ -109,7 +110,9 @@
                                            + "FROM Module AS M JOIN User AS U JOIN User_has_Module AS H "
                                            + "WHERE U.email =\""
                                            + email
-                                           + "\" AND M.module_id = H.module_id;";
+                                           + "\" AND M.module_id = H.module_id "
+                                           + "AND H.user_id = U.user_id;";
+
                                    ResultSet queryResult2 = handler2.runQuery(sql2);
 
                                    queryResult2.first();

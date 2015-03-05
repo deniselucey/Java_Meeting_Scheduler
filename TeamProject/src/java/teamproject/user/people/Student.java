@@ -46,12 +46,11 @@ public class Student extends Person {
                 //moduleCode = queryResult2.getString("code");
                 
                 String query3 = "INSERT INTO User_has_Module(user_id, module_id)"  
-                              + "VALUES('" + user_id + "','" + moduleId +"');";
-                sqlHandler.runStatement(query3);
+                              + "VALUES(" + user_id + "," + moduleId +");";
+                    enrolled = sqlHandler.runStatement(query3) >0 ;
                 boolean enrollInLecturesResult = enrollInLectures(moduleId, user_id);
-                //if(enrollInLecturesResult){
-                    enrolled = true;
-                //}
+                
+                
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,7 +73,7 @@ public class Student extends Person {
                 
                 int queryResult = sqlHandler.runStatement(statement1);
                 System.out.println(queryResult);
-                if(queryResult == 1){
+                if(queryResult >0){
                     enrolledInLectures = true;
                 }
             
@@ -115,12 +114,11 @@ public class Student extends Person {
                 
                 String query3 = "DELETE FROM User_has_Module WHERE user_id = '" + user_id + "' AND module_id = '"
                                + moduleId + "';";
-                
-                sqlHandler.runStatement(query3);
-                boolean unenrollInLecturesResult = unenrollInLectures(moduleId,user_id);
-                //if(unenrollInLecturesResult){
-                    unenrolled = true;
-                //}
+                if(unenrollInLectures(moduleId,user_id));
+                {
+                    unenrolled = sqlHandler.runStatement(query3)>0;                
+                }
+           
                 
         }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,7 +145,7 @@ public class Student extends Person {
                 
                 int queryResult1 = sqlHandler.runStatement(query1);
                 System.out.println(queryResult1);
-                if(queryResult1 == 1){
+                if(queryResult1 > 0){
                     unenrolledInLectures = true;
                 }
             
