@@ -59,7 +59,7 @@
                         
                         <section>
                             <h1>Set Lectures</h1>
-               <form name="input" action="AdminSetMeetingAuthentication.jsp" method="GET">            
+               <form name="input" action="AdminSetLectureAuthentication.jsp" method="GET">            
                    <fieldset>
                        <div>
                            <label>Module</label>
@@ -92,10 +92,10 @@
                       
                        
                        
-                       <div>
-                            <label>Lecture Title:</label>
-                            <input type="text" name="title" value=""/><br>
-                        </div>
+                                <div>
+                                    <label>Lecture Title:</label>
+                                    <input type="text" name="title" value=""/><br>
+                             </div>
                                 
                                 <div>
                                     <label>Lecture description:</label>

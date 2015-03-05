@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import teamproject.meeting.Meeting;
 import java.util.ArrayList;
+import teamproject.meeting.Lecture;
 import teamproject.meeting.Recurrence;
 import teamproject.sql.SqlHandler;
 import teamproject.system.scheduler.timetable.TimeSlot;
@@ -58,11 +59,35 @@ public class Scheduler {
     /**
      * Schedule a once off or repeating meeting between the dates entered.
      * If meeting is recurring end OF range should be after meetings runs until.
+     * @param lecture
      * @param meetingToSchedule
      * @param startOfRange
      * @param endOfRange 
      * @throws teamproject.system.scheduler.Scheduler.RunUntilAfterEndRangeException 
      */
+    
+     public Scheduler(Lecture meetingToSchedule, String startOfRange, String endOfRange) throws RunUntilAfterEndRangeException, SQLException
+    {
+        this(meetingToSchedule, LocalDate.parse(startOfRange), LocalDate.parse(endOfRange));
+//        System.out.println( "\n\n\n" + startOfRange +"range "+ endOfRange);
+    }
+    public Scheduler(Lecture lecture, LocalDate startOfRange, LocalDate endOfRange) throws RunUntilAfterEndRangeException
+    {
+        this.endOfRange = endOfRange;
+        this.startOfRange = startOfRange;
+        System.out.println(startOfRange + " RAnge " + endOfRange);
+//        if(meetingToSchedule.getRuns_until().isAfter(endOfRange))
+//        {
+//            throw new RunUntilAfterEndRangeException();
+//            
+//        }
+        this.meetingToSchedule = lecture;
+         int days = (int)Duration.between(startOfRange.atStartOfDay(),endOfRange.atStartOfDay()).toDays();
+        days = days==0?1:days;
+        int weeks = ((int) Math.ceil(days/(double)7));
+        this.timetable = new Timetable(this.startOfRange, weeks, meetings,1,1);
+        timetable.setTimeSlotForScheduler(meetingToSchedule);
+    }
     public Scheduler(Meeting meetingToSchedule, LocalDate startOfRange, LocalDate endOfRange) throws RunUntilAfterEndRangeException, SQLException
     {
         this.endOfRange = endOfRange;

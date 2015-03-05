@@ -57,13 +57,14 @@
                             <% 
                                    
                                 String dateString = request.getParameter("dates");
-                                teamproject.meeting.Meeting meeting = (teamproject.meeting.Meeting)session.getAttribute("meeting");
+                                teamproject.meeting.Lecture lecture = (teamproject.meeting.Lecture)session.getAttribute("meeting");
+                                
                                 //out.print("<p>" + meeting + "</p>");
-                                boolean success = teamproject.meeting.Meeting.insertMeeting(meeting,dateString);
+                                boolean success = teamproject.meeting.Lecture.insertMeeting(lecture,dateString);
                                 out.print("<p>" + success + "</p>");
                                 
-                                out.println(meeting.toHTML());
-                                out.println(meeting.sendEmails());
+                                out.println(lecture.toHTML());
+                               
                                  //out.println(registeredResult+ emailSent);
                             %>  
                             

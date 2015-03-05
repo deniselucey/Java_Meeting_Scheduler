@@ -21,26 +21,26 @@ import teamproject.user.people.Person;
 
 public class Meeting {
 
-    private String title;
-    private String description;
-    private int id;
-    private int hostUserID;
-    private HashSet<Person> people_attendees;
-    private HashSet<Group> group_attendees;
-    private Duration length;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
-    private LocalDate runs_until;
-    private String location;
-    private boolean recurring;
-    private Recurrence repeatEvery;
-    private Priority priority;
-    private MeetingPrivacy privacy;
-    private HashSet<Integer> peopleId_attendees;
-    private HashSet<Integer> groupId_attendees;
+    protected String title;
+    protected String description;
+    protected int id;
+    protected int hostUserID;
+    protected HashSet<Person> people_attendees;
+    protected HashSet<Group> group_attendees;
+    protected Duration length;
+    protected LocalDateTime startDateTime;
+    protected LocalDateTime endDateTime;
+    protected LocalDate runs_until;
+    protected String location;
+    protected boolean recurring;
+    protected Recurrence repeatEvery;
+    protected Priority priority;
+    protected MeetingPrivacy privacy;
+    protected HashSet<Integer> peopleId_attendees;
+    protected HashSet<Integer> groupId_attendees;
     
     
-    private static final String sqlSelect = "SELECT * FROM meeting ";
+    protected static final String sqlSelect = "SELECT * FROM meeting ";
     
     public Meeting(){
         
@@ -652,6 +652,7 @@ public class Meeting {
         String getNames = "SELECT firstname, secondname FROM user WHERE user_id IN (";
         boolean first = true;
         String names = "";
+        if(peopleId_attendees != null)
         for(int p : peopleId_attendees)
         {
             if(!first)
@@ -664,7 +665,7 @@ public class Meeting {
         }
         getNames += ") ORDER BY secondname;";
        // try {
-        System.out.println(" hehehehehh Sql Querry" + getNames);
+//        System.out.println(" hehehehehh Sql Querry" + getNames);
         
         try {
             ResultSet rs = sql.runQuery(getNames);
