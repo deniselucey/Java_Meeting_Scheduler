@@ -58,39 +58,39 @@
                         
                 <section>
                         <h1>Create System Back Up</h1>
-                        <form name="input" action="SystemBackUpAuthentication.jsp" method="POST">            
+                        <form name="input" action="SystemBackUpAuthentication.jsp" method="POST" >            
                         <fieldset>
                                 
                             
                                 <div>
                                    <label>Database UserName</label>
-                                   <input type="text" name="dbUserName">
+                                   <input type="text" name="dbUserName" required>
                                </div>
                             
                             <div>
                                    <label>Database Password</label>
-                                   <input type="password" name="dbPassword">
+                                   <input type="password" name="dbPassword" required>
                                </div>
                             
                             
                             <div>
                                    <label>Database Name</label>
-                                   <input type="text" name="dbName">
+                                   <input type="text" name="dbName" required>
                                </div>
                             <div>
                                    <label>mySQL Dump</label>
-                                   <input type="text" name="mySQLDump">
+                                   <input type="text" name="mySQLDump"required>
                                </div>
                             
                             
                             <div>
                                    <label>Back Up Path</label>
-                                   <input type="text" name="path">
+                                   <input type="text" name="path" required>
                                </div>
                                
                                 <div>
                                    
-                                   <input type="submit" name="Create BackUp">
+                                    <input type="submit" name="Create BackUp" >
                                </div>
                         </fieldset>
                         </form>
@@ -106,24 +106,24 @@
                             
                                 <div>
                                    <label>Database UserName</label>
-                                   <input type="text" name="dbUserName">
+                                   <input type="text" name="dbUserName" required>
                                </div>
                             
                             <div>
                                    <label>Database Password</label>
-                                   <input type="password" name="dbPassword">
+                                   <input type="password" name="dbPassword" required>
                                </div>
                             
                             
                             <div>
                                    <label>mySql</label>
-                                   <input type="text" name="mysql">
+                                   <input type="text" name="mysql" required>
                                </div>
                             
                             
-                            <div>
+                            <div>  
                                    <label>Source</label>
-                                   <input type="text" name="source">
+                                   <input type="text" name="source" required>
                                </div>
                                
                                 <div>
@@ -143,12 +143,12 @@
                         <fieldset>
                              <div>
                                    <label>Destination Path</label>
-                                   <input type="text" name="path">
+                                   <input type="text" name="path" required>
                                </div>
                                
                                 <div>
                                    
-                                   <input type="submit" name="Create BackUp">
+                                   <input type="submit" name="Create BackUp" >
                                </div>
                         </fieldset>
                         </form>
@@ -163,7 +163,7 @@
                         <fieldset>
                              <div>
                                    <label>Destination Path</label>
-                                   <input type="text" name="path">
+                                   <input type="text" name="path" required>
                                </div>
                                
                                 <div>

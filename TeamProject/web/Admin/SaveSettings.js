@@ -12,7 +12,7 @@ function test()
 }
 function save(key)
 {
-    document.getElementById("test").innerHTML =key;
+    //document.getElementById("test").innerHTML =key;
     
     var valueToSet = document.getElementById(key).value;
    
@@ -35,7 +35,7 @@ function save(key)
     form.appendChild(hiddenField1);
     document.body.appendChild(form);
     form.submit();
-    document.getElementById("test").innerHTML = key + "  " + valueToSet;
+    //document.getElementById("test").innerHTML = key + "  " + valueToSet;
     
     
     

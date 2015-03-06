@@ -26,6 +26,7 @@
     </head>
     
     <body>
+        
         <a id="skiplink" href="#main">Skip to main content</a>
 	<a id="user" href="#"></a>
         
@@ -70,7 +71,7 @@
                         SystemSetting.setProperty(key, value);
                         SystemSetting.saveSettings();
                         
-                        out.print(SystemSetting.getProperty(key, "Didntwork"));
+                     
                     }
                 
                 %>
