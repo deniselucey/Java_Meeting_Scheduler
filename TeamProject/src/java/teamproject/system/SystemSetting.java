@@ -38,10 +38,12 @@ public class SystemSetting
         }
         initialized = true;
     }
+    
     public static String getProperty(String key, String defaultValue)
     {
         return prefs.get(key,defaultValue);
     }
+    
     public static String getProperty(Property key, String defaultValue)
     {
         return prefs.get(key.name(),defaultValue);

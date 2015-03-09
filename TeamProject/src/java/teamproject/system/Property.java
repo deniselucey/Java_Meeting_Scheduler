@@ -17,21 +17,20 @@ import java.time.LocalDate;
         DatabaseUser("admin"),
         DatabasePassword("password"),
         DatabaseName("schedulerdatabase"),
+        MySQLPath("C:/xampp/mysql/bin"),
+        MySQLFileName("mysql.exe"),
+        MySQLDumpFileName("mysqldump.exe"),
+        BackUpPath("C:/Users/drgex_000/Desktop/test"),
+        BackUpName("TimeTable_Backup"),
         
         BlockedEmailServices,
         AllowedEmailServices,
 
-        BackUpName("TimeTable_Backup"),
-        //NumberOfBackUp("3"),
-        //NextBackUpNumber("1"),
-        //BackUpEvery("D1"),
-        BackUpUrl("/backup"),
-        
-        MinimumManualDaysInactive("100"),
-        AutoRemoveAfterDaysInactive("365"),
+        //not used
+        //MinimumManualDaysInactive("100"),
+        //AutoRemoveAfterDaysInactive("365"),
         SystemStartDate(LocalDate.now().toString())
         {
-          
             private String toHTMlinput()
             {
                 return "";

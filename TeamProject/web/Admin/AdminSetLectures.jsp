@@ -73,7 +73,6 @@
                            String sql1 = "SELECT code FROM Module";
                            ResultSet queryResult1 = handler1.runQuery(sql1);
                            
-                           queryResult1.first();
                            
                            while (queryResult1.next() ) {
                                moduleCode = queryResult1.getString("code");

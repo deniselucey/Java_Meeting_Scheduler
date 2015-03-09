@@ -23,8 +23,18 @@ public class BackUp {
          * @param path
          * @return String that either confirms or denies the creation of the database backup.
          */
-	public static String createBackup(String mySQLDump,String dbUserName, String dbPassword,String dbName, String path){
-            String command =  mySQLDump + " -u "+ dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path + " " ;
+	public static String createBackup(){//String mySQLDump,String dbUserName, String dbPassword,String dbName, String path){
+            
+            String mySQLDump = SystemSetting.getProperty(Property.MySQLPath, "")  + "/" +  SystemSetting.getProperty(Property.MySQLDumpFileName, "");
+            String dbUserName = SystemSetting.getProperty(Property.DatabaseUser, "");
+            String dbPassword = SystemSetting.getProperty(Property.DatabasePassword, "");
+            String dbName = SystemSetting.getProperty(Property.DatabaseName, "");
+            String path = SystemSetting.getProperty(Property.BackUpPath, "");
+            path += "/" + SystemSetting.getProperty(Property.BackUpName, "");
+            
+            
+            String command =  mySQLDump + " -u "+ dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path + ".sql " ;
+            System.out.println(command);
             Process processRuntime;
             String sentence = " ";
             try{
@@ -51,7 +61,12 @@ public class BackUp {
          * @param source
          * @return 
          */
-	public static boolean restore(String mysql, String dbUserName, String dbPassword, String source){
+	public static boolean restore(){//String mysql, String dbUserName, String dbPassword, String source){
+            String mysql = SystemSetting.getProperty(Property.MySQLPath, "")  + "/" + SystemSetting.getProperty(Property.MySQLFileName, "");
+            String dbUserName = SystemSetting.getProperty(Property.DatabaseUser, "");
+            String dbPassword = SystemSetting.getProperty(Property.DatabasePassword, "");
+            String source = SystemSetting.getProperty(Property.BackUpPath, "")  + "/" +  SystemSetting.getProperty(Property.BackUpName, "") + ".sql";
+            
             String[] restoreCommand = new String[]{mysql, "--user=" + dbUserName, "--password=" + dbPassword, "-e", "source " + source};
             Boolean isRestored = false;
             Process processRuntime;
@@ -74,10 +89,12 @@ public class BackUp {
         * @throws IOException
         * @throws BackingStoreException 
         */
-        public static void backUpPreferences(String path) throws IOException, BackingStoreException {
+        public static void backUpPreferences() throws IOException, BackingStoreException {
           
+            String path = SystemSetting.getProperty(Property.BackUpPath, "") + "/" + SystemSetting.getProperty(Property.BackUpName, "") + ".xml";
+            
             Preferences root = Preferences.userRoot();
-            FileOutputStream preference = new FileOutputStream(path + "backup.xml"); //1337 Hax
+            FileOutputStream preference = new FileOutputStream(path); 
             root.exportSubtree(preference);
             preference.close();
             
@@ -89,9 +106,12 @@ public class BackUp {
          * @throws IOException
          * @throws InvalidPreferencesFormatException 
          */
-        public static void restorePreferences(String path) throws IOException, InvalidPreferencesFormatException {
+        public static void restorePreferences() throws IOException, InvalidPreferencesFormatException {
+            
+            String path = SystemSetting.getProperty(Property.BackUpPath, "")  + "/" +  SystemSetting.getProperty(Property.BackUpName, "") + ".xml";
+            
             Preferences root = Preferences.userRoot();
-            FileInputStream preference = new FileInputStream(path + "backup.xml"); //1337 Hax
+            FileInputStream preference = new FileInputStream(path); 
             Preferences.importPreferences(preference);
             preference.close(); 
         }
