@@ -35,7 +35,8 @@
 	</header>
             
             <%
-                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "") 
+                        && !((session.getAttribute("admin") != null)  && (Boolean)(session.getAttribute("admin")) ) ) {
                     response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
@@ -60,34 +61,7 @@
                         <h1>Create System Back Up</h1>
                         <form name="input" action="SystemBackUpAuthentication.jsp" method="POST" >            
                         <fieldset>
-                                
-                            
-                                <div>
-                                   <label>Database UserName</label>
-                                   <input type="text" name="dbUserName" required>
-                               </div>
-                            
-                            <div>
-                                   <label>Database Password</label>
-                                   <input type="password" name="dbPassword" required>
-                               </div>
-                            
-                            
-                            <div>
-                                   <label>Database Name</label>
-                                   <input type="text" name="dbName" required>
-                               </div>
-                            <div>
-                                   <label>mySQL Dump</label>
-                                   <input type="text" name="mySQLDump"required>
-                               </div>
-                            
-                            
-                            <div>
-                                   <label>Back Up Path</label>
-                                   <input type="text" name="path" required>
-                               </div>
-                               
+                       
                                 <div>
                                    
                                     <input type="submit" name="Create BackUp" >
@@ -103,29 +77,6 @@
                         <form name="input" action="SystemRestoreAuthentication.jsp" method="POST">            
                         <fieldset>
                                 
-                            
-                                <div>
-                                   <label>Database UserName</label>
-                                   <input type="text" name="dbUserName" required>
-                               </div>
-                            
-                            <div>
-                                   <label>Database Password</label>
-                                   <input type="password" name="dbPassword" required>
-                               </div>
-                            
-                            
-                            <div>
-                                   <label>mySql</label>
-                                   <input type="text" name="mysql" required>
-                               </div>
-                            
-                            
-                            <div>  
-                                   <label>Source</label>
-                                   <input type="text" name="source" required>
-                               </div>
-                               
                                 <div>
                                    
                                    <input type="submit" name="Restore Backup">
@@ -134,49 +85,7 @@
                         </form>
                         
                       </section>
-                          
-                        
-                        
-                        <section>
-                            <h1>Create System Preferences Back up</h1>
-                            <form name="input" action="SystemBackUpAuthentication.jsp" method="POST">            
-                        <fieldset>
-                             <div>
-                                   <label>Destination Path</label>
-                                   <input type="text" name="path" required>
-                               </div>
-                               
-                                <div>
-                                   
-                                   <input type="submit" name="Create BackUp" >
-                               </div>
-                        </fieldset>
-                        </form>
-                           
-                            
-                        </section>
-                        
-                        <section>
-                        <h1>Restore System Preferences From Back Up</h1>
-                        
-                         <form name="input" action="SystemRestoreAuthentication.jsp" method="POST">            
-                        <fieldset>
-                             <div>
-                                   <label>Destination Path</label>
-                                   <input type="text" name="path" required>
-                               </div>
-                               
-                                <div>
-                                   
-                                   <input type="submit" name="Restore BackUp">
-                               </div>
-                        </fieldset>
-                        </form>
-                        </section>
-                    
-                
-                   
-          
+                       
                     </div>
                 <%
                    }

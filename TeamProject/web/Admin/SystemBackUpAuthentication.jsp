@@ -35,7 +35,8 @@
 	</header>
             
             <%
-                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")  
+                        && !((session.getAttribute("admin") != null)  && (Boolean)(session.getAttribute("admin")) ) ) {
                     response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
@@ -66,35 +67,16 @@
                             
                             <div>
                                 <% 
-                                    String mySQLDump= (String)request.getAttribute("mySQLDump");
-                                    String dbUserName =(String)request.getAttribute("dbUserName");
-                                    String dbPassword = (String)request.getAttribute("dbPassword");
-                                    String dbName = (String)request.getAttribute("dbName");
-                                    String path =(String)request.getAttribute("path");
-                                    String backupResult = (String)request.getAttribute("");
-                                    
-                                    backupResult = backUp.createBackup(mySQLDump,dbUserName,dbPassword,dbName,path);
-                                    if(!backupResult.equals("")){
-                                       out.println("Your System has been Backed Up"); 
-                                    }else{
-                                        out.println("There was Error backing up the System");
-                                    }
-                                 %>
-                                    <p>Your System has been Backed Up</p>
+                                    out.print(backUp.createBackup());
+                                %>
+                                  
                             </div>
                             
                             <div>
                                 <% 
-                                    String perferenceBackUpResult ="";
-                                    String perferencePath = (String)request.getAttribute("path");
-                                    
-                                     backUp.backUpPreferences(perferencePath);
-                                    if(!perferenceBackUpResult.equals("")){
-                                       out.println("Your System Preferences have been Backed Up"); 
-                                    }else{
-                                        out.println("There was Error backing up the System Preferences");
-                                    }
-                                
+                                 
+                                    out.println( backUp.backUpPreferences());
+                                   
                                 %>
                                     
                             </div>   

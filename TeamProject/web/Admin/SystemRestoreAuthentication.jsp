@@ -35,7 +35,8 @@
 	</header>
             
             <%
-                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")) {
+                if((session.getAttribute("email") == null) || (session.getAttribute("email") == "")
+                        && !((session.getAttribute("admin") != null)  && (Boolean)(session.getAttribute("admin")) ) ) {
                     response.sendRedirect("../LogIn/Login.jsp");
             %>
             <%
@@ -66,14 +67,14 @@
                                 
                             <div>
                                 <%
-                                    String dbPassword = (String)request.getAttribute("dbPassword");
-                                    String dbUserName = (String)request.getAttribute("dbName");
-                                    String mysql = (String)request.getAttribute("mysql");
-                                    String source = (String)request.getAttribute("source");
+//                                    String dbPassword = (String)request.getAttribute("dbPassword");
+//                                    String dbUserName = (String)request.getAttribute("dbName");
+//                                    String mysql = (String)request.getAttribute("mysql");
+//                                    String source = (String)request.getAttribute("source");
+//                                    
                                     
                                     
-                                    
-                                    if(restore.restore(mysql,dbUserName, dbPassword, source)){
+                                    if(restore.restore()){
                                        out.println("Your System has been Restored"); 
                                     }else{
                                         out.println("There was Error Restoring the System");
@@ -85,8 +86,8 @@
                             <div>
                                 
                                 <%
-                                    String path = (String)request.getAttribute("path");
-                                    restore.restorePreferences(path);
+//                                    String path = (String)request.getAttribute("path");
+                                    restore.restorePreferences();
                                     if(true){
                                        out.println("Your System Preferences has been Restored"); 
                                     }else{
