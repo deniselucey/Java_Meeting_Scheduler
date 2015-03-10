@@ -25,15 +25,18 @@ import teamproject.system.SystemSetting;
 import static teamproject.system.SystemSetting.initSystemSetting;
 
 /**
- *
- * @author drgex_000
+ * Class to allow the user to edit settings by command line or using a GUI.
+ * Can also Back up and restore database and system setting using command line.
+ * @author Nigel
  */
 public class Setting extends JFrame{
     private static final int argsLength = 2;
     private static final String backUpString = "backup";
     private static final String database = "database";
     private static final String settings = "settings";
-     private static final String restoreString = "restore";
+    private static final String restoreString = "restore";
+    private static final Dimension propertySize = new Dimension(200,30);
+     
     public static void main(String[] args) throws IOException, BackingStoreException, InvalidPreferencesFormatException
     {
         initSystemSetting();
@@ -95,7 +98,9 @@ public class Setting extends JFrame{
         }
     }
     
-    
+    /**
+     * Creates GUI for editing settings.
+     */
     public Setting()
     {
         super();
@@ -117,7 +122,7 @@ public class Setting extends JFrame{
         this.pack();
         this.setVisible(true);
     }
-    
+   
     private class PropertyPanel extends JPanel
     {
         
@@ -132,7 +137,7 @@ public class Setting extends JFrame{
             JPanel labelPanel = new JPanel();
             labelPanel.add( new JLabel(p.name() +":"));      
        
-            labelPanel.setPreferredSize(new Dimension(200,30));
+            labelPanel.setPreferredSize(propertySize);
             this.add( labelPanel,BorderLayout.WEST);
             textfield = new JTextField(40);
             textfield.setText(SystemSetting.getProperty(p, ""));
