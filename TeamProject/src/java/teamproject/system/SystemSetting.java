@@ -16,13 +16,30 @@ public class SystemSetting
     private static boolean initialized = false;
     private static final String empty = "Empty";
     private static final String isEmpty = "false";
+    private static final int argsLength = 2;
     public SystemSetting()
     {
         initSystemSetting();
     }
     public static void main(String[] args)
     {
-        initSystemSetting();   
+        initSystemSetting();
+        if(args.length == argsLength)
+        {
+            Property property = Property.getByName(args[0]);
+            if(property != null)
+            {
+                SystemSetting.setProperty(property, args[1], null);
+            }
+            else
+            {
+                System.err.println("No property by the name " + args[0]);
+            }
+        }
+        else
+        {
+            System.err.println("Arguments length not valid. Expected " + argsLength + " got " + args.length + ".");
+        }
     }
     
     public static void initSystemSetting()

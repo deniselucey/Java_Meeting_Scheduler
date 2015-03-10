@@ -1,6 +1,7 @@
 package teamproject.system;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
     /**
      * For ease of use, avoid spelling mistakes when setting/getting properties.
@@ -8,15 +9,12 @@ import java.time.LocalDate;
      * Override getDefaultValue in special cases. 
      */
     public enum Property
-    {
-        DummyAdminUserName("admin"),
-        DummyAdminPassword("password"),
-        
+    {        
         DatabaseUrl("localhost"),
         DatabasePort("3306"),
         DatabaseUser("admin"),
         DatabasePassword("password"),
-        DatabaseName("schedulerdatabase"),
+        DatabaseName("schedulerdatabase"),//Do Not Change 
         MySQLPath("C:/xampp/mysql/bin"),
         MySQLFileName("mysql.exe"),
         MySQLDumpFileName("mysqldump.exe"),
@@ -25,10 +23,7 @@ import java.time.LocalDate;
         
         BlockedEmailServices,
         AllowedEmailServices,
-
-        //not used
-        //MinimumManualDaysInactive("100"),
-        //AutoRemoveAfterDaysInactive("365"),
+        
         SystemStartDate(LocalDate.now().toString())
         {
             private String toHTMlinput()
@@ -71,5 +66,14 @@ import java.time.LocalDate;
             }
             
             return html;
+        }
+        /**
+         * Return Property who's name matches the value
+         * @param name
+         * @return  Property who's name matches the value.
+         */
+        public static Property getByName(String name)
+        {
+            return Arrays.stream(Property.values()).filter(p -> p.name().equals(name)).findFirst().get();
         }
     }

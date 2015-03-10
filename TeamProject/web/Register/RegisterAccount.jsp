@@ -59,13 +59,13 @@
                        <input type="text" name="studentNumber" value="" /><br>
                        </div>
                        
-                                               <div>       
+                    <div>       
 
                        <label>Email:</label>
                        <input type="text" name="email" value="" /><br>
-               </div>
+                    </div>
                        
-                                               <div>       
+                    <div>       
 
                        <label>Password:</label>
                        <input type="password" name="password1" value="" /><br>

@@ -105,7 +105,7 @@
                                 <div>
                                     <label>Meeting Priority:</label>
                                     <%
-                                        out.print(setMeeting.PriorityHTMLDropDown((Boolean)session.getAttribute("admin"), false));//(Boolean)session.getAttribute("lecturer"));
+                                        out.print(setMeeting.PriorityHTMLDropDown((Boolean)session.getAttribute("admin"), (Boolean)session.getAttribute("lecturer")));//(Boolean)session.getAttribute("lecturer"));
                                     %>
                                 </div>
                                 
