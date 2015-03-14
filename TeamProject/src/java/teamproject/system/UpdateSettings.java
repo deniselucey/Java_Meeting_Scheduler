@@ -26,24 +26,32 @@ public class UpdateSettings {
     private String encryptedPassword ="";
     private String password1 ="";
     
+    /**
+     * Changes the password of the user
+     * @param email
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException 
+     */
     public int changePassword(String email)throws NoSuchAlgorithmException, InvalidKeySpecException {
-        System.out.println("new password "+ password);
-        
         int changePasswordResult = 0;
+        /**
+         * encrypts the password.
+         */
         password1 = encrypt();
-        System.out.println("Encrypted new password: "+ password1);
-        
         try{
-            
-            
+            /**
+             * initializes system settings and loads saved settings.
+             */
             SystemSetting.initSystemSetting();
-            
+            /**
+             * Stores the statement as a string.
+             */
             String query ="UPDATE User "
                     + "SET password ='"+password1+"' "
                     + "WHERE email ='"+email+"';";
-           
             /**
-             * Creates a new sqlHandler.
+             * initializes the SQL Handler.
              */
             sqlHandler = new SqlHandler();
             /**
@@ -52,9 +60,7 @@ public class UpdateSettings {
              * a 1 or 0.
              */
             changePasswordResult = sqlHandler.runStatement(query);
-            
-    
-            
+       
         }catch(SQLException ex) {
             Logger.getLogger(UpdateSettings.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,18 +70,27 @@ public class UpdateSettings {
     
     
     
-    
+    /**
+     * Changes the email of the user.
+     * @param userId
+     * @return 
+     */
     public int changeEmail(int userId){
         int  changeEmailResult = 0;
         try{
+            /**
+             * initializes system settings and loads saved settings.
+             */
             SystemSetting.initSystemSetting();
-            
+            /**
+             * Stores the statement as a string.
+             */
             String query ="UPDATE User "
                     + "SET email ='"+email+"' "
                     + "WHERE user_id ='"+ userId +"';";
             
             /**
-             * Creates a new sqlHandler.
+             * initializes the SQL Handler.
              */
             sqlHandler = new SqlHandler();
             /**
@@ -84,9 +99,6 @@ public class UpdateSettings {
              * a 1 or 0.
              */
             changeEmailResult = sqlHandler.runStatement(query);
-            
-          System.out.println("Result: " +changeEmailResult);
-            
         }catch(SQLException ex) {
             Logger.getLogger(UpdateSettings.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,6 +118,10 @@ public class UpdateSettings {
        return encryptedPassword;
     }
     
+    /**
+     * Checks if the password meets requirements.
+     * @return 
+     */
     public boolean passwordCheck(){
         boolean passwordCheck = true;
         if(!password.equals("") && (passwordConfirm.equals("") || !password.equals(passwordConfirm))) 
@@ -116,7 +132,7 @@ public class UpdateSettings {
     }
     
     /**
-     *
+     * Checks if the email meets requirements.
      * @param email
      * @return
      */
@@ -131,7 +147,7 @@ public class UpdateSettings {
     
     
     /**
-     * 
+     * Sets the email passed in from the form to the email var in the java class
      * @param emailSupplied 
      */
     public void setEmail(String emailSupplied)
@@ -140,7 +156,7 @@ public class UpdateSettings {
     }
     
     /**
-     * 
+     * Sets the first password passed in from the form to the first password var in the java class.
      * @param passwordOneSupplied 
      */
     public void setPassword(String passwordOneSupplied)
@@ -150,7 +166,7 @@ public class UpdateSettings {
     }
     
     /**
-     * 
+     * Sets the first password passed in from the form to the first password var in the java class.
      * @param passwordTwoSupplied 
      */    
     public void setPasswordConfirm(String passwordTwoSupplied)

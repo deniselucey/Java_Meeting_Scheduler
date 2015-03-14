@@ -60,6 +60,9 @@ public class Register implements java.io.Serializable{
         boolean isRegistered = false;
         try{
             
+            /**
+             * initializes system settings and loads saved settings.
+             */
             SystemSetting.initSystemSetting();
             /**
              *  Stores the first statement as a string.
@@ -76,10 +79,8 @@ public class Register implements java.io.Serializable{
                              "VALUE( (SELECT user_id FROM `User` WHERE email = '"+ email + "'),  "
                     + "'"+studentNumber+"');";
             
-            
-   
             /**
-             * Creates a new sqlHandler.
+             *  initializes the SQL Handler.
              */
             sqlHandler = new SqlHandler();
             /**
@@ -132,47 +133,46 @@ public class Register implements java.io.Serializable{
     {
         boolean isUnique = false;
         try{
-            
+            /**
+             *  Initializes the SQL Handler.
+             */
             sqlHandler = new SqlHandler();
+            /**
+             *  Stores the query as a string.
+             */
             String query = "SELECT email "
                     + "FROM User "
                     + "WHERE email ='"+email+"';";
-            
+            /**
+             * Initializes a ResultSet variable.
+             */
             ResultSet queryResult;
+            /**
+             * Stores the result of the query of the database in the resultSet
+             * variable.
+             */
             queryResult = sqlHandler.runQuery(query);
          
-            //returns false if there are no rows in the ResultSet.
+            /**
+             * returns false if there are no rows in the ResultSet.
+             */
             if (!queryResult.isBeforeFirst() && !queryResult.next() ) 
             {
-                //sets isUnquie to true because the email address is not in DB
+                /**
+                 * sets isUnquie to true because the email address is not in DB
+                 */
                 isUnique = true;
             }
         }catch(SQLException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
+        /**
+         * Returns true if the email is unique or false if it isn't.
+         */
         return isUnique;
     }
     
-    
-    // NEEDS WORK.
-    /**
-     * 
-     * @return 
-     * @throws java.security.NoSuchAlgorithmException 
-     * @throws java.security.spec.InvalidKeySpecException 
-     */
-    public boolean sendValidationEmail() throws NoSuchAlgorithmException, InvalidKeySpecException 
-    {
-        boolean confirmationEmailHasBeenSent = false;
-        if(registerDetailsWithDb()){
-            // send email comfirming that a account has been set up
-                
-            confirmationEmailHasBeenSent = true;
-        }
-        return confirmationEmailHasBeenSent;
-    }
-    
-    
+        
     /**
      * 
      * @return 
@@ -189,10 +189,6 @@ public class Register implements java.io.Serializable{
         }
         return emailAddressContains;
     }
-    
-    
-  
-    
     
      /**
      * 
@@ -211,10 +207,9 @@ public class Register implements java.io.Serializable{
             return isEmailVaild;
         }
         
-        
-     
-    
    /**
+    * Checks does the form meet requirements, 
+    * returns true if yes and no if it doesn't
     * 
     * @return 
     */
@@ -274,33 +269,6 @@ public class Register implements java.io.Serializable{
         return formDetailsCorrect;
     }
     
-//    public boolean checkIsActivation(){
-//        boolean isActivated = false;
-//        int userIdResult= 0;
-//        String query ="SELECT confirmation "
-//                + "FROM Register "
-//                + "WHERE email ='"+email;";
-//        try{
-//            SystemSetting.initSystemSetting();
-//            sqlHandler = new SqlHandler();
-//            /**
-//             * Runs the SQL statement's using the sqlHandler
-//             * Stores if the statement was successful or not in variable as
-//             * a 1 or 0.
-//             */
-//            ResultSet queryResult = sqlHandler.runQuery(query);
-//            
-//            if(queryResult.next()){
-//                //userIdResult = queryResult.getInt("user_id");
-//                isActivated = true;
-//                return isActivated;
-//            }
-//        }catch(SQLException ex){
-//            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return isActivated;
-//    }
-//  
  
   
  
@@ -441,7 +409,13 @@ public class Register implements java.io.Serializable{
                 + "FROM User "
                 + "WHERE email ='"+email+"';";
         try{
+            /**
+             * initializes system settings and loads saved settings.
+             */
             SystemSetting.initSystemSetting();
+            /**
+             *  Initializes the SQL Handler.
+             */
             sqlHandler = new SqlHandler();
             /**
              * Runs the SQL statement's using the sqlHandler
@@ -449,7 +423,9 @@ public class Register implements java.io.Serializable{
              * a 1 or 0.
              */
             ResultSet queryResult = sqlHandler.runQuery(query);
-            
+            /**
+             * gets the userId from the query result and returns it.
+             */
             if(queryResult.next()){
                 userIdResult = queryResult.getInt("user_id");
                 return userIdResult;

@@ -24,7 +24,7 @@ public class Login {
    
      private SqlHandler sqlHandler;
      private final HashMap errors = new HashMap();
-    /**
+   /**
     * 
     * @return 
     */
@@ -52,7 +52,13 @@ public class Login {
         boolean inDb = false;
         
         try{
+             /**
+             * initializes system settings and loads saved settings.
+             */
             SystemSetting.initSystemSetting();
+             /**
+             *  Stores the query as a string.
+             */
             String query1 = "SELECT email,password,user_id,admin,lecture_id "+
                            "FROM User LEFT JOIN lecturer " +
                            "ON User.user_id = lecturer.lecture_id "+
@@ -60,19 +66,37 @@ public class Login {
             
            
             ResultSet queryResult;
+            /**
+             *  initializes the SQL Handler.
+             */
             sqlHandler = new SqlHandler();
+            /**
+             * runs the query.
+             */
             queryResult = sqlHandler.runQuery(query1);
             
             if(queryResult.isBeforeFirst())
             {
                 queryResult.next();
+                /**
+                 * Gets the email from the query result.
+                 */
                 String emailResult = queryResult.getString("email");
+                /**
+                 * Gets the password from the query.
+                 */
                 String passwordResult = queryResult.getString("password");
                
                 
-               
+               /**
+                * Checks is the email passed in by the form is the same the email in the database,
+                * Checks if the password passed in by the form is the same as the password in the database. 
+                */
                 if(emailResult.equals(email) && validatePassword(password, passwordResult))
                 {
+                    /**
+                     * sets inDb to true and then gets various details from query.
+                     */
                     inDb = true;
                     userId = queryResult.getInt("user_id");
                     admin = queryResult.getBoolean("admin");

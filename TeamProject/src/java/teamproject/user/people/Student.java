@@ -60,19 +60,35 @@ public class Student extends Person {
 	}
         
         
-        
+        /**
+         * When you enroll in a Module it enrolls you in the lectures associated with that module.
+         * @param moduleId
+         * @param userId
+         * @return 
+         */
          public boolean enrollInLectures(int moduleId, int userId){
             boolean enrolledInLectures = false;
             try{
+                /**
+                 * initializes system settings and loads saved settings.
+                 */
                 SystemSetting.initSystemSetting();
+                 /**
+                  *  Stores the first statement as a string.
+                */
                 String statement1 = "INSERT INTO Is_Attending " +
                 "SELECT meeting_id, user_id " +
                 "FROM Module_has_Lecture JOIN User_has_Module " +
                 "ON Module_has_Lecture.module_id = User_has_Module.module_id " +
                 "WHERE User_has_Module.module_id ="+moduleId+" AND user_id ="+ userId+";";     
                 
+                /**
+                 * Runs the SQL statement's using the sqlHandler
+                 * Stores if the statement was successful or not in variable as
+                 * a 1 or 0.
+                 */
                 int queryResult = sqlHandler.runStatement(statement1);
-                System.out.println(queryResult);
+                
                 if(queryResult >0){
                     enrolledInLectures = true;
                 }
@@ -130,26 +146,37 @@ public class Student extends Person {
         
         
        
-        
+        /**
+         * When you un-enroll in a Module it un-enrolls you in the lectures associated with that module.
+         * @param module_Id
+         * @param userId
+         * @return 
+         */
         public boolean unenrollInLectures(int module_Id, int userId){
             
             boolean unenrolledInLectures = false;
             
             try{
+                 /**
+                   * initializes system settings and loads saved settings.
+                  */
                 SystemSetting.initSystemSetting();
+                /**
+                 *  Stores the statement as a string.
+                 */
                 String query1 = "DELETE FROM Is_Attending "
                         + "WHERE meeting_id IN (SELECT meeting_id FROM Module_has_Lecture WHERE module_id ="
                         +module_Id+")AND user_id =" + userId+";";  
-                
-                System.out.println(query1);
-                
+                /**
+                 * Runs the SQL statement's using the sqlHandler
+                 * Stores if the statement was successful or not in variable as
+                 * a 1 or 0.
+                 */
                 int queryResult1 = sqlHandler.runStatement(query1);
-                System.out.println(queryResult1);
+                
                 if(queryResult1 > 0){
                     unenrolledInLectures = true;
                 }
-            
-            
             }catch(SQLException ex) {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
             Bugzilla.reportBug("Issue with unenrolling student to module");
