@@ -1,9 +1,12 @@
 package teamproject.system;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.InvalidPreferencesFormatException;
 import java.util.prefs.Preferences;
@@ -24,7 +27,7 @@ public class BackUp {
          * @return String that either confirms or denies the creation of the database backup.
          */
 	public static String createBackup(){//String mySQLDump,String dbUserName, String dbPassword,String dbName, String path){
-            
+            SystemSetting.initSystemSetting();
             String mySQLDump = SystemSetting.getProperty(Property.MySQLPath, "")  + "/" +  SystemSetting.getProperty(Property.MySQLDumpFileName, "");
             String dbUserName = SystemSetting.getProperty(Property.DatabaseUser, "");
             String dbPassword = SystemSetting.getProperty(Property.DatabasePassword, "");
@@ -32,11 +35,12 @@ public class BackUp {
             String path = SystemSetting.getProperty(Property.BackUpPath, "");
             path += "/" + SystemSetting.getProperty(Property.BackUpName, "");
             
+            System.out.println("Path :" + path );
             
             String command =  mySQLDump + " -u "+ dbUserName + " -p" + dbPassword + " --add-drop-database -B " + dbName + " -r " + path + ".sql " ;
             System.out.println(command);
             Process processRuntime;
-            String sentence = " ";
+            String sentence = "";
             try{
                 System.out.println(command);
                 processRuntime = Runtime.getRuntime().exec(command);
@@ -62,6 +66,7 @@ public class BackUp {
          * @return 
          */
 	public static boolean restore(){//String mysql, String dbUserName, String dbPassword, String source){
+            SystemSetting.initSystemSetting();
             String mysql = SystemSetting.getProperty(Property.MySQLPath, "")  + "/" + SystemSetting.getProperty(Property.MySQLFileName, "");
             String dbUserName = SystemSetting.getProperty(Property.DatabaseUser, "");
             String dbPassword = SystemSetting.getProperty(Property.DatabasePassword, "");
@@ -89,14 +94,24 @@ public class BackUp {
         * @throws IOException
         * @throws BackingStoreException 
         */
-        public static void backUpPreferences() throws IOException, BackingStoreException {
-          
+        public static String backUpPreferences(){// throws IOException, BackingStoreException {
+            SystemSetting.initSystemSetting();
             String path = SystemSetting.getProperty(Property.BackUpPath, "") + "/" + SystemSetting.getProperty(Property.BackUpName, "") + ".xml";
             
             Preferences root = Preferences.userRoot();
-            FileOutputStream preference = new FileOutputStream(path); 
-            root.exportSubtree(preference);
-            preference.close();
+            FileOutputStream preference; 
+            try {
+                preference = new FileOutputStream(path);
+                root.exportSubtree(preference);
+                preference.close();
+            } catch (FileNotFoundException ex) {
+               return "File Not Found " + path;
+            } catch (IOException ex) {
+               return "Error Read From File";
+            } catch (BackingStoreException ex) {
+               return "BackingStoreException";
+            }
+            return "Backing up of System Setting successfully";
             
         }
     
@@ -107,7 +122,7 @@ public class BackUp {
          * @throws InvalidPreferencesFormatException 
          */
         public static void restorePreferences() throws IOException, InvalidPreferencesFormatException {
-            
+            SystemSetting.initSystemSetting();
             String path = SystemSetting.getProperty(Property.BackUpPath, "")  + "/" +  SystemSetting.getProperty(Property.BackUpName, "") + ".xml";
             
             Preferences root = Preferences.userRoot();

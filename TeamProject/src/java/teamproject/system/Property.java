@@ -18,19 +18,19 @@ import java.util.Arrays;
         MySQLPath("C:/xampp/mysql/bin"),
         MySQLFileName("mysql.exe"),
         MySQLDumpFileName("mysqldump.exe"),
-        BackUpPath("C:/Users/drgex_000/Desktop/test"),
+        BackUpPath("./backup"),
         BackUpName("TimeTable_Backup"),
         
         BlockedEmailServices,
-        AllowedEmailServices,
+        AllowedEmailServices;
         
-        SystemStartDate(LocalDate.now().toString())
-        {
-            private String toHTMlinput()
-            {
-                return "";
-            }
-        };
+//        SystemStartDate(LocalDate.now().toString())
+//        {
+//            private String toHTMlinput()
+//            {
+//                return "";
+//            }
+//        };
         
 
         private final String defaultValue;

@@ -115,36 +115,38 @@ public class Timetable {
     public String toHTML(boolean scheduling)
     {
         int daysInAWeek = 7;
-        String htmlBuilder = "";
+        String htmlTable = "";
         LocalDate weekStart = this.startDate;
         int counter = 0;
         int days = timeSlots.length;
-
+        //keeps track of when to print the next meeting of a day
         int[] timeSlotsFilled = new int[lengthInDays];
 
         while(weekStart.isBefore(endDate) && counter < days/7 )
         {
 
-            htmlBuilder += "<table><tr>";
-            htmlBuilder += "<th>" + weekStart.toString() + "</th>";
+            htmlTable += "<table><tr>";
+            htmlTable += "<th>" + weekStart.toString() + "</th>";
+            //prints the days of the week across the top of a week
             for(int day = 0; day < daysInAWeek; day++ )
             {
-                htmlBuilder += "<th>" + weekStart.plusDays(day).getDayOfWeek() + "</th>";
+                htmlTable += "<th>" + weekStart.plusDays(day).getDayOfWeek() + "</th>";
             }
-            htmlBuilder += "</tr>";
+            htmlTable += "</tr>";
 
+            //print the body of the table
             for(int j=0; j < timeSlots[0].length; j++ )
             {
-                htmlBuilder += "<tr>";
+                htmlTable += "<tr>";
+                //Prints the time in left most colume
                 if(j % hourRowSpan ==0)
                 {
-                    htmlBuilder += "<th rowspan=\"" + hourRowSpan + "\" >" + formatDuration(DAY_START_TIME.plusMinutes(j*60/4)) + "</th>"; 
+                    htmlTable += "<th rowspan=\"" + hourRowSpan + "\" >" + formatDuration(DAY_START_TIME.plusMinutes(j*60/4)) + "</th>"; 
                 }
-
+                //print timeslots
                 for(int i =0; i < daysInAWeek; i++)
                 {
                     int dayIndex = counter*daysInAWeek + i;
-//                    System.out.println("counter :"+counter+ " days:" +daysInAWeek +" i: "+ i);
                     if(timeSlotsFilled[dayIndex] <= j )
                     {
                     
@@ -153,25 +155,26 @@ public class Timetable {
                         //test if slotIndex is going to get a array out of bounds execption. 
                         // if current time slot is equal to the next one.
                         // Stops joining if its on an hour boundry.
-                        while(slotIndex < NUMBER_OF_TIMESLOTS -1 && timeSlots[dayIndex][slotIndex].equals(timeSlots[dayIndex][slotIndex+1]) &&  (j + blockOf) % maxBlock != 0)//j + blockOf%4 != 0)
+                        while(slotIndex < NUMBER_OF_TIMESLOTS -1 && timeSlots[dayIndex][slotIndex].equals(timeSlots[dayIndex][slotIndex+1]) &&  (j + blockOf) % maxBlock != 0)
                         {
                             blockOf++;
                             slotIndex++;
                         }
-                        htmlBuilder  += scheduling?timeSlots[dayIndex][j].toSchedulerHTML():timeSlots[dayIndex][j].toHTML(blockOf);
+                        //adds the timeslots meeting to the table with the rowspan of blockof
+                        htmlTable  += scheduling?timeSlots[dayIndex][j].toSchedulerHTML():timeSlots[dayIndex][j].toHTML(blockOf);
                         //updates dept buffer to store the next slot to consider 
                         timeSlotsFilled[dayIndex] = timeSlotsFilled[dayIndex]+ blockOf;
                     }
                 }
-                htmlBuilder += "</tr>";
+                htmlTable += "</tr>";
             }
 
-            htmlBuilder += "</table>";
+            htmlTable += "</table>";
             weekStart = weekStart.plusWeeks(1);
             counter++;
-//                System.out.println("TIMES through loop"+ counter);
+
         }
-        return htmlBuilder;
+        return htmlTable;
     }
         
         
